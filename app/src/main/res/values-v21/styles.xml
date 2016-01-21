@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="customTheme" parent="Theme.AppCompat.Light.DarkActionBar" >
+        <item name="colorAccent">@color/mainColor</item>
+        <item name="android:buttonStyle">@style/ButtonStyle</item>
+    </style>
+
+    <style name="ButtonStyle" parent="Base.Widget.AppCompat.Button">
+        <item name="android:backgroundTint">@color/mainColor</item>
+        <item name="android:textColor">@color/colorButtonFont</item>
+    </style>
+
+</resources>

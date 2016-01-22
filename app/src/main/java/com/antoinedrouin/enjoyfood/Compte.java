@@ -30,8 +30,8 @@ public class Compte extends AppCompatActivity {
     SharedPreferences.Editor edit;
     String pseudo, script;
 
-    LinearLayout layoutMdp;
-    EditText edtOldMdp, edtNewMdp1, edtNewMdp2;
+    LinearLayout layoutMdp, layoutCoord;
+    EditText edtOldMdp, edtNewMdp1, edtNewMdp2, edtNewVille, edtNewCp, edtNewTel, edtNewAd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +43,14 @@ public class Compte extends AppCompatActivity {
         pseudo = pref.getString(getString(R.string.prefUser), "");
 
         layoutMdp = (LinearLayout) findViewById(R.id.layoutMdp);
+        layoutCoord = (LinearLayout) findViewById(R.id.layoutCoord);
         edtOldMdp = (EditText) findViewById(R.id.edtOldMdp);
         edtNewMdp1 = (EditText) findViewById(R.id.edtNewMdp1);
         edtNewMdp2 = (EditText) findViewById(R.id.edtNewMdp2);
+        edtNewVille = (EditText) findViewById(R.id.edtNewVille);
+        edtNewCp = (EditText) findViewById(R.id.edtNewCp);
+        edtNewTel = (EditText) findViewById(R.id.edtNewTel);
+        edtNewAd = (EditText) findViewById(R.id.edtNewAdresse);
     }
 
     public void onClickDeco (View v) {
@@ -54,8 +59,6 @@ public class Compte extends AppCompatActivity {
     }
 
     public void onClickMdpChange(View v) {
-        LinearLayout layoutMdp = (LinearLayout) findViewById(R.id.layoutMdp);
-
         if (layoutMdp.getVisibility() == View.VISIBLE)
             layoutMdp.setVisibility(View.GONE);
         else
@@ -87,6 +90,24 @@ public class Compte extends AppCompatActivity {
                 changePassword.execute(getString(R.string.changePassword), pseudo, newMdp1);
             }
         }
+    }
+
+    public void onClickCoordChange(View v) {
+        if (layoutCoord.getVisibility() == View.VISIBLE)
+            layoutCoord.setVisibility(View.GONE);
+        else
+            layoutCoord.setVisibility(View.VISIBLE);
+    }
+
+    public void onClickCoordChangeValider(View v) {
+        String ville, cp, tel, ad;
+
+        ville = edtNewVille.getText().toString();
+        cp = edtNewCp.getText().toString();
+        tel = edtNewTel.getText().toString();
+        ad = edtNewAd.getText().toString();
+
+        //
     }
 
     public void onClickSupprCompte(View v) {
@@ -136,11 +157,10 @@ public class Compte extends AppCompatActivity {
 
             // Préparation de la connexion
 
-            HttpURLConnection httpURLConnection = null;
             try {
                 // Donne l'adresse du script php
                 URL url = new URL(script);
-                httpURLConnection = (HttpURLConnection) url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
 

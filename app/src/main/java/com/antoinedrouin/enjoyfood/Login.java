@@ -39,7 +39,6 @@ public class Login extends AppCompatActivity {
     Button btnConnexion;
 
     String user, script;
-    boolean userFound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +47,7 @@ public class Login extends AppCompatActivity {
 
         context = getApplicationContext();
 
-        user = "";
         script = getString(R.string.checkIdentifiants);
-        userFound = true;
 
         edtPseudo = (EditText) findViewById(R.id.edtPseudoLogin);
         edtMdp = (EditText) findViewById(R.id.edtMdp);
@@ -60,7 +57,7 @@ public class Login extends AppCompatActivity {
 
         edtPseudo.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                checkIdentifiants();
+                checkFields();
             }
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -68,7 +65,7 @@ public class Login extends AppCompatActivity {
 
         edtMdp.addTextChangedListener(new TextWatcher() {
             public void afterTextChanged(Editable s) {
-                checkIdentifiants();
+                checkFields();
             }
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
             public void onTextChanged(CharSequence s, int start, int before, int count) {}
@@ -76,26 +73,13 @@ public class Login extends AppCompatActivity {
     }
 
     public void onClickLogin(View v) {
-        checkIdentifiants();
-        // Si un utilisateur a été trouvé
-        if (userFound == false) {
-            Toast.makeText(context, getString(R.string.connectionFail), Toast.LENGTH_SHORT).show();
-        }
-        else if (!user.equals("")){
-            Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
+        String pseudo = edtPseudo.getText().toString();
+        String mdp = edtMdp.getText().toString();
 
-            // Mettre dans pref
-            SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-            Editor edit = pref.edit();
-            edit.putString(getString(R.string.prefUser), user);
-            edit.putString(getString(R.string.prefMdp), edtMdp.getText().toString());
-            edit.apply();
-
-            finish();
-            startActivity(new Intent(this, Compte.class));
-        }
-        else {
-            Toast.makeText(context, getString(R.string.connectionError), Toast.LENGTH_SHORT).show();
+        // Test si les identifiants correspondent à un compte
+        if (!pseudo.equals("") && !mdp.equals("")) {
+            LoginServerSide checkUtilisateur = new LoginServerSide();
+            checkUtilisateur.execute(script, pseudo, mdp);
         }
     }
 
@@ -103,20 +87,11 @@ public class Login extends AppCompatActivity {
         startActivity(new Intent(this, Register.class));
     }
 
-    private void checkIdentifiants() {
-        String pseudo = edtPseudo.getText().toString();
-        String mdp = edtMdp.getText().toString();
-
-        if (!pseudo.equals("") && !mdp.equals("")) {
+    private void checkFields() {
+        if (!edtPseudo.getText().toString().equals("") && !edtMdp.getText().toString().equals(""))
             btnConnexion.setVisibility(View.VISIBLE);
-
-            // Test si les identifiants correspondent à un compte
-            LoginServerSide checkUtilisateur = new LoginServerSide();
-            checkUtilisateur.execute(script, pseudo, mdp);
-        }
-        else {
+        else
             btnConnexion.setVisibility(View.INVISIBLE);
-        }
     }
 
 
@@ -141,11 +116,10 @@ public class Login extends AppCompatActivity {
 
             // Préparation de la connexion
 
-            HttpURLConnection httpURLConnection = null;
             try {
                 // Donne l'adresse du script php
                 URL url = new URL(script);
-                httpURLConnection = (HttpURLConnection) url.openConnection();
+                HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
                 httpURLConnection.setRequestMethod("POST");
                 httpURLConnection.setDoOutput(true);
 
@@ -194,7 +168,10 @@ public class Login extends AppCompatActivity {
             // Traitements des retours
 
             // S'il n'y a pas d'erreur de connexion
-            if (!result.equals(getString(R.string.connectionError))) {
+            if (result.equals(getString(R.string.connectionError))) {
+                Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+            }
+            else {
                 JSONObject jsonObject, jso;
                 JSONArray jsonArray;
 
@@ -202,15 +179,28 @@ public class Login extends AppCompatActivity {
                     jsonObject = new JSONObject(result);
                     jsonArray = jsonObject.getJSONArray("response");
                     user = "";
-                    userFound = false;
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
                         user = jso.getString("pseudo");
                     }
 
-                    if (!user.equals(""))
-                        userFound = true;
+                    // Si un utilisateur a été trouvé
+                    if (!user.equals("")) {
+                        Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
+
+                        // Mettre dans pref
+                        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+                        Editor edit = pref.edit();
+                        edit.putString(getString(R.string.prefUser), user);
+                        edit.putString(getString(R.string.prefMdp), edtMdp.getText().toString());
+                        edit.apply();
+
+                        finish();
+                        startActivity(new Intent(context, Compte.class));
+                    } else {
+                        Toast.makeText(context, getString(R.string.connectionFail), Toast.LENGTH_SHORT).show();
+                    }
 
                 } catch (JSONException e) {
                     e.printStackTrace();

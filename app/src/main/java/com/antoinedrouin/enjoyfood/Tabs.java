@@ -9,13 +9,11 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TabWidget;
@@ -55,7 +53,7 @@ public class Tabs extends AppCompatActivity {
         mlam.dispatchCreate(savedInstanceState);
         tabHost.setup(mlam);
 
-        // Réduit la hauteur et la police des onglets
+        // Charge les onglets
         TabSpec tabSpec = null;
         for (int i = 0; i < 3; i++) {
             switch (i) {
@@ -79,6 +77,7 @@ public class Tabs extends AppCompatActivity {
                     break;
             }
 
+            // Réduit la hauteur et la police des onglets
             tabHost.addTab(tabSpec);
             tabHost.getTabWidget().getChildAt(i).getLayoutParams().height /= 1.5;
 
@@ -90,6 +89,7 @@ public class Tabs extends AppCompatActivity {
 
         checkPref();
 
+        // Change le contenus du drawer on fonction de l'onglet chargé
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
@@ -107,6 +107,7 @@ public class Tabs extends AppCompatActivity {
                 }
             }
         });
+
 
         // Détecte les mouvements de glissement pour changer d'onglet
 

@@ -115,7 +115,9 @@
                         android:hint="@string/edtPrenom"
                         android:focusable="true" />
                 </LinearLayout>
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:orientation="vertical"
@@ -177,7 +179,9 @@
                         android:hint="@string/edtAdresse"
                         android:inputType="textPersonName" />
                 </LinearLayout>
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:orientation="vertical"

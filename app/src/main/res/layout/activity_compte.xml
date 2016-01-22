@@ -14,14 +14,110 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/linearLayout3"
+                android:animateLayoutChanges="true" >
+
+                <Button
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/btnChangeCoord"
+                    android:id="@+id/btnChangeCoord"
+                    android:onClick="onClickCoordChange" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/layoutCoord">
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:id="@+id/layoutClient">
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <EditText
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/edtNewVille"
+                                android:hint="@string/edtVille"
+                                android:inputType="textPersonName" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:inputType="number"
+                                android:ems="10"
+                                android:id="@+id/edtNewCp"
+                                android:layout_weight="1"
+                                android:hint="@string/edtCp"
+                                android:nextFocusDown="@+id/edtTel" />
+
+                            <EditText
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:inputType="phone"
+                                android:ems="10"
+                                android:id="@+id/edtNewTel"
+                                android:layout_weight="1"
+                                android:hint="@string/edtTel"
+                                android:focusable="true" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <EditText
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:ems="10"
+                                android:id="@+id/edtNewAdresse"
+                                android:hint="@string/edtAdresse"
+                                android:inputType="textPersonName" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/btnValider"
+                        android:id="@+id/btnChangeCoordValider"
+                        android:onClick="onClickCoordChangeValider"
+                        android:layout_gravity="center_horizontal" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
 
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/linearLayout2"
-                android:visibility="visible">
+                android:animateLayoutChanges="true" >
 
                 <Button
                     android:layout_width="fill_parent"
@@ -41,7 +137,6 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:ems="10"
                         android:id="@+id/edtOldMdp"
                         android:hint="@string/edtOldMdp" />
 
@@ -49,7 +144,6 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:ems="10"
                         android:id="@+id/edtNewMdp1"
                         android:hint="@string/edtNewMdp" />
 
@@ -57,7 +151,6 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textPassword"
-                        android:ems="10"
                         android:id="@+id/edtNewMdp2"
                         android:hint="@string/edtRepeatMdp" />
 
@@ -73,13 +166,12 @@
 
             </LinearLayout>
 
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/linearLayout"
-                android:layout_weight="0.09"
-                android:gravity="bottom">
+                android:id="@+id/linearLayout">
 
                 <Button
                     android:layout_width="fill_parent"
@@ -96,7 +188,9 @@
                     android:onClick="onClickDeco" />
 
             </LinearLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

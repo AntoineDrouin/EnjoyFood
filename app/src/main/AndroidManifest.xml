@@ -10,6 +10,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/customTheme">
+
         <activity android:name=".Tabs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +25,7 @@
         <activity android:name=".Commandes" />
         <activity android:name=".Etablissements" />
         <activity android:name=".Panier" />
-        <activity android:name=".Reglages"></activity>
+        <activity android:name=".Reglages" />
     </application>
 
 </manifest>

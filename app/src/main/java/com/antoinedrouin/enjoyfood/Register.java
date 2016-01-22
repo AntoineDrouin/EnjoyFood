@@ -7,8 +7,6 @@ import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,7 +42,7 @@ public class Register extends AppCompatActivity {
     Spinner spinCompte;
     EditText edtPseudo;
 
-    String script, methode, user, pseudo, mdp;
+    String script, methode, user, pseudo, mdp, compte, mdp2, nom, prenom, ville, cp, tel, adresse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,6 @@ public class Register extends AppCompatActivity {
         edit = pref.edit();
 
         context = getApplicationContext();
-        user = "";
 
         spinCompte = (Spinner) findViewById(R.id.spinCompte);
         edtPseudo = (EditText) findViewById(R.id.edtPseudo);
@@ -65,8 +62,7 @@ public class Register extends AppCompatActivity {
         comptes.add(getString(R.string.varClient));
         comptes.add(getString(R.string.varGerant));
 
-        ArrayAdapter<String> adp1 = new ArrayAdapter<>(this, android.R.layout.select_dialog_item, comptes);
-        spinCompte.setAdapter(adp1);
+        spinCompte.setAdapter(new ArrayAdapter<>(this, android.R.layout.select_dialog_item, comptes));
 
         // Affichage d'un layout spécifique au client
         spinCompte.setOnItemSelectedListener(
@@ -83,22 +79,10 @@ public class Register extends AppCompatActivity {
                 public void onNothingSelected(AdapterView<?> parent) {}
             }
         );
-
-        edtPseudo.addTextChangedListener(new TextWatcher() {
-            public void afterTextChanged(Editable s) {
-                checkIdentifiants();
-            }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-        });
     }
 
 
     public void onClickCreation(View v) {
-        String compte, mdp2, nom, prenom, ville, cp, tel, adresse, error;
-
         compte = spinCompte.getSelectedItem().toString();
         pseudo = edtPseudo.getText().toString();
         mdp = ((EditText) findViewById(R.id.edtMdp1)).getText().toString();
@@ -111,10 +95,9 @@ public class Register extends AppCompatActivity {
         adresse = ((EditText) findViewById(R.id.edtAdresse)).getText().toString();
 
         // Chaine qui va retourner toutes les erreurs de saisies
-        error = "";
+        String error = "";
 
         // Test des champs
-
         if (pseudo.length() < 3)
             error = getString(R.string.errorPseudoLength);
         else if (mdp.length() < 3 || mdp2.length() < 3)
@@ -140,26 +123,12 @@ public class Register extends AppCompatActivity {
         if (!error.equals(""))
             Toast.makeText(context, error, Toast.LENGTH_LONG).show();
         else {
-            checkIdentifiants();
-            // Insére dans la base
-            if (user.equals("")) {
-                script = getString(R.string.insertUtilisateur);
-                methode = getString(R.string.write);
-
-                RegisterServerSide insertUtilisateur = new RegisterServerSide();
-                insertUtilisateur.execute(script, methode, compte, pseudo, mdp, nom, prenom, ville, cp, tel, adresse);
-            }
-            else
-                Toast.makeText(context, getString(R.string.insertUtilisateurFail), Toast.LENGTH_SHORT).show();
+            // Vérifie si le pseudo est disponible
+            script = getString(R.string.checkUtilisateur);
+            methode = getString(R.string.read);
+            RegisterServerSide checkUtilisateur = new RegisterServerSide();
+            checkUtilisateur.execute(script, methode, edtPseudo.getText().toString());
         }
-
-    }
-
-    private void checkIdentifiants() {
-        script = getString(R.string.checkUtilisateur);
-        methode = getString(R.string.read);
-        RegisterServerSide checkUtilisateur = new RegisterServerSide();
-        checkUtilisateur.execute(script, methode, edtPseudo.getText().toString());
     }
 
 
@@ -258,13 +227,12 @@ public class Register extends AppCompatActivity {
             // Traitements des retours
 
             if (result.equals(getString(R.string.insertUtilisateur))) {
-                Toast.makeText(context, getString(R.string.insertUtilisateurSuccess), Toast.LENGTH_SHORT).show();
-
                 // Mettre dans pref
                 edit.putString(getString(R.string.prefUser), user);
                 edit.putString(getString(R.string.prefMdp), mdp);
                 edit.apply();
 
+                Toast.makeText(context, getString(R.string.insertUtilisateurSuccess), Toast.LENGTH_SHORT).show();
                 finish();
                 startActivity(new Intent(context, Compte.class));
             }
@@ -285,6 +253,17 @@ public class Register extends AppCompatActivity {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             jso = jsonArray.getJSONObject(i);
                             user = jso.getString("pseudo");
+                        }
+
+                        // S'il ne trouve aucun pseudo similaire, on lance l'insertion
+                        if (user.equals("")) {
+                            script = getString(R.string.insertUtilisateur);
+                            methode = getString(R.string.write);
+                            RegisterServerSide insertUtilisateur = new RegisterServerSide();
+                            insertUtilisateur.execute(script, methode, compte, pseudo, mdp, nom, prenom, ville, cp, tel, adresse);
+                        }
+                        else {
+                            Toast.makeText(context, getString(R.string.insertUtilisateurFail), Toast.LENGTH_SHORT).show();
                         }
                     }
                 } catch (JSONException e) {

@@ -30,6 +30,7 @@
     <string name="eraseCompteFail">La suppression du compte a échouée</string>
     <string name="changeMdpSuccess">Mot de passe modifié</string>
     <string name="changeMdpFail">Erreur lors du changement du mot de passe</string>
+    <string name="changeCoordSuccess">Coordonnées modifiés</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">Le pseudonyme doit faire au moins 3 caractères</string>
@@ -63,8 +64,9 @@
     <string name="btnValider">Valider</string>
     <string name="btnConnexion">Connexion</string>
     <string name="btnCreerCompte">Créer un compte</string>
-    <string name="btnChangeMdp">Changer le mot de passe</string>
-    <string name="btnSupprCompte">Supprimer le compte</string>
+    <string name="btnChangeMdp">Changer mon mot de passe</string>
+    <string name="btnChangeCoord">Changer mes coordonnées</string>
+    <string name="btnSupprCompte">Supprimer mon compte</string>
     <string name="btnDeco">Me déconnecter</string>
     <string name="btnSearch">Rechercher</string>
 

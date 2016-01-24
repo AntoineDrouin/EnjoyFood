@@ -37,7 +37,8 @@
                     android:layout_height="fill_parent"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:layout_weight="1" >
+                    android:layout_weight="1"
+                    android:animateLayoutChanges="true">
 
                     <LinearLayout
                         android:id="@+id/Tabs"
@@ -78,6 +79,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
+                android:id="@+id/edtSearchVille"
+                android:hint="@string/edtVille" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
                 android:id="@+id/edtSearchEtab"
                 android:hint="@string/edtEtablissement" />
 
@@ -85,8 +93,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
-                android:id="@+id/edtSearchVille"
-                android:hint="@string/edtVille" />
+                android:id="@+id/edtSearchSpecialite"
+                android:hint="@string/edtSpecialite" />
 
             <EditText
                 android:layout_width="match_parent"

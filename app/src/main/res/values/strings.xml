@@ -27,9 +27,8 @@
     <string name="disconnectionSuccess">Déconnexion réussie</string>
     <string name="eraseCompteMessage">La suppression du compte est définitive. Voulez-vous vraiment continuer ?</string>
     <string name="eraseCompteSuccess">Suppression du compte réussie</string>
-    <string name="eraseCompteFail">La suppression du compte a échouée</string>
+    <string name="eraseCompteFail">Suppression du compte annulée</string>
     <string name="changeMdpSuccess">Mot de passe modifié</string>
-    <string name="changeMdpFail">Erreur lors du changement du mot de passe</string>
     <string name="changeCoordSuccess">Coordonnées modifiés</string>
 
     <!-- Messages de champs -->
@@ -91,10 +90,14 @@
     <string name="edtEtablissement">Établissement</string>
     <string name="edtArticle">Article</string>
     <string name="edtCommande">Commande</string>
+    <string name="edtSpecialite">Spécialité</string>
 
     <!-- Tabs -->
     <string name="tabEtab">Établissements</string>
     <string name="tabPanier">Panier</string>
     <string name="tabCommandes">Commandes</string>
+    <string name="tabCoord">Coordonnées</string>
+    <string name="tabMenu">Menu</string>
+    <string name="tabNotes">Notes</string>
 
 </resources>

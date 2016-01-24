@@ -1,6 +1,10 @@
 package com.antoinedrouin.enjoyfood;
 
+import android.app.Activity;
 import android.app.LocalActivityManager;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +18,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TabWidget;
@@ -22,14 +27,14 @@ import android.widget.TextView;
 public class Tabs extends AppCompatActivity {
 
     String utilisateur;
-    int currentTab, tab, tabCount;
+    int currentTab;
     Context context;
 
     DrawerLayout mDrawerLayout;
     TabHost tabHost;
     TabWidget tw;
     TextView lblTitreTab;
-    EditText edtSearchEtab, edtSearchVille, edtSearchArticle, edtSearchCommande;
+    EditText edtSearchEtab, edtSearchVille, edtSearchSpecialite, edtSearchArticle, edtSearchCommande;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +52,7 @@ public class Tabs extends AppCompatActivity {
         edtSearchVille = (EditText) findViewById(R.id.edtSearchVille);
         edtSearchArticle = (EditText) findViewById(R.id.edtSearchArticle);
         edtSearchCommande = (EditText) findViewById(R.id.edtSearchCommande);
-
+        edtSearchSpecialite = (EditText) findViewById(R.id.edtSearchSpecialite);
 
         LocalActivityManager mlam = new LocalActivityManager(this, false);
         mlam.dispatchCreate(savedInstanceState);
@@ -55,6 +60,10 @@ public class Tabs extends AppCompatActivity {
 
         // Charge les onglets
         TabSpec tabSpec = null;
+        View tabView;
+        TextView tv;
+        ImageView tabImageView;
+
         for (int i = 0; i < 3; i++) {
             switch (i) {
                 case 0 :
@@ -81,10 +90,20 @@ public class Tabs extends AppCompatActivity {
             tabHost.addTab(tabSpec);
             tabHost.getTabWidget().getChildAt(i).getLayoutParams().height /= 1.5;
 
-            View tabView = tw.getChildTabViewAt(i);
-            TextView tv = (TextView)tabView.findViewById(android.R.id.title);
+            tabView = tw.getChildTabViewAt(i);
+            tv = (TextView)tabView.findViewById(android.R.id.title);
             tv.setSingleLine();
             tv.setTextSize(12);
+
+            // Charge les icônes
+            tabImageView = (ImageView) tabHost.getTabWidget().getChildTabViewAt(i).findViewById(android.R.id.icon);
+            tabImageView.setVisibility(View.VISIBLE);
+
+            switch (i) {
+                case 0 : tabImageView.setImageResource(R.drawable.ic_eta); break;
+                case 1 : tabImageView.setImageResource(R.drawable.ic_pan); break;
+                case 2 : tabImageView.setImageResource(R.drawable.ic_com); break;
+            }
         }
 
         checkPref();
@@ -95,46 +114,32 @@ public class Tabs extends AppCompatActivity {
             public void onTabChanged(String tabId) {
                 currentTab = tabHost.getCurrentTab();
                 switch (currentTab) {
-                    case 0 :
-                        loadEtabTabDrawer();
-                        break;
-                    case 1 :
-                        loadPanTabDrawer();
-                        break;
-                    case 2 :
-                        loadComTabDrawer();
-                        break;
+                    case 0 : loadEtabTabDrawer(); break;
+                    case 1 : loadPanTabDrawer(); break;
+                    case 2 : loadComTabDrawer(); break;
                 }
             }
         });
 
-
-        // Détecte les mouvements de glissement pour changer d'onglet
-
-//        tabHost.setOnTouchListener(new OnSwipeListener(context) {
-//            public void onSwipeLeft() {
-//                tabCount = tabHost.getTabWidget().getTabCount() - 1;
-//                tab = tabHost.getCurrentTab();
-//                tab++;
-//
-//                if (tab > tabCount)
-//                    tabHost.setCurrentTab(0);
-//                else
-//                    tabHost.setCurrentTab(tab);
-//            }
-//            public void onSwipeRight() {
-//                tabCount = tabHost.getTabWidget().getTabCount() - 1;
-//                tab = tabHost.getCurrentTab();
-//                tab--;
-//
-//                if (tab < 0)
-//                    tabHost.setCurrentTab(tabCount);
-//                else
-//                    tabHost.setCurrentTab(tab);
-//            }
-//        });
-
     }
+
+    // Affiche une notification
+//    public void notif() {
+//        Intent intent = new Intent(context, Login.class);
+//        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
+//
+//        Notification notification = new NotificationCompat.Builder(context)
+//                .setTicker(getString(R.string.tabEtab))
+//                .setSmallIcon(R.drawable.ic_menu)
+//                .setContentTitle(getString(R.string.tabEtab))
+//                .setContentText(getString(R.string.tabCommandes))
+//                .setContentIntent(pIntent)
+//                .setAutoCancel(true)
+//                .build();
+//
+//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+//        notificationManager.notify(0, notification);
+//    }
 
     @Override
     protected void onResume() {
@@ -189,24 +194,27 @@ public class Tabs extends AppCompatActivity {
 
     private void loadEtabTabDrawer() {
         lblTitreTab.setText(getString(R.string.lblSearchEtab));
-        edtSearchEtab.setVisibility(View.VISIBLE);
         edtSearchVille.setVisibility(View.VISIBLE);
+        edtSearchEtab.setVisibility(View.VISIBLE);
+        edtSearchSpecialite.setVisibility(View.VISIBLE);
         edtSearchArticle.setVisibility(View.GONE);
         edtSearchCommande.setVisibility(View.GONE);
     }
 
     private void loadPanTabDrawer() {
         lblTitreTab.setText(getString(R.string.lblSearchPanier));
-        edtSearchEtab.setVisibility(View.GONE);
         edtSearchVille.setVisibility(View.GONE);
+        edtSearchEtab.setVisibility(View.GONE);
+        edtSearchSpecialite.setVisibility(View.GONE);
         edtSearchArticle.setVisibility(View.VISIBLE);
         edtSearchCommande.setVisibility(View.GONE);
     }
 
     private void loadComTabDrawer() {
         lblTitreTab.setText(getString(R.string.lblSearchCom));
-        edtSearchEtab.setVisibility(View.GONE);
         edtSearchVille.setVisibility(View.GONE);
+        edtSearchEtab.setVisibility(View.GONE);
+        edtSearchSpecialite.setVisibility(View.GONE);
         edtSearchArticle.setVisibility(View.GONE);
         edtSearchCommande.setVisibility(View.VISIBLE);
     }

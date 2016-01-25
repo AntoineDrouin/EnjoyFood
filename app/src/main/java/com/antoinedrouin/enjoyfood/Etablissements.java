@@ -92,8 +92,7 @@ public class Etablissements extends Activity {
         tabHost.setOnTouchListener(new OnSwipeListener(context) {
             public void onSwipeLeft() {
                 tabCount = tabHost.getTabWidget().getTabCount() - 1;
-                tab = tabHost.getCurrentTab();
-                tab++;
+                tab = tabHost.getCurrentTab() + 1;
 
                 if (tab > tabCount)
                     tabHost.setCurrentTab(0);
@@ -102,8 +101,7 @@ public class Etablissements extends Activity {
             }
             public void onSwipeRight() {
                 tabCount = tabHost.getTabWidget().getTabCount() - 1;
-                tab = tabHost.getCurrentTab();
-                tab--;
+                tab = tabHost.getCurrentTab() - 1;
 
                 if (tab < 0)
                     tabHost.setCurrentTab(tabCount);

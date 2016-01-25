@@ -1,22 +1,22 @@
 <resources>
 
     <!-- Application -->
-    <string name="app_name">EnjoyFood</string>
+    <string name="app_name" translatable="false">EnjoyFood</string>
 
     <!-- Valeurs -->
     <string name="varClient">Client</string>
     <string name="varGerant">Gérant</string>
 
     <!-- Scripts -->
-    <string name="insertUtilisateur">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
-    <string name="checkUtilisateur">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkUtilisateur.php</string>
-    <string name="checkIdentifiants">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkIdentifiants.php</string>
-    <string name="changePassword">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
-    <string name="eraseCompte">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/eraseCompte.php</string>
+    <string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
+    <string name="checkUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkUtilisateur.php</string>
+    <string name="checkIdentifiants" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkIdentifiants.php</string>
+    <string name="changePassword" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
+    <string name="eraseCompte" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/eraseCompte.php</string>
 
     <!-- Méthodes-->
-    <string name="read">Read</string>
-    <string name="write">Write</string>
+    <string name="read" translatable="false">Read</string>
+    <string name="write" translatable="false">Write</string>
 
     <!-- Messages -->
     <string name="insertUtilisateurSuccess">Utilisateur créé avec succès</string>
@@ -45,13 +45,21 @@
     <string name="errorAdresse">Veuillez saisir une adresse</string>
 
     <!-- Preferences -->
-    <string name="prefUser">user</string>
-    <string name="prefMdp">mdp</string>
+    <string name="prefId">id</string>
+    <string name="prefUser" translatable="false">user</string>
+    <string name="prefMdp" translatable="false">mdp</string>
+    <string name="prefNom">nom</string>
+    <string name="prefPrenom">prenom</string>
+    <string name="prefCompte">compte</string>
+    <string name="prefVille" translatable="false">ville</string>
+    <string name="prefCp" translatable="false">cp</string>
+    <string name="prefTel" translatable="false">tel</string>
+    <string name="prefAdresse">adresse</string>
 
     <!-- Menu -->
-    <string name="menuIdCompte">idCompte</string>
-    <string name="menuIdInfo">idInfo</string>
-    <string name="menuIdReglages">idReglages</string>
+    <string name="menuIdCompte" translatable="false">idCompte</string>
+    <string name="menuIdInfo" translatable="false">idInfo</string>
+    <string name="menuIdReglages" translatable="false">idReglages</string>
     <string name="menuLabelCompte">Mon compte</string>
     <string name="menuLabelInfo">Informations</string>
     <string name="menuLabelReglages">Réglages</string>

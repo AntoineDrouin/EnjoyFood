@@ -34,6 +34,7 @@ import java.net.URLEncoder;
 public class Login extends AppCompatActivity {
 
     Context context;
+    static Login login;
 
     EditText edtPseudo, edtMdp;
     Button btnConnexion;
@@ -46,6 +47,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         context = getApplicationContext();
+        login = this;
 
         script = getString(R.string.checkIdentifiants);
 
@@ -77,10 +79,8 @@ public class Login extends AppCompatActivity {
         String mdp = edtMdp.getText().toString();
 
         // Test si les identifiants correspondent à un compte
-        if (!pseudo.equals("") && !mdp.equals("")) {
-            LoginServerSide checkUtilisateur = new LoginServerSide();
-            checkUtilisateur.execute(script, pseudo, mdp);
-        }
+        LoginServerSide checkUtilisateur = new LoginServerSide();
+        checkUtilisateur.execute(script, pseudo, mdp);
     }
 
     public void onClickRegister(View v) {
@@ -92,6 +92,10 @@ public class Login extends AppCompatActivity {
             btnConnexion.setVisibility(View.VISIBLE);
         else
             btnConnexion.setVisibility(View.INVISIBLE);
+    }
+
+    public static Login getInstance(){
+        return login;
     }
 
 
@@ -174,15 +178,30 @@ public class Login extends AppCompatActivity {
             else {
                 JSONObject jsonObject, jso;
                 JSONArray jsonArray;
+                String id, compte, nom, prenom, ville, cp, tel, adresse;
 
                 try {
                     jsonObject = new JSONObject(result);
                     jsonArray = jsonObject.getJSONArray("response");
-                    user = "";
+                    user = id = compte = nom = prenom = ville = cp = tel = adresse = "";
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
+                        id = jso.getString("id");
                         user = jso.getString("pseudo");
+                        nom = jso.getString("nom");
+                        prenom = jso.getString("prenom");
+                        compte = jso.getString("compte");
+
+                        if (compte.equals(getString(R.string.varClient))) {
+                            ville = jso.getString("ville");
+                            cp = jso.getString("cp");
+                            tel = jso.getString("tel");
+                            adresse = jso.getString("adresse");
+                        }
+                        else if (compte.equals(getString(R.string.varGerant))) {
+
+                        }
                     }
 
                     // Si un utilisateur a été trouvé
@@ -192,8 +211,23 @@ public class Login extends AppCompatActivity {
                         // Mettre dans pref
                         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
                         Editor edit = pref.edit();
+                        edit.putString(getString(R.string.prefId), id);
                         edit.putString(getString(R.string.prefUser), user);
                         edit.putString(getString(R.string.prefMdp), edtMdp.getText().toString());
+                        edit.putString(getString(R.string.prefCompte), compte);
+                        edit.putString(getString(R.string.prefNom), nom);
+                        edit.putString(getString(R.string.prefPrenom), prenom);
+
+                        if (compte.equals(getString(R.string.varClient))) {
+                            edit.putString(getString(R.string.prefVille), ville);
+                            edit.putString(getString(R.string.prefCp), cp);
+                            edit.putString(getString(R.string.prefTel), tel);
+                            edit.putString(getString(R.string.prefAdresse), adresse);
+                        }
+                        else if (compte.equals(getString(R.string.varGerant))) {
+
+                        }
+
                         edit.apply();
 
                         finish();

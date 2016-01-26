@@ -3,15 +3,17 @@
     <!-- Application -->
     <string name="app_name" translatable="false">EnjoyFood</string>
 
-    <!-- Valeurs -->
+    <!-- Variables -->
     <string name="varClient">Client</string>
     <string name="varGerant">Gérant</string>
+    <string name="varNo">No</string>
+    <string name="varYes">Yes</string>
 
     <!-- Scripts -->
     <string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
     <string name="checkUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkUtilisateur.php</string>
     <string name="checkIdentifiants" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkIdentifiants.php</string>
-    <string name="changePassword" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
+    <string name="changeMdp" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
     <string name="eraseCompte" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/eraseCompte.php</string>
 
     <!-- Méthodes-->
@@ -33,7 +35,7 @@
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">Le pseudonyme doit faire au moins 3 caractères</string>
-    <string name="errorMdpLength">"Le mot de passe doit faire au moins 3 caractères"</string>
+    <string name="errorMdpLength">Le mot de passe doit faire au moins 3 caractères</string>
     <string name="errorMdpNotSame">Les mots de passe sont différents</string>
     <string name="errorMdpSame">L\'ancien et le nouveau mot de passe sont identiques</string>
     <string name="errorOldMdp">L\'ancien mot de passe est incorrect</string>
@@ -45,16 +47,15 @@
     <string name="errorAdresse">Veuillez saisir une adresse</string>
 
     <!-- Preferences -->
-    <string name="prefId">id</string>
     <string name="prefUser" translatable="false">user</string>
     <string name="prefMdp" translatable="false">mdp</string>
-    <string name="prefNom">nom</string>
-    <string name="prefPrenom">prenom</string>
-    <string name="prefCompte">compte</string>
+    <string name="prefNom" translatable="false">nom</string>
+    <string name="prefPrenom" translatable="false">prenom</string>
+    <string name="prefCompte" translatable="false">compte</string>
     <string name="prefVille" translatable="false">ville</string>
     <string name="prefCp" translatable="false">cp</string>
     <string name="prefTel" translatable="false">tel</string>
-    <string name="prefAdresse">adresse</string>
+    <string name="prefAdresse" translatable="false">adresse</string>
 
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EnjoyFood</string>
+    <string name="varNo">Non</string>
+    <string name="varClient">Client</string>
+    <string name="varYes">Oui</string>
+</resources>

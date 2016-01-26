@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="varClient">Client</string>
-    <string name="btnConnexion">Login</string>
-    <string name="btnDeco">Logout</string>
-</resources>

@@ -8,6 +8,7 @@
     <string name="varGerant">Gérant</string>
     <string name="varNo">No</string>
     <string name="varYes">Yes</string>
+    <string name="emailAdmin" translatable="false">antoine-drouin@hotmail.fr</string>
 
     <!-- Scripts -->
     <string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
@@ -15,6 +16,7 @@
     <string name="checkIdentifiants" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkIdentifiants.php</string>
     <string name="changeMdp" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
     <string name="eraseCompte" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/eraseCompte.php</string>
+    <string name="changeCoordClient" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changeCoordClient.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -23,15 +25,18 @@
     <!-- Messages -->
     <string name="insertUtilisateurSuccess">Utilisateur créé avec succès</string>
     <string name="insertUtilisateurFail">Ce pseudo est déjà utilisé</string>
-    <string name="connectionError">Échec de la connexion</string>
     <string name="connectionFail">Ces identifiants n\'ont pas permis de vous identifier</string>
-    <string name="connectionSuccess">Connexion réussie</string>
-    <string name="disconnectionSuccess">Déconnexion réussie</string>
+    <string name="disconnectionSuccess">Successful logout</string>
     <string name="eraseCompteMessage">La suppression du compte est définitive. Voulez-vous vraiment continuer ?</string>
     <string name="eraseCompteSuccess">Suppression du compte réussie</string>
     <string name="eraseCompteFail">Suppression du compte annulée</string>
-    <string name="changeMdpSuccess">Mot de passe modifié</string>
-    <string name="changeCoordSuccess">Coordonnées modifiés</string>
+    <string name="smsWarning">Un sms de confirmation va être envoyé au numéro indiqué avec votre numero. Continuer ?</string>
+    <string name="smsCancel">Changements annulés</string>
+    <string name="smsError">Impossible d\'envoyer le sms de confirmation</string>
+    <string name="changeCoordSuccess">Details changed</string>
+    <string name="changeMdpSuccess">Password changed</string>
+    <string name="connectionError">Connection error</string>
+    <string name="connectionSuccess">Successful connection</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">Le pseudonyme doit faire au moins 3 caractères</string>
@@ -59,54 +64,64 @@
 
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>
+    <string name="menuIdEtab" translatable="false">idEtab</string>
     <string name="menuIdInfo" translatable="false">idInfo</string>
     <string name="menuIdReglages" translatable="false">idReglages</string>
-    <string name="menuLabelCompte">Mon compte</string>
+    <string name="menuLabelCompte">My account</string>
+    <string name="menuLabelEtab">Mon établissement</string>
     <string name="menuLabelInfo">Informations</string>
-    <string name="menuLabelReglages">Réglages</string>
+    <string name="menuLabelReglages">Settings</string>
+
+    <string name="smsConfirmChange">
+        Bonjour, \
+        Vos informations ont étés correctement mises à jour sur EnjoyFood. \
+        Si ce n\'est pas vous, la personne qui a essayer d\'utiliser votre numéro \
+        est celle qui vient d\'envoyer ce message de confirmation. \
+        Vous pouvez la signaler à cette adresse : antoine-drouin@hotmail.fr \
+    </string>
 
 
     <!-- COMPOSANTS -->
 
     <!-- Buttons -->
-    <string name="btnValider">Valider</string>
-    <string name="btnConnexion">Connexion</string>
-    <string name="btnCreerCompte">Créer un compte</string>
-    <string name="btnChangeMdp">Changer mon mot de passe</string>
-    <string name="btnChangeCoord">Changer mes coordonnées</string>
-    <string name="btnSupprCompte">Supprimer mon compte</string>
-    <string name="btnDeco">Me déconnecter</string>
-    <string name="btnSearch">Rechercher</string>
+    <string name="btnSearch">Search</string>
+    <string name="btnConnexion">Login</string>
+    <string name="btnDeco">Logout</string>
+    <string name="btnCreerCompte">Register</string>
+    <string name="btnValider">Ok</string>
+    <string name="btnSupprCompte">Delete my account</string>
+    <string name="btnChangeMdp">Change my password</string>
+    <string name="btnChangeCoord">Change my details</string>
 
     <!-- Labels -->
-    <string name="lblTypeCompte">Type de compte :</string>
+    <string name="lblTypeCompte">Type of account :</string>
     <string name="lblSearchEtab">Rechercher un établissement </string>
     <string name="lblSearchPanier">Recherche dans le panier </string>
     <string name="lblSearchCom">Recherche dans les commandes </string>
 
     <!-- EditTexts -->
-    <string name="edtPseudo">Pseudonyme</string>
-    <string name="edtMdp">Mot de passe</string>
-    <string name="edtRepeatMdp">Répéter le mot de passe</string>
-    <string name="edtOldMdp">Ancien mot de passe</string>
-    <string name="edtNewMdp">Nouveau mot de passe</string>
-    <string name="edtNom">Nom</string>
-    <string name="edtPrenom">Prénom</string>
-    <string name="edtVille">Ville</string>
-    <string name="edtCp">Code postal</string>
-    <string name="edtTel">Téléphone</string>
-    <string name="edtAdresse">Adresse</string>
+    <string name="edtPseudo">Pseudonym</string>
+    <string name="edtNom">Name</string>
+    <string name="edtAdresse">Adress</string>
     <string name="edtEtablissement">Établissement</string>
     <string name="edtArticle">Article</string>
-    <string name="edtCommande">Commande</string>
-    <string name="edtSpecialite">Spécialité</string>
+    <string name="edtCommande">Order</string>
+    <string name="edtCp">Zip code</string>
+    <string name="edtMdp">Password</string>
+    <string name="edtNewMdp">New password</string>
+    <string name="edtOldMdp">Old password</string>
+    <string name="edtRepeatMdp">Repeat password</string>
+    <string name="edtTel">Phone number</string>
+    <string name="edtVille">City</string>
+    <string name="edtSpecialite">Speciality</string>
+    <string name="edtPrenom">First name</string>
 
     <!-- Tabs -->
     <string name="tabEtab">Établissements</string>
-    <string name="tabPanier">Panier</string>
-    <string name="tabCommandes">Commandes</string>
-    <string name="tabCoord">Coordonnées</string>
     <string name="tabMenu">Menu</string>
     <string name="tabNotes">Notes</string>
+    <string name="tabPanier">Cart</string>
+    <string name="tabCommandes">Orders</string>
+    <string name="tabCoord">Details</string>
 
 </resources>

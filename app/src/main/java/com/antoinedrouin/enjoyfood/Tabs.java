@@ -22,7 +22,7 @@ import android.widget.TextView;
 
 public class Tabs extends AppCompatActivity {
 
-    String utilisateur;
+    String utilisateur, compte;
     int currentTab;
     Context context;
 
@@ -148,6 +148,9 @@ public class Tabs extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.mainmenu, menu);
+
+        if (!compte.equals(getString(R.string.varGerant)))
+            menu.findItem(R.string.menuIdEtab).setVisible(false);
         return true;
     }
 
@@ -162,6 +165,9 @@ public class Tabs extends AppCompatActivity {
                 else
                     startActivity(new Intent(this, Compte.class));
                 return true;
+            case R.string.menuIdEtab :
+                // à compléter
+                return  true;
             case R.string.menuIdInfo :
                 startActivity(new Intent(this, Informations.class));
                 return true;
@@ -176,6 +182,7 @@ public class Tabs extends AppCompatActivity {
     private void checkPref() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
         utilisateur = pref.getString(getString(R.string.prefUser), "");
+        compte = pref.getString(getString(R.string.prefCompte), "");
     }
 
     public void onClickSearch(View v) {

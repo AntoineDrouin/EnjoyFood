@@ -1,7 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">EnjoyFood</string>
     <string name="varNo">Non</string>
     <string name="varClient">Client</string>
     <string name="varYes">Oui</string>
+    <string name="btnSearch">Rechercher</string>
+    <string name="btnConnexion">Connexion</string>
+    <string name="btnDeco">Me déconnecter</string>
+    <string name="btnCreerCompte">Créer un compte</string>
+    <string name="btnValider">Valider</string>
+    <string name="btnSupprCompte">Supprimer mon compte</string>
+    <string name="btnChangeMdp">Changer mon mot de passe</string>
+    <string name="btnChangeCoord">Changer mes coordonnées</string>
+    <string name="changeCoordSuccess">Coordonnées modifiés</string>
+    <string name="changeMdpSuccess">Mot de passe modifié</string>
+    <string name="connectionError">Échec de la connexion</string>
+    <string name="connectionSuccess">Connexion réussie</string>
+    <string name="edtAdresse">Adresse</string>
+    <string name="disconnectionSuccess">Déconnexion réussie</string>
+    <string name="edtCommande">Commande</string>
+    <string name="edtArticle">Article</string>
+    <string name="edtCp">Code postal</string>
+    <string name="edtMdp">Mot de passe</string>
+    <string name="edtNewMdp">Nouveau mot de passe</string>
+    <string name="edtOldMdp">Ancien mot de passe</string>
+    <string name="edtRepeatMdp">Répéter le mot de passe</string>
+    <string name="edtTel">Téléphone</string>
+    <string name="edtVille">Ville</string>
+    <string name="edtSpecialite">Spécialité</string>
+    <string name="menuLabelReglages">Réglages</string>
+    <string name="menuLabelCompte">Mon compte</string>
+    <string name="menuLabelInfo">Informations</string>
+    <string name="lblTypeCompte">Type de compte :</string>
+    <string name="tabPanier">Panier</string>
+    <string name="tabCommandes">Commandes</string>
+    <string name="edtPrenom">Prénom</string>
+    <string name="edtNom">Nom</string>
+    <string name="edtPseudo">Pseudonyme</string>
+    <string name="tabCoord">Coordonnées</string>
+    <string name="lblSearchPanier"></string>
 </resources>

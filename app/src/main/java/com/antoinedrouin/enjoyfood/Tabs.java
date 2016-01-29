@@ -22,9 +22,10 @@ import android.widget.TextView;
 
 public class Tabs extends AppCompatActivity {
 
-    String utilisateur;
+    String pseudo, compte;
     int currentTab;
     Context context;
+    SharedPreferences pref;
 
     DrawerLayout mDrawerLayout;
     TabHost tabHost;
@@ -39,6 +40,8 @@ public class Tabs extends AppCompatActivity {
 
         context = getApplicationContext();
         currentTab = 0;
+
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         tabHost = (TabHost) findViewById(R.id.tabHost);
         tw = (TabWidget)tabHost.findViewById(android.R.id.tabs);
@@ -87,7 +90,7 @@ public class Tabs extends AppCompatActivity {
             tabHost.getTabWidget().getChildAt(i).getLayoutParams().height /= 1.5;
 
             tabView = tw.getChildTabViewAt(i);
-            tv = (TextView)tabView.findViewById(android.R.id.title);
+            tv = (TextView) tabView.findViewById(android.R.id.title);
             tv.setSingleLine();
             tv.setTextSize(12);
 
@@ -151,16 +154,27 @@ public class Tabs extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        if (!compte.equals(getString(R.string.varGerant)))
+            menu.getItem(1).setVisible(false);
+
+        return super.onPrepareOptionsMenu(menu);
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         checkPref();
 
         // Prend l'id du menu sélectionné
         switch (item.getItemId()) {
             case R.string.menuIdCompte :
-                if (utilisateur.equals(""))
+                if (pseudo.equals(""))
                     startActivity(new Intent(this, Login.class));
                 else
                     startActivity(new Intent(this, Compte.class));
+                return true;
+            case R.string.menuIdEtab :
+                //
                 return true;
             case R.string.menuIdInfo :
                 startActivity(new Intent(this, Informations.class));
@@ -174,8 +188,8 @@ public class Tabs extends AppCompatActivity {
     }
 
     private void checkPref() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(this);
-        utilisateur = pref.getString(getString(R.string.prefUser), "");
+        pseudo = pref.getString(getString(R.string.prefPseudo), "");
+        compte = pref.getString(getString(R.string.prefCompte), "");
     }
 
     public void onClickSearch(View v) {

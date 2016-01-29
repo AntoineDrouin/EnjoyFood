@@ -8,6 +8,7 @@
     <string name="varGerant">Gérant</string>
     <string name="varNo">No</string>
     <string name="varYes">Yes</string>
+    <string name="varReponseJson">response</string>
 
     <!-- Scripts -->
     <string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
@@ -15,6 +16,7 @@
     <string name="checkIdentifiants" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkIdentifiants.php</string>
     <string name="changeMdp" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
     <string name="eraseCompte" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/eraseCompte.php</string>
+    <string name="changeCoordClient" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changeCoordClient.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -47,7 +49,7 @@
     <string name="errorAdresse">Veuillez saisir une adresse</string>
 
     <!-- Preferences -->
-    <string name="prefUser" translatable="false">user</string>
+    <string name="prefPseudo" translatable="false">pseudo</string>
     <string name="prefMdp" translatable="false">mdp</string>
     <string name="prefNom" translatable="false">nom</string>
     <string name="prefPrenom" translatable="false">prenom</string>
@@ -59,9 +61,11 @@
 
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>
+    <string name="menuIdEtab" translatable="false">idEtab</string>
     <string name="menuIdInfo" translatable="false">idInfo</string>
     <string name="menuIdReglages" translatable="false">idReglages</string>
     <string name="menuLabelCompte">Mon compte</string>
+    <string name="menuLabelEtab">Mon établissement</string>
     <string name="menuLabelInfo">Informations</string>
     <string name="menuLabelReglages">Réglages</string>
 

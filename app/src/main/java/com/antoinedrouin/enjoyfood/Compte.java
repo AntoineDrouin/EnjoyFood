@@ -20,7 +20,7 @@ public class Compte extends AppCompatActivity {
     SharedPreferences pref;
     SharedPreferences.Editor edit;
 
-    String pseudo, compte;
+    String script, methode, pseudo, compte;
 
     LinearLayout layoutMdp, mainLayoutCoord, layoutCoord;
     EditText edtOldMdp, edtNewMdp1, edtNewMdp2, edtNewVille, edtNewCp, edtNewTel, edtNewAd;
@@ -32,9 +32,11 @@ public class Compte extends AppCompatActivity {
 
         context = getApplicationContext();
         instCompte = this;
+
         pref = PreferenceManager.getDefaultSharedPreferences(this);
-        pseudo = pref.getString(getString(R.string.prefUser), "");
+        pseudo = pref.getString(getString(R.string.prefPseudo), "");
         compte = pref.getString(getString(R.string.prefCompte), "");
+        edit = pref.edit();
 
         layoutMdp = (LinearLayout) findViewById(R.id.layoutMdp);
         mainLayoutCoord = (LinearLayout) findViewById(R.id.mainLayoutCoord);
@@ -50,6 +52,12 @@ public class Compte extends AppCompatActivity {
 
         if (compte.equals(getString(R.string.varGerant)))
             mainLayoutCoord.setVisibility(View.GONE);
+        else {
+            edtNewVille.setText(pref.getString(getString(R.string.prefVille), ""));
+            edtNewCp.setText(pref.getString(getString(R.string.prefCp), ""));
+            edtNewTel.setText(pref.getString(getString(R.string.prefTel), ""));
+            edtNewAd.setText(pref.getString(getString(R.string.prefAdresse), ""));
+        }
     }
 
     public void onClickDeco (View v) {
@@ -85,8 +93,11 @@ public class Compte extends AppCompatActivity {
             if (!pref.getString(getString(R.string.prefMdp), "").equals(oldMdp))
                 Toast.makeText(context, getString(R.string.errorOldMdp), Toast.LENGTH_SHORT).show();
             else {
+                script = getString(R.string.changeMdp);
+                methode = getString(R.string.write);
+
                 ServerSide changePassword = new ServerSide(context);
-                changePassword.execute(getString(R.string.changeMdp), getString(R.string.write), pseudo, newMdp1);
+                changePassword.execute(script, methode, pseudo, newMdp1);
             }
         }
     }
@@ -99,14 +110,17 @@ public class Compte extends AppCompatActivity {
     }
 
     public void onClickCoordChangeValider(View v) {
-//        String ville, cp, tel, ad;
-//
-//        ville = edtNewVille.getText().toString();
-//        cp = edtNewCp.getText().toString();
-//        tel = edtNewTel.getText().toString();
-//        ad = edtNewAd.getText().toString();
+        String ville, cp, tel, ad;
 
-        // à finir
+        script = getString(R.string.changeCoordClient);
+        methode = getString(R.string.write);
+        ville = edtNewVille.getText().toString();
+        cp = edtNewCp.getText().toString();
+        tel = edtNewTel.getText().toString();
+        ad = edtNewAd.getText().toString();
+
+        ServerSide changeCoord = new ServerSide(context);
+        changeCoord.execute(script, methode, pseudo, ville, cp, tel, ad);
     }
 
     public void onClickSupprCompte(View v) {
@@ -120,15 +134,17 @@ public class Compte extends AppCompatActivity {
             })
             .setPositiveButton(getString(R.string.varYes), new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
+                    script = getString(R.string.eraseCompte);
+                    methode = getString(R.string.write);
+
                     ServerSide eraseCompte = new ServerSide(context);
-                    eraseCompte.execute(getString(R.string.eraseCompte), getString(R.string.write), pseudo);
+                    eraseCompte.execute(script, methode, pseudo);
                 }
             })
             .show();
     }
 
     public void deco() {
-        edit = pref.edit();
         edit.clear();
         edit.apply();
         finish();
@@ -139,7 +155,19 @@ public class Compte extends AppCompatActivity {
         edtOldMdp.setText("");
         edtNewMdp1.setText("");
         edtNewMdp2.setText("");
-        Toast.makeText(context, context.getString(R.string.changeMdpSuccess), Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(context, getString(R.string.changeMdpSuccess), Toast.LENGTH_SHORT).show();
+    }
+
+    public void okCoord() {
+        layoutCoord.setVisibility(View.GONE);
+        edit.putString(getString(R.string.prefVille), edtNewVille.getText().toString());
+        edit.putString(getString(R.string.prefCp), edtNewCp.getText().toString());
+        edit.putString(getString(R.string.prefTel), edtNewTel.getText().toString());
+        edit.putString(getString(R.string.prefAdresse), edtNewAd.getText().toString());
+        edit.apply();
+
+        Toast.makeText(context, getString(R.string.changeCoordSuccess), Toast.LENGTH_SHORT).show();
     }
 
     public static Compte getInstance() {

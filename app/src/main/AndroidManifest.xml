@@ -27,7 +27,7 @@
         <activity android:name=".Reglages" />
         <activity android:name=".Coordonnees" />
         <activity android:name=".Menu" />
-        <activity android:name=".Notes"></activity>
+        <activity android:name=".Notes" />
     </application>
 
 </manifest>

@@ -1,7 +1,6 @@
 package com.antoinedrouin.enjoyfood;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 public class Panier extends Activity {

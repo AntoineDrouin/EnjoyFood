@@ -30,7 +30,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
     Context context;
 
-    String script, methode, pseudo, mdp, nom, prenom, compte, user, id, ville, cp, tel, adresse;
+    String script, methode, pseudo, mdp, nom, prenom, compte, user, ville, cp, tel, adresse;
 
     public ServerSide (Context context) {
         this.context = context;
@@ -42,14 +42,11 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
     @Override
     protected String doInBackground(String... params) {
-        // param[0] = script à utiliser
-        // param[1] = indique lecture ou écriture
-
-        script = params[0];
-        methode = params[1];
+        script = params[0]; // script à utiliser
+        methode = params[1]; // indique lecture ou écriture
         String json;
 
-        // Préparation de la connexion
+        /** 1. PREPARATION DE LA CONNEXION */
 
         HttpURLConnection httpURLConnection = null;
         try {
@@ -62,7 +59,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             OutputStream os = httpURLConnection.getOutputStream();
             BufferedWriter buffW = new BufferedWriter(new OutputStreamWriter(os, "utf-8"));
 
-            // Encodage des données pour méthode POST
+            // Encodage des données
             String data = encodeData(script, params);
             buffW.write(data);
 
@@ -73,7 +70,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             e.printStackTrace();
         }
 
-        // Algorithme d'écriture ou de lecture
+        /** 3. ALGORITHME DE LECTURE OU D'ECRITURE */
 
         // Ecriture
         if (methode.equals(context.getString(R.string.write))) {
@@ -121,7 +118,8 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        // Traitements des retours
+
+        /** 4. TRAITEMENTS DES RETOURS D'ECRITURE ... */
 
         if (result.equals(context.getString(R.string.connectionError))) {
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
@@ -141,7 +139,12 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             Compte.getInstance().okMdp();
         }
 
-        // LECTURE DES RETOURS JSON
+        else if (result.equals(context.getString(R.string.changeCoordClient))) {
+            Compte.getInstance().okCoord();
+        }
+
+
+        /** 4. ... OU LECTURE DES RETOURS JSON */
 
         else {
             JSONObject jsonObject, jso;
@@ -149,14 +152,14 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
             try {
                 jsonObject = new JSONObject(result);
-                jsonArray = jsonObject.getJSONArray("response");
+                jsonArray = jsonObject.getJSONArray(context.getString(R.string.varReponseJson));
 
                 // On utilise le json différement pour chaque script
                 if (script.equals(context.getString(R.string.checkUtilisateur))) {
                     user = "";
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-                        user = jso.getString("pseudo");
+                        user = jso.getString(context.getString(R.string.prefPseudo));
                     }
 
                     // S'il ne trouve aucun pseudo similaire, on lance l'insertion
@@ -185,21 +188,21 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-                        user = jso.getString("pseudo");
-                        mdp = jso.getString("mdp");
-                        nom = jso.getString("nom");
-                        prenom = jso.getString("prenom");
-                        compte = jso.getString("compte");
+                        user = jso.getString(context.getString(R.string.prefPseudo));
+                        mdp = jso.getString(context.getString(R.string.prefMdp));
+                        nom = jso.getString(context.getString(R.string.prefNom));
+                        prenom = jso.getString(context.getString(R.string.prefPrenom));
+                        compte = jso.getString(context.getString(R.string.prefCompte));
 
                         if (compte.equals(context.getString(R.string.varClient))) {
-                            ville = jso.getString("ville");
-                            cp = jso.getString("cp");
-                            tel = jso.getString("tel");
-                            adresse = jso.getString("adresse");
+                            ville = jso.getString(context.getString(R.string.prefVille));
+                            cp = jso.getString(context.getString(R.string.prefCp));
+                            tel = jso.getString(context.getString(R.string.prefTel));
+                            adresse = jso.getString(context.getString(R.string.prefAdresse));
                         }
-                        else if (compte.equals(context.getString(R.string.varGerant))) {
-
-                        }
+//                        else if (compte.equals(context.getString(R.string.varGerant))) {
+//
+//                        }
                     }
 
                     // Si un utilisateur a été trouvé
@@ -216,31 +219,40 @@ public class ServerSide extends AsyncTask<String, Void, String> {
         }
     }
 
-    // Fonction d'encodage des données en fonction du script à executer
+
+    /** 2. FONCTION D'ENCODAGE DES DONNEES EN FONCTION DU SCRIPT A EXECUTER */
+
     private String encodeData(String lien, String... params) {
         String data = null;
 
         try {
             if (lien.equals(context.getString(R.string.insertUtilisateur))) {
-                data = URLEncoder.encode("compte", "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode("pseudo", "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
-                        URLEncoder.encode("mdp", "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
-                        URLEncoder.encode("nom", "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
-                        URLEncoder.encode("prenom", "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
+                data = URLEncoder.encode(context.getString(R.string.prefCompte), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefNom), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefPrenom), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.checkUtilisateur))) {
-                data = URLEncoder.encode("pseudo", "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.checkIdentifiants))) {
-                data = URLEncoder.encode("pseudo", "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode("mdp", "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
+                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.changeMdp))) {
-                data = URLEncoder.encode("pseudo", "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode("mdp", "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
+                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.eraseCompte))) {
-                data = URLEncoder.encode("pseudo", "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+            }
+            else if (lien.equals(context.getString(R.string.changeCoordClient))) {
+                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefVille), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefCp), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

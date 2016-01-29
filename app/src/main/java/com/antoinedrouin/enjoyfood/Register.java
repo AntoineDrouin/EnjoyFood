@@ -19,7 +19,7 @@ import java.util.List;
 public class Register extends AppCompatActivity {
 
     Context context;
-    static Register register;
+    static Register instRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         context = getApplicationContext();
-        register = this;
+        instRegister = this;
 
         List comptes = new ArrayList<>();
         comptes.add(getString(R.string.varClient));
@@ -67,6 +67,7 @@ public class Register extends AppCompatActivity {
             // Vérifie si le pseudo est disponible
             script = getString(R.string.checkUtilisateur);
             methode = getString(R.string.read);
+
             ServerSide checkUtilisateur = new ServerSide(context);
             checkUtilisateur.execute(script, methode, pseudo);
         }
@@ -77,14 +78,14 @@ public class Register extends AppCompatActivity {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         Editor edit = pref.edit();
 
-        edit.putString(context.getString(R.string.prefUser), pseudo);
-        edit.putString(context.getString(R.string.prefMdp), mdp);
-        edit.putString(context.getString(R.string.prefCompte), compte);
-        edit.putString(context.getString(R.string.prefNom), nom);
-        edit.putString(context.getString(R.string.prefPrenom), prenom);
+        edit.putString(getString(R.string.prefPseudo), pseudo);
+        edit.putString(getString(R.string.prefMdp), mdp);
+        edit.putString(getString(R.string.prefCompte), compte);
+        edit.putString(getString(R.string.prefNom), nom);
+        edit.putString(getString(R.string.prefPrenom), prenom);
         edit.apply();
 
-        Toast.makeText(context, context.getString(R.string.insertUtilisateurSuccess), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, getString(R.string.insertUtilisateurSuccess), Toast.LENGTH_SHORT).show();
 
         Login.getInstance().finish();
         startActivity(new Intent(context, Compte.class));
@@ -92,7 +93,7 @@ public class Register extends AppCompatActivity {
     }
 
     public static Register getInstance(){
-        return register;
+        return instRegister;
     }
 
 }

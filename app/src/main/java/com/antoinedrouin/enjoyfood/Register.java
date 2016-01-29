@@ -19,7 +19,7 @@ import java.util.List;
 public class Register extends AppCompatActivity {
 
     Context context;
-    static Register instRegister;
+    static Register register;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
 
         context = getApplicationContext();
-        instRegister = this;
+        register = this;
 
         List comptes = new ArrayList<>();
         comptes.add(getString(R.string.varClient));
@@ -92,7 +92,7 @@ public class Register extends AppCompatActivity {
     }
 
     public static Register getInstance(){
-        return instRegister;
+        return register;
     }
 
 }

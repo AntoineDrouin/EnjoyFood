@@ -16,7 +16,7 @@ import android.widget.Toast;
 public class Login extends AppCompatActivity {
 
     Context context;
-    static Login instLogin;
+    static Login login;
 
     EditText edtPseudo, edtMdp;
     Button btnConnexion;
@@ -27,7 +27,7 @@ public class Login extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         context = getApplicationContext();
-        instLogin = this;
+        login = this;
 
         edtPseudo = (EditText) findViewById(R.id.edtPseudoLogin);
         edtMdp = (EditText) findViewById(R.id.edtMdp);
@@ -83,32 +83,32 @@ public class Login extends AppCompatActivity {
         // Mettre dans pref
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = pref.edit();
-        edit.putString(getString(R.string.prefUser), user);
-        edit.putString(getString(R.string.prefMdp), mdp);
-        edit.putString(getString(R.string.prefCompte), compte);
-        edit.putString(getString(R.string.prefNom), nom);
-        edit.putString(getString(R.string.prefPrenom), prenom);
+        edit.putString(context.getString(R.string.prefUser), user);
+        edit.putString(context.getString(R.string.prefMdp), mdp);
+        edit.putString(context.getString(R.string.prefCompte), compte);
+        edit.putString(context.getString(R.string.prefNom), nom);
+        edit.putString(context.getString(R.string.prefPrenom), prenom);
 
-        if (compte.equals(getString(R.string.varClient))) {
-            edit.putString(getString(R.string.prefVille), ville);
-            edit.putString(getString(R.string.prefCp), cp);
-            edit.putString(getString(R.string.prefTel), tel);
-            edit.putString(getString(R.string.prefAdresse), adresse);
+        if (compte.equals(context.getString(R.string.varClient))) {
+            edit.putString(context.getString(R.string.prefVille), ville);
+            edit.putString(context.getString(R.string.prefCp), cp);
+            edit.putString(context.getString(R.string.prefTel), tel);
+            edit.putString(context.getString(R.string.prefAdresse), adresse);
         }
-//        else if (compte.equals(context.getString(R.string.varGerant))) {
-//
-//        }
+        else if (compte.equals(context.getString(R.string.varGerant))) {
+
+        }
 
         edit.apply();
 
-        Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, context.getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
 
         startActivity(new Intent(context, Compte.class));
         finish();
     }
 
     public static Login getInstance(){
-        return instLogin;
+        return login;
     }
 
 }

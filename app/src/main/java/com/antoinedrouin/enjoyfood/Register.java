@@ -73,21 +73,21 @@ public class Register extends AppCompatActivity {
         }
     }
 
-    public void putInPrefRegister(String pseudo, String mdp, String compte,
-                                   String nom, String prenom) {
+    public void putInPrefRegister() {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         Editor edit = pref.edit();
 
-        edit.putString(getString(R.string.prefPseudo), pseudo);
-        edit.putString(getString(R.string.prefMdp), mdp);
-        edit.putString(getString(R.string.prefCompte), compte);
-        edit.putString(getString(R.string.prefNom), nom);
-        edit.putString(getString(R.string.prefPrenom), prenom);
+        edit.putString(getString(R.string.prefPseudo), ((EditText) findViewById(R.id.edtPseudo)).getText().toString());
+        edit.putString(getString(R.string.prefMdp), ((EditText) Register.getInstance().findViewById(R.id.edtMdp1)).getText().toString());
+        edit.putString(getString(R.string.prefCompte), ((Spinner) findViewById(R.id.spinCompte)).getSelectedItem().toString());
+        edit.putString(getString(R.string.prefNom), ((EditText) Register.getInstance().findViewById(R.id.edtNom)).getText().toString());
+        edit.putString(getString(R.string.prefPrenom), ((EditText) Register.getInstance().findViewById(R.id.edtPrenom)).getText().toString());
         edit.apply();
 
         Toast.makeText(context, getString(R.string.insertUtilisateurSuccess), Toast.LENGTH_SHORT).show();
 
         Login.getInstance().finish();
+        Tabs.getInstance().recreate();
         startActivity(new Intent(context, Compte.class));
         finish();
     }

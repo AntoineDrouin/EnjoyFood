@@ -10,6 +10,9 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/customTheme">
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+
         <activity android:name=".Tabs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,6 +31,12 @@
         <activity android:name=".Coordonnees" />
         <activity android:name=".Menu" />
         <activity android:name=".Notes" />
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

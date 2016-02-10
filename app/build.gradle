@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'keyEnjoyFood'
+            keyPassword 'APQMWN68100'
+            storeFile file('G:/ProjetCDSM/EnjoyFood/key.jks')
+            storePassword 'APQMWN68100'
+        }
+    }
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
-
     defaultConfig {
         applicationId "com.antoinedrouin.enjoyfood"
         minSdkVersion 19
@@ -26,4 +33,5 @@ dependencies {
     repositories {
         mavenCentral()
     }
+    compile 'com.facebook.android:facebook-android-sdk:4.9.0'
 }

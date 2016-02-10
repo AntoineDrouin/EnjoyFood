@@ -127,7 +127,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
         else if (result.equals(context.getString(R.string.insertUtilisateur))) {
             // Mettre dans pref
-            Register.getInstance().putInPrefRegister(pseudo, mdp, compte, nom, prenom);
+            Register.getInstance().putInPrefRegister();
         }
 
         else if (result.equals(context.getString(R.string.eraseCompte))) {

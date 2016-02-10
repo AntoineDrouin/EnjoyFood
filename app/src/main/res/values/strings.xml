@@ -2,13 +2,14 @@
 
     <!-- Application -->
     <string name="app_name" translatable="false">EnjoyFood</string>
+    <string name="facebook_app_id" translatable="false">WO1EzKXTbz9uKjXrD9U1qxeGncE=</string>
 
     <!-- Variables -->
     <string name="varClient">Client</string>
-    <string name="varGerant">Gérant</string>
+    <string name="varGerant">Manager</string>
     <string name="varNo">No</string>
     <string name="varYes">Yes</string>
-    <string name="varReponseJson">response</string>
+    <string name="varReponseJson" translatable="false">response</string>
 
     <!-- Scripts -->
     <string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
@@ -23,30 +24,30 @@
     <string name="write" translatable="false">Write</string>
 
     <!-- Messages -->
-    <string name="insertUtilisateurSuccess">Utilisateur créé avec succès</string>
-    <string name="insertUtilisateurFail">Ce pseudo est déjà utilisé</string>
-    <string name="connectionError">Échec de la connexion</string>
-    <string name="connectionFail">Ces identifiants n\'ont pas permis de vous identifier</string>
-    <string name="connectionSuccess">Connexion réussie</string>
-    <string name="disconnectionSuccess">Déconnexion réussie</string>
-    <string name="eraseCompteMessage">La suppression du compte est définitive. Voulez-vous vraiment continuer ?</string>
-    <string name="eraseCompteSuccess">Suppression du compte réussie</string>
-    <string name="eraseCompteFail">Suppression du compte annulée</string>
-    <string name="changeMdpSuccess">Mot de passe modifié</string>
-    <string name="changeCoordSuccess">Coordonnées modifiés</string>
+    <string name="insertUtilisateurSuccess">User created successfully</string>
+    <string name="insertUtilisateurFail">This pseudonym is already used</string>
+    <string name="connectionError">Connection error</string>
+    <string name="connectionFail">No account found</string>
+    <string name="connectionSuccess">Connection success</string>
+    <string name="disconnectionSuccess">Logout success</string>
+    <string name="eraseCompteMessage">Deleting the account is permanent. Do you really want to continue ?</string>
+    <string name="eraseCompteSuccess">Deleting account success</string>
+    <string name="eraseCompteFail">Delete account canceled</string>
+    <string name="changeMdpSuccess">Password changed</string>
+    <string name="changeCoordSuccess">Contact information changed</string>
 
     <!-- Messages de champs -->
-    <string name="errorPseudoLength">Le pseudonyme doit faire au moins 3 caractères</string>
-    <string name="errorMdpLength">Le mot de passe doit faire au moins 3 caractères</string>
-    <string name="errorMdpNotSame">Les mots de passe sont différents</string>
-    <string name="errorMdpSame">L\'ancien et le nouveau mot de passe sont identiques</string>
-    <string name="errorOldMdp">L\'ancien mot de passe est incorrect</string>
-    <string name="errorNom">Veuillez saisir un nom</string>
-    <string name="errorPrenom">Veuillez saisir un prénom</string>
-    <string name="errorVille">Veuillez saisir une ville</string>
-    <string name="errorCp">Veuillez saisir un code postal</string>
-    <string name="errorTel">Veuillez saisir un numéro de téléphone</string>
-    <string name="errorAdresse">Veuillez saisir une adresse</string>
+    <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
+    <string name="errorMdpLength">The password must be at least 3 characters long</string>
+    <string name="errorMdpNotSame">The passwords are different</string>
+    <string name="errorMdpSame">The old and the new password are the same</string>
+    <string name="errorOldMdp">The old password is incorrect</string>
+    <string name="errorNom">Please enter a first name</string>
+    <string name="errorPrenom">Please enter a last name</string>
+    <string name="errorVille">Please enter a city</string>
+    <string name="errorCp">Please enter a zip code</string>
+    <string name="errorTel">Please enter a phone number</string>
+    <string name="errorAdresse">Please enter an addresse</string>
 
     <!-- Preferences -->
     <string name="prefPseudo" translatable="false">pseudo</string>
@@ -64,53 +65,53 @@
     <string name="menuIdEtab" translatable="false">idEtab</string>
     <string name="menuIdInfo" translatable="false">idInfo</string>
     <string name="menuIdReglages" translatable="false">idReglages</string>
-    <string name="menuLabelCompte">Mon compte</string>
-    <string name="menuLabelEtab">Mon établissement</string>
+    <string name="menuLabelCompte">My account</string>
+    <string name="menuLabelEtab">My restaurant</string>
     <string name="menuLabelInfo">Informations</string>
-    <string name="menuLabelReglages">Réglages</string>
+    <string name="menuLabelReglages">Settings</string>
 
 
     <!-- COMPOSANTS -->
 
     <!-- Buttons -->
-    <string name="btnValider">Valider</string>
-    <string name="btnConnexion">Connexion</string>
-    <string name="btnCreerCompte">Créer un compte</string>
-    <string name="btnChangeMdp">Changer mon mot de passe</string>
-    <string name="btnChangeCoord">Changer mes coordonnées</string>
-    <string name="btnSupprCompte">Supprimer mon compte</string>
-    <string name="btnDeco">Me déconnecter</string>
-    <string name="btnSearch">Rechercher</string>
+    <string name="btnValider">OK</string>
+    <string name="btnCreerCompte">Register</string>
+    <string name="btnChangeMdp">Change my password</string>
+    <string name="btnChangeCoord">Change my contact information</string>
+    <string name="btnSupprCompte">Delete my account</string>
+    <string name="btnDeco">Log out</string>
+    <string name="btnSearch">Search</string>
+    <string name="btnConnexion">Connection</string>
 
     <!-- Labels -->
-    <string name="lblTypeCompte">Type de compte :</string>
-    <string name="lblSearchEtab">Rechercher un établissement </string>
-    <string name="lblSearchPanier">Recherche dans le panier </string>
-    <string name="lblSearchCom">Recherche dans les commandes </string>
+    <string name="lblTypeCompte">Type of account :</string>
+    <string name="lblSearchEtab">Search a restaurant</string>
+    <string name="lblSearchPanier">Search in the cart</string>
+    <string name="lblSearchCom">Search in orders</string>
 
     <!-- EditTexts -->
-    <string name="edtPseudo">Pseudonyme</string>
-    <string name="edtMdp">Mot de passe</string>
-    <string name="edtRepeatMdp">Répéter le mot de passe</string>
-    <string name="edtOldMdp">Ancien mot de passe</string>
-    <string name="edtNewMdp">Nouveau mot de passe</string>
-    <string name="edtNom">Nom</string>
-    <string name="edtPrenom">Prénom</string>
-    <string name="edtVille">Ville</string>
-    <string name="edtCp">Code postal</string>
-    <string name="edtTel">Téléphone</string>
-    <string name="edtAdresse">Adresse</string>
-    <string name="edtEtablissement">Établissement</string>
+    <string name="edtPseudo">Pseudonym</string>
+    <string name="edtMdp">Password</string>
+    <string name="edtRepeatMdp">Repeat password</string>
+    <string name="edtOldMdp">Old password</string>
+    <string name="edtNewMdp">New password</string>
+    <string name="edtNom">Last name</string>
+    <string name="edtPrenom">First name</string>
+    <string name="edtVille">City</string>
+    <string name="edtCp">Zip code</string>
+    <string name="edtTel">Phone number</string>
+    <string name="edtAdresse">Address</string>
+    <string name="edtEtablissement">Restaurant</string>
     <string name="edtArticle">Article</string>
-    <string name="edtCommande">Commande</string>
-    <string name="edtSpecialite">Spécialité</string>
+    <string name="edtCommande">Order</string>
+    <string name="edtSpecialite">Speciality</string>
 
     <!-- Tabs -->
-    <string name="tabEtab">Établissements</string>
-    <string name="tabPanier">Panier</string>
-    <string name="tabCommandes">Commandes</string>
-    <string name="tabCoord">Coordonnées</string>
+    <string name="tabEtab">Restaurants</string>
+    <string name="tabPanier">Cart</string>
+    <string name="tabCommandes">Orders</string>
+    <string name="tabCoord">Contact information</string>
     <string name="tabMenu">Menu</string>
-    <string name="tabNotes">Notes</string>
+    <string name="tabNotes">Scores</string>
 
 </resources>

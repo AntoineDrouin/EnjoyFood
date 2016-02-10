@@ -13,6 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+
 public class Login extends AppCompatActivity {
 
     Context context;
@@ -24,9 +31,11 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        context = getApplicationContext();
+        FacebookSdk.sdkInitialize(context);
         setContentView(R.layout.activity_login);
 
-        context = getApplicationContext();
+
         instLogin = this;
 
         edtPseudo = (EditText) findViewById(R.id.edtPseudoLogin);
@@ -47,9 +56,40 @@ public class Login extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 checkFields();
             }
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
         });
+
+
+
+
+        CallbackManager callbackManager = CallbackManager.Factory.create();
+
+        LoginButton loginButton = (LoginButton) findViewById(R.id. login_button);
+        loginButton.setReadPermissions("user_friends");
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancel() {
+                Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                Toast.makeText(context, "404", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     public void onClickLogin(View v) {
@@ -103,6 +143,7 @@ public class Login extends AppCompatActivity {
 
         Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
 
+        Tabs.getInstance().recreate();
         startActivity(new Intent(context, Compte.class));
         finish();
     }

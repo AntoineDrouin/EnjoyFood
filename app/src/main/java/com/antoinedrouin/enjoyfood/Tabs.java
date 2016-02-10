@@ -25,6 +25,7 @@ public class Tabs extends AppCompatActivity {
     String pseudo, compte;
     int currentTab;
     Context context;
+    static Tabs instTabs;
     SharedPreferences pref;
 
     DrawerLayout mDrawerLayout;
@@ -39,6 +40,7 @@ public class Tabs extends AppCompatActivity {
         setContentView(R.layout.activity_tabs);
 
         context = getApplicationContext();
+        instTabs = this;
         currentTab = 0;
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -227,5 +229,9 @@ public class Tabs extends AppCompatActivity {
         edtSearchSpecialite.setVisibility(View.GONE);
         edtSearchArticle.setVisibility(View.GONE);
         edtSearchCommande.setVisibility(View.VISIBLE);
+    }
+
+    public static Tabs getInstance(){
+        return instTabs;
     }
 }

@@ -204,6 +204,10 @@ public class Tabs extends AppCompatActivity {
         mDrawerLayout.closeDrawer(GravityCompat.START);
     }
 
+    public void openDrawer() {
+        mDrawerLayout.openDrawer(GravityCompat.START);
+    }
+
     private void loadEtabTabDrawer() {
         lblTitreTab.setText(getString(R.string.lblSearchEtab));
         edtSearchVille.setVisibility(View.VISIBLE);

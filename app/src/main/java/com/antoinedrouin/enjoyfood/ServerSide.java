@@ -77,6 +77,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             try {
                 InputStream is = httpURLConnection.getInputStream();
                 is.close();
+                httpURLConnection.disconnect();
 
                 return script;
             } catch (IOException e) {

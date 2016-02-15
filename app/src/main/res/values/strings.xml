@@ -2,7 +2,8 @@
 
     <!-- Application -->
     <string name="app_name" translatable="false">EnjoyFood</string>
-    <string name="facebook_app_id" translatable="false">WO1EzKXTbz9uKjXrD9U1qxeGncE=</string>
+    <string name="facebook_app_id" translatable="false">cMej1UZJLPBGtiYSLwAYWd8I4aA=</string>
+    <string name="title_activity_maps" translatable="false">Map</string>
 
     <!-- Variables -->
     <string name="varClient">Client</string>
@@ -60,6 +61,9 @@
     <string name="prefTel" translatable="false">tel</string>
     <string name="prefAdresse" translatable="false">adresse</string>
 
+    <!-- Extras -->
+    <string name="extraEtabName" translatable="false">etabName</string>
+
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>
     <string name="menuIdEtab" translatable="false">idEtab</string>
@@ -113,5 +117,8 @@
     <string name="tabCoord">Contact information</string>
     <string name="tabMenu">Menu</string>
     <string name="tabNotes">Scores</string>
+
+    <!-- ListView -->
+    <string name="lvIndicSearch">Open the search menu</string>
 
 </resources>

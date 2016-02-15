@@ -63,4 +63,5 @@
     <string name="varClient">Client</string>
     <string name="varGerant">Manager</string>
     <string name="connectionFail">Aucun compte trouvé</string>
+    <string name="lvIndicSearch">Ouvrir le menu de recherche</string>
 </resources>

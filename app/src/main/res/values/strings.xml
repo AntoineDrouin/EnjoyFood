@@ -11,6 +11,8 @@
     <string name="varNo">No</string>
     <string name="varYes">Yes</string>
     <string name="varReponseJson" translatable="false">response</string>
+    <string name="varTabs" translatable="false">varTabs</string>
+    <string name="varEtab" translatable="false">varEtab</string>
 
     <!-- Scripts -->
     <string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
@@ -36,6 +38,7 @@
     <string name="eraseCompteFail">Delete account canceled</string>
     <string name="changeMdpSuccess">Password changed</string>
     <string name="changeCoordSuccess">Contact information changed</string>
+    <string name="geolocationFailed">Geolocation not available</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>

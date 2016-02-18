@@ -42,14 +42,16 @@ public class Etablissements extends Activity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Object o = lvEtab.getItemAtPosition(position);
 
-                if (o.toString().equals(getString(R.string.lvIndicSearch))) {
-                    Tabs.getInstance().openDrawer();
-                }
-                else {
+                if (o.toString().equals(getString(R.string.lvIndicSearch)))
+                    openPlacePicker();
+                else
                     openEtab(o.toString());
-                }
             }
         });
+    }
+
+    private void openPlacePicker() {
+        startActivity(new Intent(this, MapPlacePicker.class));
     }
 
     private void openEtab(String nomEtab) {

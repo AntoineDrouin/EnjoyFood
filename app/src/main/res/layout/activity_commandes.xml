@@ -6,11 +6,5 @@
     android:padding="@dimen/activity_padding"
     tools:context="com.antoinedrouin.enjoyfood.Commandes">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="com"
-        android:id="@+id/textView5"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>
+

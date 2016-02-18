@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="customTheme" parent="Theme.AppCompat.Light.DarkActionBar" >
+    <style name="customTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorAccent">@color/mainColor</item>
         <item name="android:panelBackground">@color/colorButtonFont</item>
         <item name="android:buttonStyle">@style/buttonStyle</item>

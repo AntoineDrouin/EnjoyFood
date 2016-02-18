@@ -1,11 +1,17 @@
 package com.antoinedrouin.enjoyfood;
 
+import android.Manifest;
 import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -14,25 +20,40 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TabHost;
-import android.widget.TabHost.TabSpec;
 import android.widget.TabWidget;
 import android.widget.TextView;
+import android.widget.Toast;
 
-public class Tabs extends AppCompatActivity {
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 
-    String pseudo, compte;
-    int currentTab;
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
+public class Tabs extends AppCompatActivity implements
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+
     Context context;
     static Tabs instTabs;
     SharedPreferences pref;
+
+    String pseudo, compte;
+    int currentTab, tabCount, tab;
 
     DrawerLayout mDrawerLayout;
     TabHost tabHost;
     TabWidget tw;
     TextView lblTitreTab;
     EditText edtSearchEtab, edtSearchVille, edtSearchSpecialite, edtSearchArticle, edtSearchCommande;
+    LinearLayout layoutVille;
+
+    GoogleApiClient mGoogleApiClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +67,9 @@ public class Tabs extends AppCompatActivity {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         tabHost = (TabHost) findViewById(R.id.tabHost);
-        tw = (TabWidget)tabHost.findViewById(android.R.id.tabs);
+        tw = (TabWidget) tabHost.findViewById(android.R.id.tabs);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        layoutVille = (LinearLayout) findViewById(R.id.layoutVille);
         lblTitreTab = (TextView) findViewById(R.id.lblTitreTab);
         edtSearchEtab = (EditText) findViewById(R.id.edtSearchEtab);
         edtSearchVille = (EditText) findViewById(R.id.edtSearchVille);
@@ -60,71 +82,131 @@ public class Tabs extends AppCompatActivity {
         tabHost.setup(mlam);
 
         // Charge les onglets
-        TabSpec tabSpec = null;
-        View tabView;
-        TextView tv;
-        ImageView tabImageView;
-
-        for (int i = 0; i < 3; i++) {
-            switch (i) {
-                case 0 :
-                    tabSpec = tabHost
-                        .newTabSpec("Etab")
-                        .setIndicator(getString(R.string.tabEtab))
-                        .setContent(new Intent(this, Etablissements.class));
-                    break;
-                case 1 :
-                    tabSpec = tabHost
-                        .newTabSpec("Pan")
-                        .setIndicator(getString(R.string.tabPanier))
-                        .setContent(new Intent(this, Panier.class));
-                    break;
-                case 2 :
-                    tabSpec = tabHost
-                        .newTabSpec("Com")
-                        .setIndicator(getString(R.string.tabCommandes))
-                        .setContent(new Intent(this, Commandes.class));
-                    break;
-            }
-
-            // Réduit la hauteur et la police des onglets
-            tabHost.addTab(tabSpec);
-            tabHost.getTabWidget().getChildAt(i).getLayoutParams().height /= 1.5;
-
-            tabView = tw.getChildTabViewAt(i);
-            tv = (TextView) tabView.findViewById(android.R.id.title);
-            tv.setSingleLine();
-            tv.setTextSize(12);
-
-            // Charge les icônes
-            tabImageView = (ImageView) tabHost.getTabWidget().getChildTabViewAt(i).findViewById(android.R.id.icon);
-            tabImageView.setVisibility(View.VISIBLE);
-
-            switch (i) {
-                case 0 : tabImageView.setImageResource(R.drawable.ic_eta); break;
-                case 1 : tabImageView.setImageResource(R.drawable.ic_pan); break;
-                case 2 : tabImageView.setImageResource(R.drawable.ic_com); break;
-            }
-        }
+        CustomTab customTab = new CustomTab(context, tabHost, tw, getString(R.string.varTabs));
+        tabHost = customTab.load();
 
         checkPref();
+
+        // Détecte les mouvements de glissement pour changer d'onglet
+        tabHost.setOnTouchListener(new OnSwipeListener(context) {
+            public void onSwipeLeft() {
+                tabCount = tabHost.getTabWidget().getTabCount() - 1;
+                tab = tabHost.getCurrentTab() + 1;
+
+                if (tab > tabCount)
+                    tabHost.setCurrentTab(0);
+                else
+                    tabHost.setCurrentTab(tab);
+            }
+
+            public void onSwipeRight() {
+                tabCount = tabHost.getTabWidget().getTabCount() - 1;
+                tab = tabHost.getCurrentTab() - 1;
+
+                if (tab < 0)
+                    tabHost.setCurrentTab(tabCount);
+                else
+                    tabHost.setCurrentTab(tab);
+            }
+        });
 
         // Change le contenus du drawer on fonction de l'onglet chargé
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
+
                 currentTab = tabHost.getCurrentTab();
                 switch (currentTab) {
-                    case 0 : loadEtabTabDrawer(); break;
-                    case 1 : loadPanTabDrawer(); break;
-                    case 2 : loadComTabDrawer(); break;
+                    case 0: loadEtabTabDrawer(); break;
+                    case 1: loadPanTabDrawer(); break;
+                    case 2: loadComTabDrawer(); break;
                 }
             }
         });
 
+        // Crée une instance de GoogleApi
+        mGoogleApiClient = new GoogleApiClient.Builder(this)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
+                .build();
     }
 
-    // Affiche une notification
+    // Charge le drawer
+
+    private void loadEtabTabDrawer() {
+        lblTitreTab.setText(getString(R.string.lblSearchEtab));
+        layoutVille.setVisibility(View.VISIBLE);
+        edtSearchEtab.setVisibility(View.VISIBLE);
+        edtSearchSpecialite.setVisibility(View.VISIBLE);
+        edtSearchArticle.setVisibility(View.GONE);
+        edtSearchCommande.setVisibility(View.GONE);
+    }
+
+    private void loadPanTabDrawer() {
+        lblTitreTab.setText(getString(R.string.lblSearchPanier));
+        layoutVille.setVisibility(View.GONE);
+        edtSearchEtab.setVisibility(View.GONE);
+        edtSearchSpecialite.setVisibility(View.GONE);
+        edtSearchArticle.setVisibility(View.VISIBLE);
+        edtSearchCommande.setVisibility(View.GONE);
+    }
+
+    private void loadComTabDrawer() {
+        lblTitreTab.setText(getString(R.string.lblSearchCom));
+        layoutVille.setVisibility(View.GONE);
+        edtSearchEtab.setVisibility(View.GONE);
+        edtSearchSpecialite.setVisibility(View.GONE);
+        edtSearchArticle.setVisibility(View.GONE);
+        edtSearchCommande.setVisibility(View.VISIBLE);
+    }
+
+    // Localisation
+
+    public void onClickLocation(View v) {
+        mGoogleApiClient.disconnect();
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnected(Bundle bundle) {
+        double lat, lon;
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (mLastLocation != null) {
+            try {
+                lat = mLastLocation.getLatitude();
+                lon = mLastLocation.getLongitude();
+
+                Geocoder gcd = new Geocoder(context, Locale.getDefault());
+                List<Address> addresses = gcd.getFromLocation(lat, lon, 1);
+
+                if (addresses.size() > 0)
+                    edtSearchVille.setText(addresses.get(0).getLocality());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        else
+            Toast.makeText(context, getString(R.string.geolocationFailed), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onConnectionSuspended(int i) {
+    }
+
+    @Override
+    public void onConnectionFailed(ConnectionResult connectionResult) {
+        Toast.makeText(context, getString(R.string.geolocationFailed), Toast.LENGTH_SHORT).show();
+    }
+
+        // Affiche une notification
 //    public void notif() {
 //        Intent intent = new Intent(context, Login.class);
 //        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
@@ -146,6 +228,11 @@ public class Tabs extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         checkPref();
+    }
+
+    protected void onStop() {
+        mGoogleApiClient.disconnect();
+        super.onStop();
     }
 
     // MENU
@@ -208,34 +295,8 @@ public class Tabs extends AppCompatActivity {
         mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
-    private void loadEtabTabDrawer() {
-        lblTitreTab.setText(getString(R.string.lblSearchEtab));
-        edtSearchVille.setVisibility(View.VISIBLE);
-        edtSearchEtab.setVisibility(View.VISIBLE);
-        edtSearchSpecialite.setVisibility(View.VISIBLE);
-        edtSearchArticle.setVisibility(View.GONE);
-        edtSearchCommande.setVisibility(View.GONE);
-    }
-
-    private void loadPanTabDrawer() {
-        lblTitreTab.setText(getString(R.string.lblSearchPanier));
-        edtSearchVille.setVisibility(View.GONE);
-        edtSearchEtab.setVisibility(View.GONE);
-        edtSearchSpecialite.setVisibility(View.GONE);
-        edtSearchArticle.setVisibility(View.VISIBLE);
-        edtSearchCommande.setVisibility(View.GONE);
-    }
-
-    private void loadComTabDrawer() {
-        lblTitreTab.setText(getString(R.string.lblSearchCom));
-        edtSearchVille.setVisibility(View.GONE);
-        edtSearchEtab.setVisibility(View.GONE);
-        edtSearchSpecialite.setVisibility(View.GONE);
-        edtSearchArticle.setVisibility(View.GONE);
-        edtSearchCommande.setVisibility(View.VISIBLE);
-    }
-
     public static Tabs getInstance(){
         return instTabs;
     }
+
 }

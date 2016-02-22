@@ -25,6 +25,8 @@ public class Compte extends AppCompatActivity {
     LinearLayout layoutMdp, mainLayoutCoord, layoutCoord;
     EditText edtOldMdp, edtNewMdp1, edtNewMdp2, edtNewVille, edtNewCp, edtNewTel, edtNewAd;
 
+    GoogleLocation googleLocation;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,8 @@ public class Compte extends AppCompatActivity {
             edtNewTel.setText(pref.getString(getString(R.string.prefTel), ""));
             edtNewAd.setText(pref.getString(getString(R.string.prefAdresse), ""));
         }
+
+        googleLocation = new GoogleLocation(context);
     }
 
     public void onClickDeco (View v) {
@@ -102,6 +106,16 @@ public class Compte extends AppCompatActivity {
         }
     }
 
+    public void onClickLocationAd(View v) {
+        if (googleLocation.address == null)
+            googleLocation = new GoogleLocation(context);
+        if (googleLocation.address != null) {
+            edtNewCp.setText(googleLocation.getCp());
+            edtNewVille.setText(googleLocation.getCity());
+            edtNewAd.setText(googleLocation.getAddress());
+        }
+    }
+
     public void onClickCoordChange(View v) {
         if (layoutCoord.getVisibility() == View.VISIBLE)
             layoutCoord.setVisibility(View.GONE);
@@ -142,6 +156,11 @@ public class Compte extends AppCompatActivity {
                 }
             })
             .show();
+    }
+
+    protected void onStop() {
+        googleLocation.disconnect();
+        super.onStop();
     }
 
     public void deco() {

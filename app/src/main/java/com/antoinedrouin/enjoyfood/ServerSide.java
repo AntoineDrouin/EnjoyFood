@@ -185,7 +185,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                 // Cherche un compte avec les identifiants en paramètres
                 else if (script.equals(context.getString(R.string.checkIdentifiants))) {
-                    user = mdp = compte = nom = prenom = ville = cp = tel = adresse = "";
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);

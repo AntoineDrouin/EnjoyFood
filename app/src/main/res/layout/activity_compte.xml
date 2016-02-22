@@ -89,12 +89,22 @@
                             android:layout_height="match_parent">
 
                             <EditText
-                                android:layout_width="fill_parent"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:ems="10"
                                 android:id="@+id/edtNewAdresse"
                                 android:hint="@string/edtAdresse"
-                                android:inputType="textPersonName" />
+                                android:inputType="textPersonName"
+                                android:layout_weight="1"/>
+
+                            <ImageButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/ic_location"
+                                android:id="@+id/btnLocationAd"
+                                android:onClick="onClickLocationAd"
+                                android:layout_weight="1"
+                                android:background="@null"/>
                         </LinearLayout>
 
                     </LinearLayout>

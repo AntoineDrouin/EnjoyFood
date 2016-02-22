@@ -65,7 +65,7 @@ public class Login extends AppCompatActivity {
         });
 
 
-
+        // Bouton Facebook
 
         CallbackManager callbackManager = CallbackManager.Factory.create();
 

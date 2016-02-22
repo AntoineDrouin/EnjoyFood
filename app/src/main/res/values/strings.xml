@@ -13,6 +13,7 @@
     <string name="varReponseJson" translatable="false">response</string>
     <string name="varTabs" translatable="false">varTabs</string>
     <string name="varEtab" translatable="false">varEtab</string>
+    <string name="varDbName" translatable="false">dbEnjoyFood</string>
 
     <!-- Scripts -->
     <string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
@@ -89,12 +90,15 @@
     <string name="btnDeco">Log out</string>
     <string name="btnSearch">Search</string>
     <string name="btnConnexion">Connection</string>
+    <string name="btnSearchEtab">Search restaurant</string>
+    <string name="btnEmptyLvEtab">Empty list</string>
 
     <!-- Labels -->
     <string name="lblTypeCompte">Type of account :</string>
     <string name="lblSearchEtab">Search a restaurant</string>
     <string name="lblSearchPanier">Search in the cart</string>
     <string name="lblSearchCom">Search in orders</string>
+    <string name="lblLvEtab">Recently consulted restaurants</string>
 
     <!-- EditTexts -->
     <string name="edtPseudo">Pseudonym</string>
@@ -122,6 +126,6 @@
     <string name="tabNotes">Scores</string>
 
     <!-- ListView -->
-    <string name="lvIndicSearch">Open the search menu</string>
+    <string name="lvIndicSearch">SEARCH MORE RESTAURANTS</string>
 
 </resources>

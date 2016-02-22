@@ -38,7 +38,8 @@
             android:src="@drawable/ic_location"
             android:id="@+id/btnLocation"
             android:onClick="onClickLocation"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="@null"/>
 
     </LinearLayout>
 

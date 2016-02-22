@@ -63,6 +63,9 @@
     <string name="varClient">Client</string>
     <string name="varGerant">Manager</string>
     <string name="connectionFail">Aucun compte trouvé</string>
-    <string name="lvIndicSearch">Ouvrir le menu de recherche</string>
+    <string name="lvIndicSearch">CHERCHER PLUS D\'ETABLISSEMENTS</string>
     <string name="geolocationFailed">Géolocalisation indisponible</string>
+    <string name="btnEmptyLvEtab">Vider la liste</string>
+    <string name="btnSearchEtab">Chercher un établissement</string>
+    <string name="lblLvEtab">Établissements récemment consultés</string>
 </resources>

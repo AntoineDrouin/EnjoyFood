@@ -1,17 +1,11 @@
 package com.antoinedrouin.enjoyfood;
 
-import android.Manifest;
 import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -26,17 +20,7 @@ import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.location.places.Places;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
-
-public class Tabs extends AppCompatActivity implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class Tabs extends AppCompatActivity {
 
     Context context;
     static Tabs instTabs;
@@ -52,7 +36,7 @@ public class Tabs extends AppCompatActivity implements
     EditText edtSearchEtab, edtSearchVille, edtSearchSpecialite, edtSearchArticle, edtSearchCommande;
     LinearLayout layoutVille;
 
-    GoogleApiClient mGoogleApiClient;
+    GoogleLocation googleLocation;
 
 
     @Override
@@ -114,7 +98,6 @@ public class Tabs extends AppCompatActivity implements
         tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
             @Override
             public void onTabChanged(String tabId) {
-
                 currentTab = tabHost.getCurrentTab();
                 switch (currentTab) {
                     case 0: loadEtabTabDrawer(); break;
@@ -124,13 +107,7 @@ public class Tabs extends AppCompatActivity implements
             }
         });
 
-        // Crée une instance de GoogleApi
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API)
-                .addApi(Places.GEO_DATA_API)
-                .build();
+        googleLocation = new GoogleLocation(context);
     }
 
     // Charge le drawer
@@ -165,45 +142,10 @@ public class Tabs extends AppCompatActivity implements
     // Localisation
 
     public void onClickLocation(View v) {
-        mGoogleApiClient.disconnect();
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnected(Bundle bundle) {
-        double lat, lon;
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            try {
-                lat = mLastLocation.getLatitude();
-                lon = mLastLocation.getLongitude();
-
-                Geocoder gcd = new Geocoder(context, Locale.getDefault());
-                List<Address> addresses = gcd.getFromLocation(lat, lon, 1);
-
-                if (addresses.size() > 0)
-                    edtSearchVille.setText(addresses.get(0).getLocality());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        else
-            Toast.makeText(context, getString(R.string.geolocationFailed), Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onConnectionSuspended(int i) {
-    }
-
-    @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(context, getString(R.string.geolocationFailed), Toast.LENGTH_SHORT).show();
+        if (googleLocation.address == null)
+            googleLocation = new GoogleLocation(context);
+        if (googleLocation.address != null)
+            edtSearchVille.setText(googleLocation.getCity());
     }
 
         // Affiche une notification
@@ -231,7 +173,7 @@ public class Tabs extends AppCompatActivity implements
     }
 
     protected void onStop() {
-        mGoogleApiClient.disconnect();
+        googleLocation.disconnect();
         super.onStop();
     }
 

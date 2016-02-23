@@ -20,12 +20,13 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/edtEtablissement"
                 android:id="@+id/lblNomEtab"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center" />
 
             <TabWidget
                 android:id="@android:id/tabs"

@@ -62,6 +62,7 @@ public class Etablissement extends AppCompatActivity {
                     tabHost.setCurrentTab(tab);
             }
         });
+
     }
 
     public static Etablissement getInstance(){

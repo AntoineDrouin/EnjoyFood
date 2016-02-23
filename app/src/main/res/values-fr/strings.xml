@@ -33,8 +33,6 @@
     <string name="eraseCompteFail">Suppression du compte annulée</string>
     <string name="eraseCompteMessage">La suppression du compte est définitive. Voulez-vous vraiment continuer ?</string>
     <string name="eraseCompteSuccess">Suppression du compte réussie</string>
-    <string name="errorAdresse">Veuillez saisir une adresse</string>
-    <string name="errorCp">Veuillez saisir un code postal</string>
     <string name="errorMdpLength">Le mot de passe doit faire au moins 3 caractères</string>
     <string name="errorMdpNotSame">Les mots de passe sont différents</string>
     <string name="errorMdpSame">L\'ancien et le nouveau mot de passe sont identiques</string>
@@ -42,8 +40,6 @@
     <string name="errorOldMdp">L\'ancien mot de passe est incorrect</string>
     <string name="errorPrenom">Veuillez saisir un prénom</string>
     <string name="errorPseudoLength">Le pseudonyme doit faire au moins 3 caractères</string>
-    <string name="errorTel">Veuillez saisir un numéro de téléphone</string>
-    <string name="errorVille">Veuillez saisir une ville</string>
     <string name="insertUtilisateurFail">Ce pseudonyme est déjà utilisé</string>
     <string name="insertUtilisateurSuccess">Utilisateur créé avec succès</string>
     <string name="lblSearchCom">Recherche dans les commandes</string>
@@ -63,9 +59,7 @@
     <string name="varClient">Client</string>
     <string name="varGerant">Manager</string>
     <string name="connectionFail">Aucun compte trouvé</string>
-    <string name="lvIndicSearch">CHERCHER PLUS D\'ETABLISSEMENTS</string>
     <string name="geolocationFailed">Géolocalisation indisponible</string>
-    <string name="btnEmptyLvEtab">Vider la liste</string>
-    <string name="btnSearchEtab">Chercher un établissement</string>
-    <string name="lblLvEtab">Établissements récemment consultés</string>
+    <string name="spinVarLvRecent">Établissements récents</string>
+    <string name="spinVarLvSearch">Établissements proches</string>
 </resources>

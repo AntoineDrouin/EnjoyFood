@@ -12,11 +12,18 @@
         <item name="colorAccent">@color/mainColor</item>
         <item name="android:panelBackground">@color/colorButtonFont</item>
         <item name="android:buttonStyle">@style/buttonStyle</item>
+        <item name="android:imageButtonStyle">@style/imageButtonStyle</item>
     </style>
 
     <style name="buttonStyle" parent="Base.Widget.AppCompat.Button">
         <item name="android:background">@color/mainColor</item>
         <item name="android:textColor">@color/colorButtonFont</item>
+    </style>
+
+    <style name="imageButtonStyle" parent="Base.Widget.AppCompat.ImageButton">
+        <item name="android:background">@color/mainColor</item>
+        <item name="android:textColor">@color/colorButtonFont</item>
+        <item name="android:layout_margin">@dimen/activity_big_padding</item>
     </style>
 
 </resources>

@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +26,7 @@ public class Etablissements extends Activity {
     SQLiteDatabase dbEF;
 
     ListView lvEtab;
+    Spinner spinEtab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,8 @@ public class Etablissements extends Activity {
         dbEF.execSQL("CREATE TABLE IF NOT EXISTS Etablissement (nomEt VARCHAR, adresseEt VARCHAR, villeEt VARCHAR)");
 
         lvEtab = (ListView) findViewById(R.id.lvEtab);
+        spinEtab = (Spinner) findViewById(R.id.spinEtab);
+        final ImageButton btnEmptyLvEtab = (ImageButton) findViewById(R.id.btnEmptyLvEtab);
 
         fillLvWithDb();
 
@@ -45,11 +51,30 @@ public class Etablissements extends Activity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Object o = lvEtab.getItemAtPosition(position);
+                openEtab(o.toString());
+            }
+        });
 
-                if (o.toString().equals(getString(R.string.lvIndicSearch)))
-                    openPlacePicker();
-                else
-                    openEtab(o.toString());
+        spinEtab.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                String result = spinEtab.getSelectedItem().toString();
+
+                // Charge les établissements récents
+                if (result.equals(getString(R.string.spinVarLvRecent))) {
+                    btnEmptyLvEtab.setVisibility(View.VISIBLE);
+                    searchInLv();
+                }
+
+                // Prépare l'interface à la recherche
+                else if (result.equals(getString(R.string.spinVarLvSearch))) {
+                    btnEmptyLvEtab.setVisibility(View.GONE);
+                    emptyLvEtab();
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
     }
@@ -59,7 +84,6 @@ public class Etablissements extends Activity {
         List<String> listEtab = new ArrayList<>();
 
         Cursor loadEtabs = dbEF.rawQuery("Select nomEt from Etablissement", null);
-        loadEtabs.moveToFirst();
 
         if (loadEtabs.moveToFirst()) {
             String nom;
@@ -68,8 +92,6 @@ public class Etablissements extends Activity {
                 listEtab.add(nom);
             } while (loadEtabs.moveToNext());
         }
-
-        listEtab.add(getString(R.string.lvIndicSearch));
 
         arrayAdapter = new ArrayAdapter<>(
                 this,
@@ -83,20 +105,66 @@ public class Etablissements extends Activity {
         Tabs.getInstance().openDrawer();
     }
 
-    public void emptyLvEtab(View v) {
-        // Supprime tous les éléments de la listview sauf celui qui permet d'ouvrir le PlacePicker
-        arrayAdapter.clear();
-        arrayAdapter.add(getString(R.string.lvIndicSearch));
-        arrayAdapter.notifyDataSetChanged();
+    public void searchInLv() {
+        String nom, ville, nomEt, query;
+        List<String> listEtab = new ArrayList<>();
+        nom = ((EditText) Tabs.getInstance().findViewById(R.id.edtSearchEtab)).getText().toString();
+        ville = ((EditText) Tabs.getInstance().findViewById(R.id.edtSearchVille)).getText().toString();
 
+        emptyLvEtab();
+
+        // Pour le "like"
+        if (!nom.equals(""))
+            nom = "%" + nom + "%";
+        if (!ville.equals(""))
+            ville = "%" + ville + "%";
+
+        // Requête par défaut
+        query = "Select nomEt from Etablissement ";
+        Cursor loadEtabs = dbEF.rawQuery(query, null);
+
+        // Requêtes avec les paramètres
+        if (!nom.equals("") && !ville.equals(""))
+            loadEtabs = dbEF.rawQuery(query + "Where nomEt like ? and villeEt like ?", new String[]{nom, ville});
+        else if (!nom.equals(""))
+            loadEtabs = dbEF.rawQuery(query + "Where nomEt like ?", new String[]{nom});
+        else if (!ville.equals(""))
+            loadEtabs = dbEF.rawQuery(query + "Where villeEt like ?", new String[]{ville});
+
+        if (loadEtabs.moveToFirst()) {
+            do {
+                nomEt = loadEtabs.getString(loadEtabs.getColumnIndex("nomEt"));
+                listEtab.add(nomEt);
+            } while (loadEtabs.moveToNext());
+        }
+
+        arrayAdapter = new ArrayAdapter<>(
+                this,
+                android.R.layout.simple_list_item_1,
+                listEtab);
+
+        lvEtab.setAdapter(arrayAdapter);
+    }
+
+    public void emptyLvEtab(View v) {
+        emptyLvEtab();
+
+        // Également les établissements dans la base
         dbEF.execSQL("Delete from Etablissement");
     }
 
-    private void openPlacePicker() {
+    private void emptyLvEtab(){
+        // Supprime tous les éléments de la listview
+        arrayAdapter.clear();
+        arrayAdapter.notifyDataSetChanged();
+    }
+
+    public void openPlacePicker(View v) {
         startActivity(new Intent(this, MapPlacePicker.class));
     }
 
     private void openEtab(String nomEtab) {
+        // Ouvre la fiche d'un établissement en passant en paramètre son nom
         Intent intentEtab = new Intent(this, Etablissement.class);
         intentEtab.putExtra(getString(R.string.extraEtabName), nomEtab);
         startActivity(intentEtab);

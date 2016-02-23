@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class Tabs extends AppCompatActivity {
 
@@ -225,9 +224,9 @@ public class Tabs extends AppCompatActivity {
 
     public void onClickSearch(View v) {
         switch (currentTab) {
-            case 0 : break;
-            case 1 : break;
-            case 2 : break;
+            case 0 : Etablissements.getInstance().searchInLv(); break;
+            case 1 : Panier.getInstance().searchInLv(); break;
+            case 2 : Commandes.getInstance().searchInLv(); break;
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);

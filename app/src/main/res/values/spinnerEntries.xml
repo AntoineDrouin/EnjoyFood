@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="spinCompte">
+        <item>@string/varClient</item>
+        <item>@string/varGerant</item>
+    </string-array>
+
+    <string-array name="spinLvEtab">
+        <item>@string/spinVarLvSearch</item>
+        <item>@string/spinVarLvRecent</item>
+    </string-array>
+
+</resources>

@@ -49,10 +49,6 @@
     <string name="errorOldMdp">The old password is incorrect</string>
     <string name="errorNom">Please enter a first name</string>
     <string name="errorPrenom">Please enter a last name</string>
-    <string name="errorVille">Please enter a city</string>
-    <string name="errorCp">Please enter a zip code</string>
-    <string name="errorTel">Please enter a phone number</string>
-    <string name="errorAdresse">Please enter an addresse</string>
 
     <!-- Preferences -->
     <string name="prefPseudo" translatable="false">pseudo</string>
@@ -90,15 +86,12 @@
     <string name="btnDeco">Log out</string>
     <string name="btnSearch">Search</string>
     <string name="btnConnexion">Connection</string>
-    <string name="btnSearchEtab">Search restaurant</string>
-    <string name="btnEmptyLvEtab">Empty list</string>
 
     <!-- Labels -->
     <string name="lblTypeCompte">Type of account :</string>
     <string name="lblSearchEtab">Search a restaurant</string>
     <string name="lblSearchPanier">Search in the cart</string>
     <string name="lblSearchCom">Search in orders</string>
-    <string name="lblLvEtab">Recently consulted restaurants</string>
 
     <!-- EditTexts -->
     <string name="edtPseudo">Pseudonym</string>
@@ -125,7 +118,8 @@
     <string name="tabMenu">Menu</string>
     <string name="tabNotes">Scores</string>
 
-    <!-- ListView -->
-    <string name="lvIndicSearch">SEARCH MORE RESTAURANTS</string>
+    <!-- Spinners -->
+    <string name="spinVarLvRecent">Recent restaurants</string>
+    <string name="spinVarLvSearch">Restaurants nearby</string>
 
 </resources>

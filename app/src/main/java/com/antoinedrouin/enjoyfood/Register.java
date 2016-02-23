@@ -8,13 +8,9 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Register extends AppCompatActivity {
 
@@ -28,12 +24,6 @@ public class Register extends AppCompatActivity {
 
         context = getApplicationContext();
         instRegister = this;
-
-        List comptes = new ArrayList<>();
-        comptes.add(getString(R.string.varClient));
-        comptes.add(getString(R.string.varGerant));
-
-        ((Spinner) findViewById(R.id.spinCompte)).setAdapter(new ArrayAdapter<>(this, android.R.layout.select_dialog_item, comptes));
     }
 
 

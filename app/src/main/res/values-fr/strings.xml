@@ -59,7 +59,7 @@
     <string name="varClient">Client</string>
     <string name="varGerant">Manager</string>
     <string name="connectionFail">Aucun compte trouvé</string>
-    <string name="geolocationFailed">Géolocalisation indisponible</string>
+    <string name="geolocationFailed">Géolocalisation indisponible. Voulez-vous l\'activer ?</string>
     <string name="spinVarLvRecent">Établissements récents</string>
     <string name="spinVarLvSearch">Établissements proches</string>
 </resources>

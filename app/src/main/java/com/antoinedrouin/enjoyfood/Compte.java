@@ -60,8 +60,6 @@ public class Compte extends AppCompatActivity {
             edtNewTel.setText(pref.getString(getString(R.string.prefTel), ""));
             edtNewAd.setText(pref.getString(getString(R.string.prefAdresse), ""));
         }
-
-        googleLocation = new GoogleLocation(context);
     }
 
     public void onClickDeco (View v) {
@@ -108,7 +106,7 @@ public class Compte extends AppCompatActivity {
 
     public void onClickLocationAd(View v) {
         if (googleLocation.address == null)
-            googleLocation = new GoogleLocation(context);
+            googleLocation = new GoogleLocation(context, instCompte, true);
         if (googleLocation.address != null) {
             edtNewCp.setText(googleLocation.getCp());
             edtNewVille.setText(googleLocation.getCity());
@@ -156,6 +154,16 @@ public class Compte extends AppCompatActivity {
                 }
             })
             .show();
+    }
+
+    protected void onStart() {
+        googleLocation = new GoogleLocation(context, false);
+        super.onStart();
+    }
+
+    protected void onResume() {
+        googleLocation = new GoogleLocation(context, false);
+        super.onResume();
     }
 
     protected void onStop() {

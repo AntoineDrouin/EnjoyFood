@@ -1,23 +1,30 @@
 package com.antoinedrouin.enjoyfood;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class Commandes extends Activity {
+public class Commandes extends Fragment {
 
-    Context context;
+    static Commandes instCommandes;
 
-    static Commandes instCom;
+    public static Commandes newInstance() {
+        Commandes fragment = new Commandes();
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_commandes);
+        instCommandes = this;
+    }
 
-        context = getApplicationContext();
-
-        instCom = this;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_commandes, container, false);
+        return view;
     }
 
     public void searchInLv() {
@@ -25,6 +32,6 @@ public class Commandes extends Activity {
     }
 
     public static Commandes getInstance() {
-        return instCom;
+        return instCommandes;
     }
 }

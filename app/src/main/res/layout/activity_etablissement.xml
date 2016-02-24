@@ -1,48 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_big_padding"
-    android:paddingRight="@dimen/activity_big_padding"
-    tools:context="com.antoinedrouin.enjoyfood.Etablissement">
+    android:orientation="vertical">
 
-    <TabHost
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/tabHostEtab"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/edtEtablissement"
+        android:id="@+id/lblNomEtab"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabLayoutEtab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/customTabLayout"/>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="@string/edtEtablissement"
-                android:id="@+id/lblNomEtab"
-                android:layout_gravity="center_horizontal"
-                android:textAlignment="center" />
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerEtab"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_weight="1"
+        android:background="@android:color/white" />
 
-            <TabWidget
-                android:id="@android:id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <FrameLayout
-                android:id="@android:id/tabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:animateLayoutChanges="true" >
-
-            </FrameLayout>
-
-        </LinearLayout>
-
-    </TabHost>
-
-</RelativeLayout>
+</LinearLayout>

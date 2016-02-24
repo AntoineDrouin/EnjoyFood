@@ -1,12 +1,14 @@
 package com.antoinedrouin.enjoyfood;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -17,7 +19,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Etablissements extends Activity {
+public class Etablissements extends Fragment {
 
     Context context;
     static Etablissements instEtabs;
@@ -28,22 +30,30 @@ public class Etablissements extends Activity {
     ListView lvEtab;
     Spinner spinEtab;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_etablissements);
+    public static Etablissements newInstance() {
+        Etablissements fragment = new Etablissements();
+        return fragment;
+    }
 
-        context = getApplicationContext();
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         instEtabs = this;
+        context = getContext();
 
         // Création de la bdd si elle n'existe pas
-        dbEF = openOrCreateDatabase(getString(R.string.varDbName), MODE_PRIVATE, null);
+        dbEF = getActivity().openOrCreateDatabase(getString(R.string.varDbName), context.MODE_PRIVATE, null);
         // Création de la table si elle n'existe pas
         dbEF.execSQL("CREATE TABLE IF NOT EXISTS Etablissement (nomEt VARCHAR, adresseEt VARCHAR, villeEt VARCHAR)");
+    }
 
-        lvEtab = (ListView) findViewById(R.id.lvEtab);
-        spinEtab = (Spinner) findViewById(R.id.spinEtab);
-        final ImageButton btnEmptyLvEtab = (ImageButton) findViewById(R.id.btnEmptyLvEtab);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_etablissements, container, false);
+
+        lvEtab = (ListView) view.findViewById(R.id.lvEtab);
+        spinEtab = (Spinner) view.findViewById(R.id.spinEtab);
+        final ImageButton btnEmptyLvEtab = (ImageButton) view.findViewById(R.id.btnEmptyLvEtab);
 
         fillLvWithDb();
 
@@ -69,7 +79,7 @@ public class Etablissements extends Activity {
                 // Prépare l'interface à la recherche
                 else if (result.equals(getString(R.string.spinVarLvSearch))) {
                     btnEmptyLvEtab.setVisibility(View.GONE);
-                    emptyLvEtab();
+                    emptyLv();
                 }
             }
 
@@ -77,8 +87,8 @@ public class Etablissements extends Activity {
             public void onNothingSelected(AdapterView<?> arg0) {
             }
         });
+        return view;
     }
-
 
     public void fillLvWithDb() {
         List<String> listEtab = new ArrayList<>();
@@ -94,15 +104,11 @@ public class Etablissements extends Activity {
         }
 
         arrayAdapter = new ArrayAdapter<>(
-                this,
+                context,
                 android.R.layout.simple_list_item_1,
                 listEtab);
 
         lvEtab.setAdapter(arrayAdapter);
-    }
-
-    public void openDrawerEtab(View v) {
-        Tabs.getInstance().openDrawer();
     }
 
     public void searchInLv() {
@@ -111,7 +117,7 @@ public class Etablissements extends Activity {
         nom = ((EditText) Tabs.getInstance().findViewById(R.id.edtSearchEtab)).getText().toString();
         ville = ((EditText) Tabs.getInstance().findViewById(R.id.edtSearchVille)).getText().toString();
 
-        emptyLvEtab();
+        emptyLv();
 
         // Pour le "like"
         if (!nom.equals(""))
@@ -139,33 +145,29 @@ public class Etablissements extends Activity {
         }
 
         arrayAdapter = new ArrayAdapter<>(
-                this,
+                context,
                 android.R.layout.simple_list_item_1,
                 listEtab);
 
         lvEtab.setAdapter(arrayAdapter);
     }
 
-    public void emptyLvEtab(View v) {
-        emptyLvEtab();
+    public void emptyLvEtab() {
+        emptyLv();
 
         // Également les établissements dans la base
         dbEF.execSQL("Delete from Etablissement");
     }
 
-    private void emptyLvEtab(){
+    private void emptyLv(){
         // Supprime tous les éléments de la listview
         arrayAdapter.clear();
         arrayAdapter.notifyDataSetChanged();
     }
 
-    public void openPlacePicker(View v) {
-        startActivity(new Intent(this, MapPlacePicker.class));
-    }
-
     private void openEtab(String nomEtab) {
         // Ouvre la fiche d'un établissement en passant en paramètre son nom
-        Intent intentEtab = new Intent(this, Etablissement.class);
+        Intent intentEtab = new Intent(context, Etablissement.class);
         intentEtab.putExtra(getString(R.string.extraEtabName), nomEtab);
         startActivity(intentEtab);
     }
@@ -173,5 +175,4 @@ public class Etablissements extends Activity {
     public static Etablissements getInstance() {
         return instEtabs;
     }
-
 }

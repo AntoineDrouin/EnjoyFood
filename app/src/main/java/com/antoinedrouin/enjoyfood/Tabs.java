@@ -1,12 +1,13 @@
 package com.antoinedrouin.enjoyfood;
 
-import android.app.LocalActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -15,8 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TabHost;
-import android.widget.TabWidget;
 import android.widget.TextView;
 
 public class Tabs extends AppCompatActivity {
@@ -26,17 +25,14 @@ public class Tabs extends AppCompatActivity {
     SharedPreferences pref;
 
     String pseudo, compte;
-    int currentTab, tabCount, tab;
+    int currentTab;
 
     DrawerLayout mDrawerLayout;
-    TabHost tabHost;
-    TabWidget tw;
     TextView lblTitreTab;
     EditText edtSearchEtab, edtSearchVille, edtSearchSpecialite, edtSearchArticle, edtSearchCommande;
     LinearLayout layoutVille;
 
     GoogleLocation googleLocation;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +45,6 @@ public class Tabs extends AppCompatActivity {
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
-        tabHost = (TabHost) findViewById(R.id.tabHost);
-        tw = (TabWidget) tabHost.findViewById(android.R.id.tabs);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         layoutVille = (LinearLayout) findViewById(R.id.layoutVille);
         lblTitreTab = (TextView) findViewById(R.id.lblTitreTab);
@@ -60,53 +54,33 @@ public class Tabs extends AppCompatActivity {
         edtSearchCommande = (EditText) findViewById(R.id.edtSearchCommande);
         edtSearchSpecialite = (EditText) findViewById(R.id.edtSearchSpecialite);
 
-        LocalActivityManager mlam = new LocalActivityManager(this, false);
-        mlam.dispatchCreate(savedInstanceState);
-        tabHost.setup(mlam);
+        googleLocation = new GoogleLocation(context, false);
 
-        // Charge les onglets
-        CustomTab customTab = new CustomTab(context, tabHost, tw, getString(R.string.varTabs));
-        tabHost = customTab.load();
+        // Remplis le viewPager
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerTabs);
+        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), context, 0));
 
-        checkPref();
+        // Donne le viewPage au tabLayout
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutTabs);
+        tabLayout.setupWithViewPager(viewPager);
 
-        // Détecte les mouvements de glissement pour changer d'onglet
-        tabHost.setOnTouchListener(new OnSwipeListener(context) {
-            public void onSwipeLeft() {
-                tabCount = tabHost.getTabWidget().getTabCount() - 1;
-                tab = tabHost.getCurrentTab() + 1;
-
-                if (tab > tabCount)
-                    tabHost.setCurrentTab(0);
-                else
-                    tabHost.setCurrentTab(tab);
-            }
-
-            public void onSwipeRight() {
-                tabCount = tabHost.getTabWidget().getTabCount() - 1;
-                tab = tabHost.getCurrentTab() - 1;
-
-                if (tab < 0)
-                    tabHost.setCurrentTab(tabCount);
-                else
-                    tabHost.setCurrentTab(tab);
-            }
-        });
-
-        // Change le contenus du drawer on fonction de l'onglet chargé
-        tabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onTabChanged(String tabId) {
-                currentTab = tabHost.getCurrentTab();
+            public void onTabSelected(TabLayout.Tab tab) {
+                currentTab = tab.getPosition();
                 switch (currentTab) {
                     case 0: loadEtabTabDrawer(); break;
                     case 1: loadPanTabDrawer(); break;
                     case 2: loadComTabDrawer(); break;
                 }
             }
-        });
 
-        googleLocation = new GoogleLocation(context);
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {}
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
     }
 
     // Charge le drawer
@@ -142,9 +116,21 @@ public class Tabs extends AppCompatActivity {
 
     public void onClickLocation(View v) {
         if (googleLocation.address == null)
-            googleLocation = new GoogleLocation(context);
+            googleLocation = new GoogleLocation(context, instTabs, true);
         if (googleLocation.address != null)
             edtSearchVille.setText(googleLocation.getCity());
+    }
+
+    public void openDrawerEtab(View v) {
+        mDrawerLayout.openDrawer(GravityCompat.START);
+    }
+
+    public void openPlacePicker(View v) {
+        startActivity(new Intent(context, MapPlacePicker.class));
+    }
+
+    public void emptyLvEtab(View v) {
+        Etablissements.getInstance().emptyLvEtab();
     }
 
         // Affiche une notification
@@ -167,8 +153,15 @@ public class Tabs extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
+        googleLocation = new GoogleLocation(context, false);
         checkPref();
+        super.onResume();
+    }
+
+    @Override
+    protected void onStart(){
+        googleLocation = new GoogleLocation(context, false);
+        super.onStart();
     }
 
     protected void onStop() {
@@ -230,10 +223,6 @@ public class Tabs extends AppCompatActivity {
         }
 
         mDrawerLayout.closeDrawer(GravityCompat.START);
-    }
-
-    public void openDrawer() {
-        mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
     public static Tabs getInstance(){

@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -24,6 +24,14 @@
         <item name="android:background">@color/mainColor</item>
         <item name="android:textColor">@color/colorButtonFont</item>
         <item name="android:layout_margin">@dimen/activity_big_padding</item>
+    </style>
+
+    <style name="customTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/customTextAppearance</item>
+    </style>
+
+    <style name="customTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
     </style>
 
 </resources>

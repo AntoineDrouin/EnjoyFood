@@ -1,13 +1,27 @@
 package com.antoinedrouin.enjoyfood;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class Coordonnees extends Activity {
+
+public class Coordonnees extends Fragment {
+
+    public static Coordonnees newInstance() {
+        Coordonnees fragment = new Coordonnees();
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coordonnees);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_coordonnees, container, false);
+        return view;
     }
 }

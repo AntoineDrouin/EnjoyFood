@@ -39,7 +39,7 @@
     <string name="eraseCompteFail">Delete account canceled</string>
     <string name="changeMdpSuccess">Password changed</string>
     <string name="changeCoordSuccess">Contact information changed</string>
-    <string name="geolocationFailed">Geolocation not available</string>
+    <string name="geolocationFailed">Geolocation not available. Would you like to turn it on ?</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>

@@ -1,12 +1,17 @@
 package com.antoinedrouin.enjoyfood;
 
 import android.Manifest;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
@@ -27,13 +32,28 @@ public class GoogleLocation implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     Context context;
+    Activity activity;
     GoogleApiClient mGoogleApiClient;
+    boolean popup;
 
     Address address;
 
-    public GoogleLocation(Context gcontext) {
+    public GoogleLocation(Context gcontext, boolean gPopup) {
         context = gcontext;
+        popup = gPopup;
 
+       connect();
+    }
+
+    public GoogleLocation(Context gcontext, Activity gActivity, boolean gPopup) {
+        context = gcontext;
+        activity = gActivity;
+        popup = gPopup;
+
+        connect();
+    }
+
+    private void connect() {
         // Crée une instance de GoogleApi
         mGoogleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
@@ -69,8 +89,25 @@ public class GoogleLocation implements
                 e.printStackTrace();
             }
         }
-        else
-            Toast.makeText(context, context.getString(R.string.geolocationFailed), Toast.LENGTH_SHORT).show();
+        else {
+            if (popup) {
+                new AlertDialog.Builder(activity)
+                        .setMessage(context.getString(R.string.geolocationFailed))
+                        .setCancelable(false)
+                        .setNegativeButton(context.getString(R.string.varNo), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        })
+                        .setPositiveButton(context.getString(R.string.varYes), new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                context.startActivity(intent);
+                            }
+                        })
+                        .show();
+            }
+        }
     }
 
     @Override
@@ -109,5 +146,4 @@ public class GoogleLocation implements
 
         return value;
     }
-
 }

@@ -19,4 +19,12 @@
         <item name="android:layout_margin">@dimen/activity_big_padding</item>
     </style>
 
+    <style name="customTabLayout" parent="Widget.Design.TabLayout">
+        <item name="tabTextAppearance">@style/customTextAppearance</item>
+    </style>
+
+    <style name="customTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="textAllCaps">false</item>
+    </style>
+
 </resources>

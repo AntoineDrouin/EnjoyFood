@@ -1,21 +1,26 @@
 package com.antoinedrouin.enjoyfood;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.widget.ExpandableListView;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
-public class Menu extends Activity {
+public class Menu extends Fragment {
 
-    Context context;
+    public static Menu newInstance() {
+        Menu fragment = new Menu();
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+    }
 
-        context = getApplicationContext();
-
-        ExpandableListView explvMenu = (ExpandableListView) findViewById(R.id.explvMenu);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
+        return view;
     }
 }

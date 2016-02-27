@@ -29,6 +29,7 @@ public class Etablissements extends Fragment {
 
     ListView lvEtab;
     Spinner spinEtab;
+    ImageButton btnEmptyLvEtab;
 
     public static Etablissements newInstance() {
         Etablissements fragment = new Etablissements();
@@ -53,9 +54,10 @@ public class Etablissements extends Fragment {
 
         lvEtab = (ListView) view.findViewById(R.id.lvEtab);
         spinEtab = (Spinner) view.findViewById(R.id.spinEtab);
-        final ImageButton btnEmptyLvEtab = (ImageButton) view.findViewById(R.id.btnEmptyLvEtab);
+        btnEmptyLvEtab = (ImageButton) view.findViewById(R.id.btnEmptyLvEtab);
 
         fillLvWithDb();
+        changeItem();
 
         lvEtab.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -68,19 +70,7 @@ public class Etablissements extends Fragment {
         spinEtab.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                String result = spinEtab.getSelectedItem().toString();
-
-                // Charge les établissements récents
-                if (result.equals(getString(R.string.spinVarLvRecent))) {
-                    btnEmptyLvEtab.setVisibility(View.VISIBLE);
-                    searchInLv();
-                }
-
-                // Prépare l'interface à la recherche
-                else if (result.equals(getString(R.string.spinVarLvSearch))) {
-                    btnEmptyLvEtab.setVisibility(View.GONE);
-                    emptyLv();
-                }
+                changeItem();
             }
 
             @Override
@@ -88,6 +78,22 @@ public class Etablissements extends Fragment {
             }
         });
         return view;
+    }
+
+    private void changeItem() {
+        String result = spinEtab.getSelectedItem().toString();
+
+        // Charge les établissements récents
+        if (result.equals(getString(R.string.spinVarLvRecent))) {
+            btnEmptyLvEtab.setVisibility(View.VISIBLE);
+            searchInLv();
+        }
+
+        // Prépare l'interface à la recherche
+        else if (result.equals(getString(R.string.spinVarLvSearch))) {
+            btnEmptyLvEtab.setVisibility(View.GONE);
+            emptyLv();
+        }
     }
 
     public void fillLvWithDb() {

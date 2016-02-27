@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class Compte extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class Compte extends AppCompatActivity {
 
     LinearLayout layoutMdp, mainLayoutCoord, layoutCoord;
     EditText edtOldMdp, edtNewMdp1, edtNewMdp2, edtNewVille, edtNewCp, edtNewTel, edtNewAd;
+    RelativeLayout layoutLoading;
 
     GoogleLocation googleLocation;
 
@@ -43,6 +45,7 @@ public class Compte extends AppCompatActivity {
         layoutMdp = (LinearLayout) findViewById(R.id.layoutMdp);
         mainLayoutCoord = (LinearLayout) findViewById(R.id.mainLayoutCoord);
         layoutCoord = (LinearLayout) findViewById(R.id.layoutCoord);
+        layoutLoading = (RelativeLayout) findViewById(R.id.loadingPanel);
 
         edtOldMdp = (EditText) findViewById(R.id.edtOldMdp);
         edtNewMdp1 = (EditText) findViewById(R.id.edtNewMdp1);
@@ -105,13 +108,22 @@ public class Compte extends AppCompatActivity {
     }
 
     public void onClickLocationAd(View v) {
-        if (googleLocation.address == null)
-            googleLocation = new GoogleLocation(context, instCompte, true);
-        if (googleLocation.address != null) {
-            edtNewCp.setText(googleLocation.getCp());
-            edtNewVille.setText(googleLocation.getCity());
-            edtNewAd.setText(googleLocation.getAddress());
+        if (layoutLoading.getVisibility() == View.GONE) {
+            layoutLoading.setVisibility(View.VISIBLE);
+            googleLocation = new GoogleLocation(context, instCompte, 1);
         }
+    }
+
+    public void goodReturnLocation() {
+        edtNewCp.setText(googleLocation.getCp());
+        edtNewVille.setText(googleLocation.getCity());
+        edtNewAd.setText(googleLocation.getAddress());
+        layoutLoading.setVisibility(View.GONE);
+    }
+
+    public void badReturnLocation(String error) {
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+        layoutLoading.setVisibility(View.GONE);
     }
 
     public void onClickCoordChange(View v) {
@@ -154,21 +166,6 @@ public class Compte extends AppCompatActivity {
                 }
             })
             .show();
-    }
-
-    protected void onStart() {
-        googleLocation = new GoogleLocation(context, false);
-        super.onStart();
-    }
-
-    protected void onResume() {
-        googleLocation = new GoogleLocation(context, false);
-        super.onResume();
-    }
-
-    protected void onStop() {
-        googleLocation.disconnect();
-        super.onStop();
     }
 
     public void deco() {

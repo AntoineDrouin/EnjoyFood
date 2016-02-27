@@ -48,7 +48,6 @@ public class PagerAdapter extends FragmentPagerAdapter {
                     case 2 : return Notes.newInstance();
                 }
         }
-
         return null;
     }
 
@@ -59,16 +58,10 @@ public class PagerAdapter extends FragmentPagerAdapter {
                 {R.drawable.ic_coo, R.drawable.ic_menu, R.drawable.ic_not}
         };
 
-        int[][] titleId = new int[][] {
-                {R.string.tabEtab, R.string.tabPanier, R.string.tabCommandes,} ,
-                {R.string.tabCoord, R.string.tabMenu, R.string.tabNotes}
-        };
-
         Drawable image = ContextCompat.getDrawable(context, imageId[tab][position]);
         image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
-        SpannableString sb = new SpannableString(context.getString(titleId[tab][position]));
+        SpannableString sb = new SpannableString(" ");
         ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
-
         sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         return sb;

@@ -6,6 +6,8 @@
     android:padding="@dimen/activity_padding"
     tools:context="com.antoinedrouin.enjoyfood.Compte">
 
+    <include layout="@layout/loading_panel"></include>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

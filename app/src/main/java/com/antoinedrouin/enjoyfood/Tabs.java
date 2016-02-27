@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -16,7 +17,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Tabs extends AppCompatActivity {
 
@@ -25,12 +28,17 @@ public class Tabs extends AppCompatActivity {
     SharedPreferences pref;
 
     String pseudo, compte;
-    int currentTab;
+    int currentTab = 0;
+    int[] titleId = new int[] { R.string.tabEtab, R.string.tabPanier, R.string.tabCommandes};
+    int[] imageId = new int[] {R.drawable.ic_eta, R.drawable.ic_pan, R.drawable.ic_com};
 
     DrawerLayout mDrawerLayout;
+    ViewPager viewPager;
+    TabLayout tabLayout;
     TextView lblTitreTab;
     EditText edtSearchEtab, edtSearchVille, edtSearchSpecialite, edtSearchArticle, edtSearchCommande;
     LinearLayout layoutVille;
+    RelativeLayout layoutLoading;
 
     GoogleLocation googleLocation;
 
@@ -41,12 +49,13 @@ public class Tabs extends AppCompatActivity {
 
         context = getApplicationContext();
         instTabs = this;
-        currentTab = 0;
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        viewPager = (ViewPager) findViewById(R.id.viewPagerTabs);
         layoutVille = (LinearLayout) findViewById(R.id.layoutVille);
+        layoutLoading = (RelativeLayout) findViewById(R.id.loadingPanel);
         lblTitreTab = (TextView) findViewById(R.id.lblTitreTab);
         edtSearchEtab = (EditText) findViewById(R.id.edtSearchEtab);
         edtSearchVille = (EditText) findViewById(R.id.edtSearchVille);
@@ -54,15 +63,13 @@ public class Tabs extends AppCompatActivity {
         edtSearchCommande = (EditText) findViewById(R.id.edtSearchCommande);
         edtSearchSpecialite = (EditText) findViewById(R.id.edtSearchSpecialite);
 
-        googleLocation = new GoogleLocation(context, false);
-
         // Remplis le viewPager
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPagerTabs);
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), context, 0));
 
-        // Donne le viewPage au tabLayout
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayoutTabs);
+        // Donne le viewPager au tabLayout
+        tabLayout = (TabLayout) findViewById(R.id.tabLayoutTabs);
         tabLayout.setupWithViewPager(viewPager);
+        tabLayout.getTabAt(currentTab).setText(titleId[currentTab]);
 
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -73,17 +80,33 @@ public class Tabs extends AppCompatActivity {
                     case 1: loadPanTabDrawer(); break;
                     case 2: loadComTabDrawer(); break;
                 }
+
+                tab.setText(titleId[currentTab]);
+                tab.setIcon(null);
+
+                // Pour sûr d'être synchro
+                if (currentTab != viewPager.getCurrentItem())
+                    viewPager.setCurrentItem(currentTab);
             }
 
             @Override
-            public void onTabUnselected(TabLayout.Tab tab) {}
+            public void onTabUnselected(TabLayout.Tab tab) {
+                tab.setIcon(ContextCompat.getDrawable(context, imageId[currentTab]));
+                tab.setText(null);
+            }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {}
+            public void onTabReselected(TabLayout.Tab tab) {
+            }
         });
     }
 
-    // Charge le drawer
+    private void checkPref() {
+        pseudo = pref.getString(getString(R.string.prefPseudo), "");
+        compte = pref.getString(getString(R.string.prefCompte), "");
+    }
+
+    /** DRAWER **/
 
     private void loadEtabTabDrawer() {
         lblTitreTab.setText(getString(R.string.lblSearchEtab));
@@ -112,18 +135,42 @@ public class Tabs extends AppCompatActivity {
         edtSearchCommande.setVisibility(View.VISIBLE);
     }
 
-    // Localisation
-
-    public void onClickLocation(View v) {
-        if (googleLocation.address == null)
-            googleLocation = new GoogleLocation(context, instTabs, true);
-        if (googleLocation.address != null)
-            edtSearchVille.setText(googleLocation.getCity());
-    }
-
     public void openDrawerEtab(View v) {
         mDrawerLayout.openDrawer(GravityCompat.START);
     }
+
+    // Localisation
+
+    public void onClickLocation(View v) {
+        if (layoutLoading.getVisibility() == View.GONE) {
+            layoutLoading.setVisibility(View.VISIBLE);
+            googleLocation = new GoogleLocation(context, instTabs, 0);
+        }
+    }
+
+    public void goodReturnLocation() {
+        edtSearchVille.setText(googleLocation.getCity());
+        layoutLoading.setVisibility(View.GONE);
+    }
+
+    public void badReturnLocation(String error) {
+        Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
+        layoutLoading.setVisibility(View.GONE);
+    }
+
+    public void onClickSearch(View v) {
+        switch (currentTab) {
+            case 0 : Etablissements.getInstance().searchInLv(); break;
+            case 1 : Panier.getInstance().searchInLv(); break;
+            case 2 : Commandes.getInstance().searchInLv(); break;
+        }
+
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+    }
+
+    /** FIN DRAWER **/
+
+    /** BOUTONS **/
 
     public void openPlacePicker(View v) {
         startActivity(new Intent(context, MapPlacePicker.class));
@@ -133,43 +180,9 @@ public class Tabs extends AppCompatActivity {
         Etablissements.getInstance().emptyLvEtab();
     }
 
-        // Affiche une notification
-//    public void notif() {
-//        Intent intent = new Intent(context, Login.class);
-//        PendingIntent pIntent = PendingIntent.getActivity(context, (int) System.currentTimeMillis(), intent, 0);
-//
-//        Notification notification = new NotificationCompat.Builder(context)
-//                .setTicker(getString(R.string.tabEtab))
-//                .setSmallIcon(R.drawable.ic_menu)
-//                .setContentTitle(getString(R.string.tabEtab))
-//                .setContentText(getString(R.string.tabCommandes))
-//                .setContentIntent(pIntent)
-//                .setAutoCancel(true)
-//                .build();
-//
-//        NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
-//        notificationManager.notify(0, notification);
-//    }
+    /** FIN BOUTONS **/
 
-    @Override
-    protected void onResume() {
-        googleLocation = new GoogleLocation(context, false);
-        checkPref();
-        super.onResume();
-    }
-
-    @Override
-    protected void onStart(){
-        googleLocation = new GoogleLocation(context, false);
-        super.onStart();
-    }
-
-    protected void onStop() {
-        googleLocation.disconnect();
-        super.onStop();
-    }
-
-    // MENU
+    /** MENU **/
 
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -210,23 +223,19 @@ public class Tabs extends AppCompatActivity {
         }
     }
 
-    private void checkPref() {
-        pseudo = pref.getString(getString(R.string.prefPseudo), "");
-        compte = pref.getString(getString(R.string.prefCompte), "");
-    }
+    /** FIN MENU **/
 
-    public void onClickSearch(View v) {
-        switch (currentTab) {
-            case 0 : Etablissements.getInstance().searchInLv(); break;
-            case 1 : Panier.getInstance().searchInLv(); break;
-            case 2 : Commandes.getInstance().searchInLv(); break;
-        }
+    /** ETAT DE L'ACTIVITY **/
 
-        mDrawerLayout.closeDrawer(GravityCompat.START);
+    @Override
+    protected void onResume() {
+        checkPref();
+        super.onResume();
     }
 
     public static Tabs getInstance(){
         return instTabs;
     }
 
+    /** FIN ETAT DE L'ACTIVITY **/
 }

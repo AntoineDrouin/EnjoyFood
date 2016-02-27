@@ -10,10 +10,12 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -33,22 +35,16 @@ public class GoogleLocation implements
 
     Context context;
     Activity activity;
+    int mode;
     GoogleApiClient mGoogleApiClient;
-    boolean popup;
 
     Address address;
 
-    public GoogleLocation(Context gcontext, boolean gPopup) {
-        context = gcontext;
-        popup = gPopup;
-
-       connect();
-    }
-
-    public GoogleLocation(Context gcontext, Activity gActivity, boolean gPopup) {
+    // Constructeur si la géolocalisation est demandé par l'utilisateur
+    public GoogleLocation(Context gcontext, Activity gActivity, int gMode) {
         context = gcontext;
         activity = gActivity;
-        popup = gPopup;
+        mode = gMode;
 
         connect();
     }
@@ -67,46 +63,106 @@ public class GoogleLocation implements
 
     @Override
     public void onConnected(Bundle bundle) {
-        double lat, lon;
+        // S'il y a un problème
+        boolean itsOk = true;
 
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                PackageManager.PERMISSION_GRANTED) {
-            return;
+        LocationManager locationManager = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
+
+        // Check géolocalisation
+        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){
+            itsOk = false;
+
+            new AlertDialog.Builder(activity)
+                    .setMessage(context.getString(R.string.geolocationFailed))
+                    .setCancelable(false)
+                    .setNegativeButton(context.getString(R.string.varNo), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setPositiveButton(context.getString(R.string.varYes), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        }
+                    })
+                    .show();
+
         }
-        Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (mLastLocation != null) {
-            try {
-                lat = mLastLocation.getLatitude();
-                lon = mLastLocation.getLongitude();
 
-                Geocoder gcd = new Geocoder(context, Locale.getDefault());
-                List<Address> addresses = gcd.getFromLocation(lat, lon, 1);
+        // Check connexion
+        if (!isNetworkAvailable()) {
+            itsOk = false;
 
-                if (addresses.size() > 0)
-                    address = addresses.get(0);
-            } catch (IOException e) {
-                e.printStackTrace();
+            new AlertDialog.Builder(activity)
+                    .setMessage(context.getString(R.string.dataConnectionFailed))
+                    .setCancelable(false)
+                    .setNegativeButton(context.getString(R.string.varNo), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                        }
+                    })
+                    .setPositiveButton(context.getString(R.string.varYes), new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(Settings.ACTION_WIFI_SETTINGS);
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            context.startActivity(intent);
+                        }
+                    })
+                    .show();
+        }
+
+        if (itsOk) {
+
+            double lat, lon;
+
+            if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+
+            Location mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+
+            if (mLastLocation != null) {
+                try {
+                    lat = mLastLocation.getLatitude();
+                    lon = mLastLocation.getLongitude();
+
+                    Geocoder gcd = new Geocoder(context, Locale.getDefault());
+                    List<Address> addresses = gcd.getFromLocation(lat, lon, 1);
+
+                    if (addresses.size() > 0) {
+                        address = addresses.get(0);
+
+                        switch (mode) {
+                            case 0: Tabs.getInstance().goodReturnLocation(); break;
+                            case 1: Compte.getInstance().goodReturnLocation(); break;
+                        }
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    badReturn(e.getMessage());
+                }
             }
         }
+
+        // Retours infructueux
         else {
-            if (popup) {
-                new AlertDialog.Builder(activity)
-                        .setMessage(context.getString(R.string.geolocationFailed))
-                        .setCancelable(false)
-                        .setNegativeButton(context.getString(R.string.varNo), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                            }
-                        })
-                        .setPositiveButton(context.getString(R.string.varYes), new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                context.startActivity(intent);
-                            }
-                        })
-                        .show();
-            }
+            badReturn(context.getString(R.string.connectionError));
+        }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null;
+    }
+
+    private void badReturn(String error) {
+        switch (mode) {
+            case 0: Tabs.getInstance().badReturnLocation(error); break;
+            case 1: Compte.getInstance().badReturnLocation(error); break;
         }
     }
 
@@ -116,7 +172,7 @@ public class GoogleLocation implements
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Toast.makeText(context, context.getString(R.string.geolocationFailed), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(context, context.getString(R.string.geolocationFailed), Toast.LENGTH_SHORT).show();
     }
 
     public void disconnect() {

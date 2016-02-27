@@ -6,6 +6,8 @@
     android:padding="@dimen/activity_padding"
     tools:context="com.antoinedrouin.enjoyfood.Drawer">
 
+    <include layout="@layout/loading_panel"></include>
+
     <LinearLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"

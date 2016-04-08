@@ -5,11 +5,22 @@
     tools:context="com.antoinedrouin.enjoyfood.Coordonnees">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
-        android:id="@+id/textView3"
+        android:text="code postal"
+        android:id="@+id/txtCodePostalEt"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ville"
+        android:id="@+id/txtVilleEt"
+        android:textAlignment="center"
+        android:layout_below="@+id/txtCodePostalEt"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

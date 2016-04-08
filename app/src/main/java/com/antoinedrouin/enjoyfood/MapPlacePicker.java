@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -60,28 +61,44 @@ public class MapPlacePicker extends Activity {
                 if (addresses.size() > 0)
                     ville = addresses.get(0).getLocality();
 
-                Cursor loadEtabs = dbEF.rawQuery("Select nomEt from Etablissement where nomEt = ?", new String[]{place.getName().toString()});
+                Bundle extras = getIntent().getExtras();
+                String useType =  extras.getString(getString(R.string.useType));
 
-                // Si l'établissement n'est pas déjà dans la base
-                if (!loadEtabs.moveToFirst()) {
-                    // Ajoute à la base
-                    ContentValues values = new ContentValues();
-                    values.put("nomEt", place.getName().toString());
-                    values.put("adresseEt", place.getAddress().toString());
-                    values.put("villeEt", ville);
-                    dbEF.insert("Etablissement", null, values);
+                //  Si on utilise le placePicker pour consulter un établissement
+                if (useType.equals(getString(R.string.useTypeCons))) {
+                    Cursor loadEtabs = dbEF.rawQuery("Select nomEt from Etablissement where nomEt = ?", new String[]{place.getName().toString()});
 
-                    // Et met à jour la listview
-                    Etablissements.getInstance().fillLvWithDb();
+                    // Si l'établissement n'est pas déjà dans la base, on l'enregistre
+                    if (!loadEtabs.moveToFirst()) {
+                        // Ajoute à la base
+                        ContentValues values = new ContentValues();
+                        values.put("nomEt", place.getName().toString());
+                        values.put("adresseEt", place.getAddress().toString());
+                        values.put("villeEt", ville);
+                        dbEF.insert("Etablissement", null, values);
+
+                        // Et met à jour la listview
+                        Etablissements.getInstance().fillLvWithDb();
+                    }
+
+                    // Ouvre l'établissement
+                    Intent intentEtab = new Intent(this, Etablissement.class);
+                    intentEtab.putExtra(getString(R.string.extraEtabName), place.getName());
+                    startActivity(intentEtab);
                 }
-
-                Intent intentEtab = new Intent(this, Etablissement.class);
-                intentEtab.putExtra(getString(R.string.extraEtabName), place.getName());
-                startActivity(intentEtab);
+                // Si on utilise le placePicker pour modifier un établissement
+                else if (useType.equals(getString(R.string.useTypeModif))) {
+                    ((TextView) EtablissementManager.getInstance().findViewById(R.id.txtEtab)).setText(place.getName().toString());
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        // Si l'utilisateur quitte le placePicker sans rien choisir
+        else if (resultCode == RESULT_CANCELED) {
+            EtablissementManager.getInstance().finish();
+        }
+
         finish();
     }
 }

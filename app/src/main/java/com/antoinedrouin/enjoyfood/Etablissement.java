@@ -33,7 +33,7 @@ public class Etablissement extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         String nomEtab =  extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab));
-        ((TextView) findViewById(R.id.lblNomEtab)).setText(nomEtab);
+        ((TextView) findViewById(R.id.txtNomEtab)).setText(nomEtab);
 
        // Remplis le viewPager
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), context, 1));
@@ -50,7 +50,7 @@ public class Etablissement extends AppCompatActivity {
                 tab.setText(titleId[currentTab]);
                 tab.setIcon(null);
 
-                // Pour sûr d'être synchro
+                // Pour être sûr d'être synchro
                 if (currentTab != viewPager.getCurrentItem())
                     viewPager.setCurrentItem(currentTab);
             }
@@ -70,5 +70,4 @@ public class Etablissement extends AppCompatActivity {
     public static Etablissement getInstance(){
         return instEtab;
     }
-
 }

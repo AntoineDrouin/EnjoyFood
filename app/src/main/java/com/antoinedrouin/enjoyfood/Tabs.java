@@ -29,13 +29,13 @@ public class Tabs extends AppCompatActivity {
 
     String pseudo, compte;
     int currentTab = 0;
-    int[] titleId = new int[] { R.string.tabEtab, R.string.tabPanier, R.string.tabCommandes};
+    int[] titleId = new int[] {R.string.tabEtab, R.string.tabPanier, R.string.tabCommandes};
     int[] imageId = new int[] {R.drawable.ic_eta, R.drawable.ic_pan, R.drawable.ic_com};
 
     DrawerLayout mDrawerLayout;
     ViewPager viewPager;
     TabLayout tabLayout;
-    TextView lblTitreTab;
+    TextView txtTitreTab;
     EditText edtSearchEtab, edtSearchVille, edtSearchSpecialite, edtSearchArticle, edtSearchCommande;
     LinearLayout layoutVille;
     RelativeLayout layoutLoading;
@@ -56,7 +56,7 @@ public class Tabs extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPagerTabs);
         layoutVille = (LinearLayout) findViewById(R.id.layoutVille);
         layoutLoading = (RelativeLayout) findViewById(R.id.loadingPanel);
-        lblTitreTab = (TextView) findViewById(R.id.lblTitreTab);
+        txtTitreTab = (TextView) findViewById(R.id.txtTitreTab);
         edtSearchEtab = (EditText) findViewById(R.id.edtSearchEtab);
         edtSearchVille = (EditText) findViewById(R.id.edtSearchVille);
         edtSearchArticle = (EditText) findViewById(R.id.edtSearchArticle);
@@ -76,15 +76,15 @@ public class Tabs extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 currentTab = tab.getPosition();
                 switch (currentTab) {
-                    case 0: loadEtabTabDrawer(); break;
-                    case 1: loadPanTabDrawer(); break;
-                    case 2: loadComTabDrawer(); break;
+                    case 0 : loadEtabTabDrawer(); break;
+                    case 1 : loadPanTabDrawer(); break;
+                    case 2 : loadComTabDrawer(); break;
                 }
 
                 tab.setText(titleId[currentTab]);
                 tab.setIcon(null);
 
-                // Pour sûr d'être synchro
+                // Pour être sûr d'être synchro
                 if (currentTab != viewPager.getCurrentItem())
                     viewPager.setCurrentItem(currentTab);
             }
@@ -109,7 +109,7 @@ public class Tabs extends AppCompatActivity {
     /** DRAWER **/
 
     private void loadEtabTabDrawer() {
-        lblTitreTab.setText(getString(R.string.lblSearchEtab));
+        txtTitreTab.setText(getString(R.string.txtSearchEtab));
         layoutVille.setVisibility(View.VISIBLE);
         edtSearchEtab.setVisibility(View.VISIBLE);
         edtSearchSpecialite.setVisibility(View.VISIBLE);
@@ -118,7 +118,7 @@ public class Tabs extends AppCompatActivity {
     }
 
     private void loadPanTabDrawer() {
-        lblTitreTab.setText(getString(R.string.lblSearchPanier));
+        txtTitreTab.setText(getString(R.string.txtSearchPanier));
         layoutVille.setVisibility(View.GONE);
         edtSearchEtab.setVisibility(View.GONE);
         edtSearchSpecialite.setVisibility(View.GONE);
@@ -127,7 +127,7 @@ public class Tabs extends AppCompatActivity {
     }
 
     private void loadComTabDrawer() {
-        lblTitreTab.setText(getString(R.string.lblSearchCom));
+        txtTitreTab.setText(getString(R.string.txtSearchCom));
         layoutVille.setVisibility(View.GONE);
         edtSearchEtab.setVisibility(View.GONE);
         edtSearchSpecialite.setVisibility(View.GONE);
@@ -173,7 +173,9 @@ public class Tabs extends AppCompatActivity {
     /** BOUTONS **/
 
     public void openPlacePicker(View v) {
-        startActivity(new Intent(context, MapPlacePicker.class));
+        Intent intent = new Intent(this, MapPlacePicker.class);
+        intent.putExtra(getString(R.string.useType), getString(R.string.useTypeCons));
+        startActivity(intent);
     }
 
     public void emptyLvEtab(View v) {
@@ -210,7 +212,7 @@ public class Tabs extends AppCompatActivity {
                     startActivity(new Intent(this, Compte.class));
                 return true;
             case R.string.menuIdEtab :
-                //
+                startActivity(new Intent(this, EtablissementManager.class));
                 return true;
             case R.string.menuIdInfo :
                 startActivity(new Intent(this, Informations.class));
@@ -218,7 +220,7 @@ public class Tabs extends AppCompatActivity {
             case R.string.menuIdReglages :
                 startActivity(new Intent(this, Reglages.class));
                 return true;
-            default:
+            default :
                 return super.onOptionsItemSelected(item);
         }
     }

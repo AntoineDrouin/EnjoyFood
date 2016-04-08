@@ -30,7 +30,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
     Context context;
 
-    String script, methode, pseudo, mdp, nom, prenom, compte, user, ville, cp, tel, adresse;
+    String script, methode, id, pseudo, mdp, nom, prenom, compte, user, ville, cp, tel, adresse, nomEt, description, conges, prixLivr;
 
     public ServerSide (Context context) {
         this.context = context;
@@ -152,14 +152,14 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             JSONArray jsonArray;
 
             try {
+                user = "";
                 jsonObject = new JSONObject(result);
                 jsonArray = jsonObject.getJSONArray(context.getString(R.string.varReponseJson));
 
                 // On utilise le json différement pour chaque script
                 if (script.equals(context.getString(R.string.checkUtilisateur))) {
-                    user = "";
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        jso = jsonArray.getJSONObject(i);
+                    if (jsonArray.length() > 0) {
+                        jso = jsonArray.getJSONObject(0);
                         user = jso.getString(context.getString(R.string.prefPseudo));
                     }
 
@@ -177,7 +177,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         ServerSide insertUtilisateur = new ServerSide(context);
                         insertUtilisateur.execute(script, methode, compte, pseudo, mdp, nom, prenom);
                     }
-
                     else {
                         Toast.makeText(context, context.getString(R.string.insertUtilisateurFail), Toast.LENGTH_SHORT).show();
                     }
@@ -185,9 +184,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                 // Cherche un compte avec les identifiants en paramètres
                 else if (script.equals(context.getString(R.string.checkIdentifiants))) {
-
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        jso = jsonArray.getJSONObject(i);
+                    if (jsonArray.length() > 0) {
+                        jso = jsonArray.getJSONObject(0);
+                        id = jso.getString(context.getString(R.string.prefId));
                         user = jso.getString(context.getString(R.string.prefPseudo));
                         mdp = jso.getString(context.getString(R.string.prefMdp));
                         nom = jso.getString(context.getString(R.string.prefNom));
@@ -201,22 +200,53 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                             adresse = jso.getString(context.getString(R.string.prefAdresse));
                         }
 //                        else if (compte.equals(context.getString(R.string.varGerant))) {
-//
 //                        }
                     }
 
                     // Si un utilisateur a été trouvé
                     if (!user.equals("")) {
-                        Login.getInstance().putInPrefLogin(user, mdp, compte, nom, prenom, ville, cp, tel, adresse);
+                        Login.getInstance().putInPrefLogin(id, user, mdp, compte, nom, prenom, ville, cp, tel, adresse);
                     }
                     else {
                         Toast.makeText(context, context.getString(R.string.connectionFail), Toast.LENGTH_SHORT).show();
                     }
                 }
+
+                // Informations d'un établissement pour le consulter
+                else if (script.equals(context.getString(R.string.getEtabByName))) {
+                    if (jsonArray.length() > 0) {
+                        jso = jsonArray.getJSONObject(0);
+                        cp = jso.getString(context.getString(R.string.prefCp));
+                        ville = jso.getString(context.getString(R.string.prefVille));
+                        adresse = jso.getString(context.getString(R.string.prefAdresse));
+                        tel = jso.getString(context.getString(R.string.prefTel));
+                        getEtabData(jso);
+                    }
+
+                    Coordonnees.getInstance().getInfos(cp, ville, adresse, tel, description, prixLivr, conges);
+                }
+
+                // Informations d'un établissement pour le modifier
+                else if (script.equals(context.getString(R.string.getEtabByManager))) {
+                    if (jsonArray.length() > 0) {
+                        jso = jsonArray.getJSONObject(0);
+                        nomEt = jso.getString(context.getString(R.string.prefNomEt));
+                        getEtabData(jso);
+                    }
+
+                    EtablissementManager.getInstance().getInfos(nomEt, description, prixLivr, conges);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    private void getEtabData(JSONObject jso) throws JSONException {
+        description = jso.getString(context.getString(R.string.prefDesc));
+        prixLivr = jso.getString(context.getString(R.string.prefPrixLivr));
+        conges = jso.getString(context.getString(R.string.prefConges));
     }
 
 
@@ -253,6 +283,12 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         URLEncoder.encode(context.getString(R.string.prefCp), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
+            }
+            else if (lien.equals(context.getString(R.string.getEtabByName))) {
+                data = URLEncoder.encode(context.getString(R.string.prefNomEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+            }
+            else if (lien.equals(context.getString(R.string.getEtabByManager))) {
+                data = URLEncoder.encode(context.getString(R.string.prefId), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

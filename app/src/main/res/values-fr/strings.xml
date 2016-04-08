@@ -42,10 +42,10 @@
     <string name="errorPseudoLength">Le pseudonyme doit faire au moins 3 caractères</string>
     <string name="insertUtilisateurFail">Ce pseudonyme est déjà utilisé</string>
     <string name="insertUtilisateurSuccess">Utilisateur créé avec succès</string>
-    <string name="lblSearchCom">Recherche dans les commandes</string>
-    <string name="lblSearchEtab">Rechercher un établissement</string>
-    <string name="lblSearchPanier">Recherche dans le panier</string>
-    <string name="lblTypeCompte">Type de compte :</string>
+    <string name="txtSearchCom">Recherche dans les commandes</string>
+    <string name="txtSearchEtab">Rechercher un établissement</string>
+    <string name="txtSearchPanier">Recherche dans le panier</string>
+    <string name="txtTypeCompte">Type de compte :</string>
     <string name="menuLabelCompte">Mon compte</string>
     <string name="menuLabelEtab">Mon établissement</string>
     <string name="menuLabelInfo">Informations</string>
@@ -63,4 +63,8 @@
     <string name="spinVarLvRecent">Établissements récents</string>
     <string name="spinVarLvSearch">Établissements proches</string>
     <string name="dataConnectionFailed">Les données mobiles sont désactivées. Voulez-vous les activer ?</string>
+    <string name="choosePlace">Choisissez votre établissement</string>
+    <string name="switchConges">En congés</string>
+    <string name="txtPrixLivraison">Prix de livraison</string>
+    <string name="txtDescription">Description</string>
 </resources>

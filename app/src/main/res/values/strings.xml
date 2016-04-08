@@ -20,6 +20,8 @@
     <string name="changeMdp" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
     <string name="eraseCompte" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/eraseCompte.php</string>
     <string name="changeCoordClient" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changeCoordClient.php</string>
+    <string name="getEtabByName" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getEtabByName.php</string>
+    <string name="getEtabByManager" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getEtabByManager.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -39,6 +41,7 @@
     <string name="changeCoordSuccess">Contact information changed</string>
     <string name="geolocationFailed">Geolocation is unavailable. Would you like to turn it on ?</string>
     <string name="dataConnectionFailed">Data connection is unavailable. Would you like to turn it on ?</string>
+    <string name="choosePlace">Choose your restaurant</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
@@ -50,6 +53,7 @@
     <string name="errorPrenom">Please enter a last name</string>
 
     <!-- Preferences -->
+    <string name="prefId" translatable="false">idUt</string>
     <string name="prefPseudo" translatable="false">pseudo</string>
     <string name="prefMdp" translatable="false">mdp</string>
     <string name="prefNom" translatable="false">nom</string>
@@ -59,9 +63,16 @@
     <string name="prefCp" translatable="false">cp</string>
     <string name="prefTel" translatable="false">tel</string>
     <string name="prefAdresse" translatable="false">adresse</string>
+    <string name="prefNomEt" translatable="false">nomEt</string>
+    <string name="prefDesc" translatable="false">description</string>
+    <string name="prefPrixLivr" translatable="false">prixLivraison</string>
+    <string name="prefConges" translatable="false">conges</string>
 
     <!-- Extras -->
     <string name="extraEtabName" translatable="false">etabName</string>
+    <string name="useType" translatable="false">useType</string>
+    <string name="useTypeCons" translatable="false">consultation</string>
+    <string name="useTypeModif" translatable="false">modification</string>
 
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>
@@ -86,11 +97,13 @@
     <string name="btnSearch">Search</string>
     <string name="btnConnexion">Connection</string>
 
-    <!-- Labels -->
-    <string name="lblTypeCompte">Type of account :</string>
-    <string name="lblSearchEtab">Search a restaurant</string>
-    <string name="lblSearchPanier">Search in the cart</string>
-    <string name="lblSearchCom">Search in orders</string>
+    <!-- TextViews -->
+    <string name="txtTypeCompte">Type of account :</string>
+    <string name="txtSearchEtab">Search a restaurant</string>
+    <string name="txtSearchPanier">Search in the cart</string>
+    <string name="txtSearchCom">Search in orders</string>
+    <string name="txtDescription">Description</string>
+    <string name="txtPrixLivraison">Delivery price</string>
 
     <!-- EditTexts -->
     <string name="edtPseudo">Pseudonym</string>
@@ -120,5 +133,8 @@
     <!-- Spinners -->
     <string name="spinVarLvRecent">Recent restaurants</string>
     <string name="spinVarLvSearch">Restaurants nearby</string>
+    
+    <!-- Switch -->
+    <string name="switchConges">On holiday</string>
 
 </resources>

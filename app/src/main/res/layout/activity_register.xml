@@ -14,7 +14,7 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginTop="10dp">
 
@@ -32,7 +32,7 @@
                     android:id="@+id/txtCompte"
                     android:layout_weight="1"
                     android:textAlignment="center"
-                    android:text="@string/lblTypeCompte"
+                    android:text="@string/txtTypeCompte"
                     android:gravity="center" />
 
                 <Spinner

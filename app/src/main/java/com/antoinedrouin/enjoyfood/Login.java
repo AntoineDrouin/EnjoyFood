@@ -116,13 +116,14 @@ public class Login extends AppCompatActivity {
             btnConnexion.setVisibility(View.INVISIBLE);
     }
 
-    public void putInPrefLogin(String pseudo, String mdp, String compte,
+    public void putInPrefLogin(String id, String pseudo, String mdp, String compte,
                           String nom, String prenom, String ville,
                           String cp, String tel, String adresse) {
 
         // Mettre dans pref
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = pref.edit();
+        edit.putString(getString(R.string.prefId), id);
         edit.putString(getString(R.string.prefPseudo), pseudo);
         edit.putString(getString(R.string.prefMdp), mdp);
         edit.putString(getString(R.string.prefCompte), compte);
@@ -143,7 +144,7 @@ public class Login extends AppCompatActivity {
 
         Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
 
-        Tabs.getInstance().recreate();
+        Tabs.getInstance().recreate(); // On recrée l'instance pour prendre en compte l'uilisateur nouvellement connecté
         startActivity(new Intent(context, Compte.class));
         finish();
     }

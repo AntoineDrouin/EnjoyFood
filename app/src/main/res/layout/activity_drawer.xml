@@ -17,9 +17,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/lblTitreTab"
+        android:id="@+id/txtTitreTab"
         android:textAlignment="center"
-        android:text="@string/lblSearchEtab" />
+        android:text="@string/txtSearchEtab" />
 
     <LinearLayout
         android:id="@+id/layoutVille"

@@ -20,8 +20,10 @@
     <string name="changeMdp" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
     <string name="eraseCompte" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/eraseCompte.php</string>
     <string name="changeCoordClient" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changeCoordClient.php</string>
-    <string name="getEtabByName" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getEtabByName.php</string>
+    <string name="getEtabById" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getEtabById.php</string>
     <string name="getEtabByManager" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getEtabByManager.php</string>
+    <string name="updateEtab" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updateEtab.php</string>
+    <string name="insertEtab" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertEtab.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -42,6 +44,8 @@
     <string name="geolocationFailed">Geolocation is unavailable. Would you like to turn it on ?</string>
     <string name="dataConnectionFailed">Data connection is unavailable. Would you like to turn it on ?</string>
     <string name="choosePlace">Choose your restaurant</string>
+    <string name="placeUpdated">Your restaurant is now up to date</string>
+    <string name="placeInserted">Restaurant created successfully</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
@@ -63,12 +67,14 @@
     <string name="prefCp" translatable="false">cp</string>
     <string name="prefTel" translatable="false">tel</string>
     <string name="prefAdresse" translatable="false">adresse</string>
+    <string name="prefIdEt" translatable="false">idEt</string>
     <string name="prefNomEt" translatable="false">nomEt</string>
     <string name="prefDesc" translatable="false">description</string>
     <string name="prefPrixLivr" translatable="false">prixLivraison</string>
     <string name="prefConges" translatable="false">conges</string>
 
     <!-- Extras -->
+    <string name="extraEtabId" translatable="false">etabId</string>
     <string name="extraEtabName" translatable="false">etabName</string>
     <string name="useType" translatable="false">useType</string>
     <string name="useTypeCons" translatable="false">consultation</string>

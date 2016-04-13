@@ -19,11 +19,10 @@ public class EtablissementManager extends AppCompatActivity {
     static EtablissementManager instEtabMan;
 
     TextView txtEt;
-    EditText edtDesc, edtPrixLivr;
+    EditText edtDesc, edtPrixLivr, edtTel;
     Switch switchConges;
 
-    String id/*, nomEt, cp, ville, adresse, tel, desc, prixLivr*/;
-   // boolean conges;
+    String idUt, idEt, script, nomEt, desc, prixLivr, tel, conges, cp, ville, adresse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,40 +36,74 @@ public class EtablissementManager extends AppCompatActivity {
         txtEt = (TextView) findViewById(R.id.txtEtab);
         edtDesc = (EditText) findViewById(R.id.edtDesc);
         edtPrixLivr = (EditText) findViewById(R.id.edtPrixLivr);
+        edtTel = (EditText) findViewById(R.id.edtTel);
         switchConges = (Switch) findViewById(R.id.switchConges);
 
-        id = pref.getString(getString(R.string.prefId), "");
+        idUt = pref.getString(getString(R.string.prefId), "");
 
-        /** Recherche des infos de l'étab **/
+        // Recherche des infos de l'étab
 
         ServerSide getEtabByManager = new ServerSide(context);
-        getEtabByManager.execute(getString(R.string.getEtabByManager), getString(R.string.read), id);
-
-        /** Fin recherche des infos de l'étab **/
+        getEtabByManager.execute(getString(R.string.getEtabByManager), getString(R.string.read), idUt);
     }
 
     // Reçoit les infos, et si il n'y en a pas, ouvre le placePicker
-    public void getInfos(String eNomEt, String eDesc, String ePrixLivr, String eConges) {
-        if (eNomEt != null) {
+    public void getInfos(String eIdEt, String eNomEt, String eDesc, String ePrixLivr, String eTel, String eConges) {
+        if (eIdEt != null) {
+            idEt = eIdEt;
             txtEt.setText(eNomEt);
             edtDesc.setText(eDesc);
             edtPrixLivr.setText(ePrixLivr);
+            edtTel.setText(eTel);
             switchConges.setChecked(eConges.equals("1"));
+
+            script = getString(R.string.updateEtab);
         }
         else {
             Intent intent = new Intent(this, MapPlacePicker.class);
             intent.putExtra(getString(R.string.useType), getString(R.string.useTypeModif));
 
-            Toast.makeText(context, getString(R.string.choosePlace), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, getString(R.string.choosePlace), Toast.LENGTH_LONG).show();
             startActivity(intent);
         }
     }
 
     // Enregistre les modifications
     public void onClickSaveChanges(View v) {
+        nomEt = txtEt.getText().toString();
+        desc = edtDesc.getText().toString();
+        prixLivr = edtPrixLivr.getText().toString();
+        tel = edtTel.getText().toString();
+        if (switchConges.isChecked())
+            conges = "1";
+        else
+            conges = "0";
 
+        ServerSide etab = new ServerSide(context);
 
-        finish();
+        if (script.equals(getString(R.string.updateEtab))) {
+            etab.execute(script, getString(R.string.write), idEt, idUt, desc, prixLivr, tel, conges);
+        }
+        else if (script.equals(getString(R.string.insertEtab))) {
+            etab.execute(script, getString(R.string.write), idEt, nomEt, idUt, desc, prixLivr, tel, conges, cp, ville, adresse);
+        }
+    }
+
+    public void okUpdateEtab() {
+        Toast.makeText(context, getString(R.string.placeUpdated), Toast.LENGTH_SHORT).show();
+    }
+
+    public void okInsertEtab() {
+        Toast.makeText(context, getString(R.string.placeInserted), Toast.LENGTH_SHORT).show();
+    }
+
+    public void getPlaceInfos(String pId, String pNom, String pCp, String pVille, String cAdresse) {
+        script = getString(R.string.insertEtab);
+        idEt = pId;
+        txtEt.setText(pNom);
+        cp = pCp;
+        ville = pVille;
+        adresse = cAdresse;
     }
 
     public static EtablissementManager getInstance() {

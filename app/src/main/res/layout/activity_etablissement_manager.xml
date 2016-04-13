@@ -9,13 +9,12 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/scrollView"
-        android:layout_weight="1" >
+        android:id="@+id/scrollView">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:layout_width="fill_parent"
@@ -24,8 +23,6 @@
                 android:text="@string/edtEtablissement"
                 android:id="@+id/txtEtab"
                 android:textAlignment="center"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
@@ -43,13 +40,34 @@
                 android:id="@+id/edtDesc"
                 android:maxLength="250"
                 android:maxLines="10"
-                android:layout_below="@+id/txtEtab"
-                android:layout_alignParentStart="true"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
                 android:textAlignment="center"
                 android:focusable="true"
-                android:focusableInTouchMode="true" />
+                android:focusableInTouchMode="true"
+                android:inputType="text" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/edtTel"
+                android:id="@+id/txtTelEtab"
+                android:textAlignment="center" />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edtTel"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:singleLine="true"
+                android:numeric="decimal"
+                android:maxLength="15"
+                android:inputType="phone" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -64,8 +82,6 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/edtPrixLivr"
                 android:layout_weight="1"
-                android:layout_below="@+id/edtDesc"
-                android:layout_alignParentEnd="true"
                 android:textAlignment="center"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
@@ -73,7 +89,8 @@
                 android:focusableInTouchMode="true"
                 android:singleLine="true"
                 android:numeric="decimal"
-                android:maxLength="5" />
+                android:maxLength="5"
+                android:inputType="numberDecimal" />
 
             <Switch
                 android:layout_width="fill_parent"
@@ -82,8 +99,6 @@
                 android:id="@+id/switchConges"
                 android:layout_gravity="center_horizontal"
                 android:checked="false"
-                android:layout_below="@+id/edtPrixLivr"
-                android:layout_alignParentEnd="true"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
@@ -91,9 +106,6 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_above="@+id/btnChangeEtab"
-                android:layout_below="@+id/switchConges"
                 android:weightSum="1"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin">
@@ -159,8 +171,6 @@
                 android:text="@string/btnValider"
                 android:id="@+id/btnChangeEtab"
                 android:layout_gravity="center_horizontal"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentEnd="true"
                 android:onClick="onClickSaveChanges"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin" />

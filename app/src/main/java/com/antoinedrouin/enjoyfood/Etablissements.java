@@ -45,7 +45,7 @@ public class Etablissements extends Fragment {
         // Création de la bdd si elle n'existe pas
         dbEF = getActivity().openOrCreateDatabase(getString(R.string.varDbName), context.MODE_PRIVATE, null);
         // Création de la table si elle n'existe pas
-        dbEF.execSQL("CREATE TABLE IF NOT EXISTS Etablissement (nomEt VARCHAR, adresseEt VARCHAR, villeEt VARCHAR)");
+        dbEF.execSQL("CREATE TABLE IF NOT EXISTS Etablissement (idEt VARCHAR, nomEt VARCHAR, adresseEt VARCHAR, villeEt VARCHAR, codePostalEt VARCHAR)");
     }
 
     @Override
@@ -63,7 +63,11 @@ public class Etablissements extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 Object o = lvEtab.getItemAtPosition(position);
-                openEtab(o.toString());
+                Cursor loadEtabs = dbEF.rawQuery("Select idEt from Etablissement where nomEt = ?", new String[]{o.toString()});
+
+                if (loadEtabs.moveToFirst()) {
+                    openEtab(loadEtabs.getString(loadEtabs.getColumnIndex("idEt")));
+                }
             }
         });
 
@@ -171,10 +175,10 @@ public class Etablissements extends Fragment {
         arrayAdapter.notifyDataSetChanged();
     }
 
-    private void openEtab(String nomEtab) {
-        // Ouvre la fiche d'un établissement en passant en paramètre son nom
+    private void openEtab(String idEtab) {
+        // Ouvre la fiche d'un établissement en passant en paramètre son id
         Intent intentEtab = new Intent(context, Etablissement.class);
-        intentEtab.putExtra(getString(R.string.extraEtabName), nomEtab);
+        intentEtab.putExtra(getString(R.string.extraEtabId), idEtab);
         startActivity(intentEtab);
     }
 

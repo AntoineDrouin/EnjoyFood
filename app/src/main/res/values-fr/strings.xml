@@ -67,4 +67,6 @@
     <string name="switchConges">En congés</string>
     <string name="txtPrixLivraison">Prix de livraison</string>
     <string name="txtDescription">Description</string>
+    <string name="placeUpdated">Votre établissement est maintenant à jour</string>
+    <string name="placeInserted">Établissement créé avec succès</string>
 </resources>

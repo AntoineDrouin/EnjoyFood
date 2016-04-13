@@ -194,6 +194,11 @@ public class Compte extends AppCompatActivity {
         Toast.makeText(context, getString(R.string.changeCoordSuccess), Toast.LENGTH_SHORT).show();
     }
 
+    public void okErase() {
+        deco();
+        Toast.makeText(context, getString(R.string.eraseCompteSuccess), Toast.LENGTH_SHORT).show();
+    }
+
     public static Compte getInstance() {
         return instCompte;
     }

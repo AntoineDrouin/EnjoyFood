@@ -30,7 +30,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
     Context context;
 
-    String script, methode, id, pseudo, mdp, nom, prenom, compte, user, ville, cp, tel, adresse, nomEt, description, conges, prixLivr;
+    String script, methode, id, idEt, pseudo, mdp, nom, prenom, compte, user, ville, cp, tel, adresse, nomEt, description, conges, prixLivr;
 
     public ServerSide (Context context) {
         this.context = context;
@@ -132,8 +132,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
         }
 
         else if (result.equals(context.getString(R.string.eraseCompte))) {
-            Compte.getInstance().deco();
-            Toast.makeText(context, context.getString(R.string.eraseCompteSuccess), Toast.LENGTH_SHORT).show();
+            Compte.getInstance().okErase();
         }
 
         else if (result.equals(context.getString(R.string.changeMdp))) {
@@ -144,6 +143,13 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             Compte.getInstance().okCoord();
         }
 
+        else if (result.equals(context.getString(R.string.updateEtab))) {
+            EtablissementManager.getInstance().okUpdateEtab();
+        }
+
+        else if (result.equals(context.getString(R.string.insertEtab))) {
+            EtablissementManager.getInstance().okInsertEtab();
+        }
 
         /** 4. ... OU LECTURE DES RETOURS JSON */
 
@@ -213,13 +219,12 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 }
 
                 // Informations d'un établissement pour le consulter
-                else if (script.equals(context.getString(R.string.getEtabByName))) {
+                else if (script.equals(context.getString(R.string.getEtabById))) {
                     if (jsonArray.length() > 0) {
                         jso = jsonArray.getJSONObject(0);
                         cp = jso.getString(context.getString(R.string.prefCp));
                         ville = jso.getString(context.getString(R.string.prefVille));
                         adresse = jso.getString(context.getString(R.string.prefAdresse));
-                        tel = jso.getString(context.getString(R.string.prefTel));
                         getEtabData(jso);
                     }
 
@@ -230,11 +235,12 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 else if (script.equals(context.getString(R.string.getEtabByManager))) {
                     if (jsonArray.length() > 0) {
                         jso = jsonArray.getJSONObject(0);
+                        idEt = jso.getString(context.getString(R.string.prefIdEt));
                         nomEt = jso.getString(context.getString(R.string.prefNomEt));
                         getEtabData(jso);
                     }
 
-                    EtablissementManager.getInstance().getInfos(nomEt, description, prixLivr, conges);
+                    EtablissementManager.getInstance().getInfos(idEt, nomEt, description, prixLivr, tel, conges);
                 }
 
             } catch (JSONException e) {
@@ -246,6 +252,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
     private void getEtabData(JSONObject jso) throws JSONException {
         description = jso.getString(context.getString(R.string.prefDesc));
         prixLivr = jso.getString(context.getString(R.string.prefPrixLivr));
+        tel = jso.getString(context.getString(R.string.prefTel));
         conges = jso.getString(context.getString(R.string.prefConges));
     }
 
@@ -257,38 +264,58 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
         try {
             if (lien.equals(context.getString(R.string.insertUtilisateur))) {
-                data = URLEncoder.encode(context.getString(R.string.prefCompte), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                data =  URLEncoder.encode(context.getString(R.string.prefCompte), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefNom), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefPrenom), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.checkUtilisateur))) {
-                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.checkIdentifiants))) {
-                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.changeMdp))) {
-                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.eraseCompte))) {
-                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.changeCoordClient))) {
-                data = URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefVille), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefCp), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
             }
-            else if (lien.equals(context.getString(R.string.getEtabByName))) {
-                data = URLEncoder.encode(context.getString(R.string.prefNomEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+            else if (lien.equals(context.getString(R.string.getEtabById))) {
+                data =  URLEncoder.encode(context.getString(R.string.prefIdEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.getEtabByManager))) {
-                data = URLEncoder.encode(context.getString(R.string.prefId), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+                data =  URLEncoder.encode(context.getString(R.string.prefId), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+            }
+            else if (lien.equals(context.getString(R.string.updateEtab))) {
+                data =  URLEncoder.encode(context.getString(R.string.prefIdEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefId), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefDesc), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefPrixLivr), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefConges), "utf-8") + "=" + URLEncoder.encode(params[7], "utf-8");
+            }
+            else if (lien.equals(context.getString(R.string.insertEtab))) {
+                data =  URLEncoder.encode(context.getString(R.string.prefIdEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefNomEt), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefId), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefDesc), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefPrixLivr), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[7], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefConges), "utf-8") + "=" + URLEncoder.encode(params[8], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefCp), "utf-8") + "=" + URLEncoder.encode(params[9], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefVille), "utf-8") + "=" + URLEncoder.encode(params[10], "utf-8") + "&" +
+                        URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[11], "utf-8");
             }
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

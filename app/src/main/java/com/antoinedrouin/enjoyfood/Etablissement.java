@@ -32,7 +32,7 @@ public class Etablissement extends AppCompatActivity {
         viewPager = (ViewPager) findViewById(R.id.viewPagerEtab);
 
         Bundle extras = getIntent().getExtras();
-        String nomEtab =  extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab));
+        String nomEtab = extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab));
         ((TextView) findViewById(R.id.txtNomEtab)).setText(nomEtab);
 
        // Remplis le viewPager

@@ -15,9 +15,9 @@ public class Coordonnees extends Fragment {
     static Coordonnees instCoord;
     View view;
 
-    TextView txtCpEt, txtVilleEt;
+    TextView txtCpEt, txtVilleEt, txtTelEt;
 
-    String etab, cp, ville, adresse, tel, desc, prixLivr, conges;
+    String idEt, nomEt, cp, ville, adresse, tel, desc, prixLivr, conges;
 
     public static Coordonnees newInstance() {
         Coordonnees fragment = new Coordonnees();
@@ -30,12 +30,15 @@ public class Coordonnees extends Fragment {
 
         context = getContext();
         instCoord = this;
-        etab = ((TextView) Etablissement.getInstance().findViewById(R.id.txtNomEtab)).getText().toString();
+
+        Bundle extras = Etablissement.getInstance().getIntent().getExtras();
+        idEt = extras.getString(getString(R.string.extraEtabId), "");
+        nomEt = extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab));
 
         // Requête pour trouver les données
 
         ServerSide getEtabInfo = new ServerSide(context);
-        getEtabInfo.execute(getString(R.string.getEtabByName), getString(R.string.read), etab);
+        getEtabInfo.execute(getString(R.string.getEtabById), getString(R.string.read), idEt);
     }
 
     public void getInfos(String cCp, String cVille, String cAdresse, String cTel, String cDesc, String cPrixLivr, String cConges) {
@@ -52,9 +55,9 @@ public class Coordonnees extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_coordonnees, container, false);
-
         txtCpEt = (TextView) view.findViewById(R.id.txtCodePostalEt);
         txtVilleEt = (TextView) view.findViewById(R.id.txtVilleEt);
+        txtTelEt = (TextView) view.findViewById(R.id.txtTelEt);
 
         // Remplissage des champs
         setCompo();
@@ -65,6 +68,7 @@ public class Coordonnees extends Fragment {
     private void setCompo() {
         txtCpEt.setText(cp);
         txtVilleEt.setText(ville);
+        txtTelEt.setText(tel);
     }
 
     public static Coordonnees getInstance() {

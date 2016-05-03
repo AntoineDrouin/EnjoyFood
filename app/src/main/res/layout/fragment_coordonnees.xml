@@ -4,33 +4,175 @@
     android:layout_height="match_parent"
     tools:context="com.antoinedrouin.enjoyfood.Coordonnees">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="code postal"
-        android:id="@+id/txtCodePostalEt"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="center" />
+    <include layout="@layout/loading_panel"></include>
 
-    <TextView
+    <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ville"
-        android:id="@+id/txtVilleEt"
-        android:textAlignment="center"
-        android:layout_below="@+id/txtCodePostalEt"
-        android:layout_centerHorizontal="true" />
+        android:layout_height="fill_parent"
+        android:id="@+id/scrollView3"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" >
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="@string/edtTel"
-        android:id="@+id/txtTelEt"
-        android:layout_below="@+id/txtVilleEt"
-        android:layout_centerHorizontal="true" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/layoutInfos">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/switchConges"
+                android:id="@+id/txtConges"
+                android:textAlignment="center"
+                android:textColor="@android:color/holo_red_dark" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/txtDescription"
+                android:id="@+id/txtDescIndic"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/txtDescription"
+                android:id="@+id/txtDesc"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal" />
+
+            <View style="@style/divider"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/edtAdresse"
+                android:id="@+id/txtAdressIndic"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/edtAdresse"
+                android:id="@+id/txtAdress"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal" />
+
+            <View style="@style/divider"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/edtTel"
+                android:id="@+id/txtTelIndic"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/edtTel"
+                android:id="@+id/txtTel"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal" />
+
+            <View style="@style/divider"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/txtPrixLivraison"
+                android:id="@+id/txtPrixLivrIndic"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="@string/txtPrixLivraison"
+                android:id="@+id/txtPrixLivr"
+                android:textAlignment="center"
+                android:layout_gravity="center_horizontal" />
+
+            <View style="@style/divider"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/txtHoraires"
+                android:id="@+id/txtHorairesIndic"
+                android:textAlignment="center" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lvHor"
+                android:layout_gravity="center_horizontal"
+                android:choiceMode="none" />
+
+            <View style="@style/divider"/>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/txtPay"
+                android:id="@+id/txtPayIndic"
+                android:textAlignment="center"
+                android:visibility="gone" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lvPay"
+                android:layout_gravity="center_horizontal"
+                android:choiceMode="none"
+                android:visibility="gone" />
+
+            <View style="@style/divider"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/linearLayout4">
+
+                <ImageButton
+                    style="@style/imageButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/btnItinerary"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_iti"
+                    android:singleLine="false"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:onClick="onClickItinerary" />
+
+                <ImageButton
+                    style="@style/imageButtonStyle"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/btnCall"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_call"
+                    android:layout_margin="@dimen/activity_horizontal_margin"
+                    android:onClick="onClickCall" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

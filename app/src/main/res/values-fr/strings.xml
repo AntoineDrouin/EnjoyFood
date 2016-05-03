@@ -69,4 +69,10 @@
     <string name="txtDescription">Description</string>
     <string name="placeUpdated">Votre établissement est maintenant à jour</string>
     <string name="placeInserted">Établissement créé avec succès</string>
+    <string name="txtHoraires">Horaires</string>
+    <string name="errorFields">Veuillez saisir tous les champs</string>
+    <string name="txtEdit">Modifier :</string>
+    <string name="txtCateg">Catégories</string>
+    <string name="txtConso">Consommables</string>
+    <string name="txtPay">Moyens de paiement</string>
 </resources>

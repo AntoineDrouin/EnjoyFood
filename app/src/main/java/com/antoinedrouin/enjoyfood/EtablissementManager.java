@@ -79,13 +79,16 @@ public class EtablissementManager extends AppCompatActivity {
         else
             conges = "0";
 
-        ServerSide etab = new ServerSide(context);
+        if (desc.equals("") || prixLivr.equals("") || tel.equals(""))
+            Toast.makeText(context, getString(R.string.errorFields), Toast.LENGTH_SHORT).show();
+        else {
+            ServerSide etab = new ServerSide(context);
 
-        if (script.equals(getString(R.string.updateEtab))) {
-            etab.execute(script, getString(R.string.write), idEt, idUt, desc, prixLivr, tel, conges);
-        }
-        else if (script.equals(getString(R.string.insertEtab))) {
-            etab.execute(script, getString(R.string.write), idEt, nomEt, idUt, desc, prixLivr, tel, conges, cp, ville, adresse);
+            if (script.equals(getString(R.string.updateEtab))) {
+                etab.execute(script, getString(R.string.write), idEt, idUt, desc, prixLivr, tel, conges);
+            } else if (script.equals(getString(R.string.insertEtab))) {
+                etab.execute(script, getString(R.string.write), idEt, nomEt, idUt, desc, prixLivr, tel, conges, cp, ville, adresse);
+            }
         }
     }
 

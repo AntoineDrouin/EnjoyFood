@@ -24,6 +24,8 @@
     <string name="getEtabByManager" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getEtabByManager.php</string>
     <string name="updateEtab" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updateEtab.php</string>
     <string name="insertEtab" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertEtab.php</string>
+    <string name="getHoraires" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getHoraires.php</string>
+    <string name="getPaiements" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getPaiements.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -55,6 +57,7 @@
     <string name="errorOldMdp">The old password is incorrect</string>
     <string name="errorNom">Please enter a first name</string>
     <string name="errorPrenom">Please enter a last name</string>
+    <string name="errorFields">Please fill all the fields</string>
 
     <!-- Preferences -->
     <string name="prefId" translatable="false">idUt</string>
@@ -72,6 +75,12 @@
     <string name="prefDesc" translatable="false">description</string>
     <string name="prefPrixLivr" translatable="false">prixLivraison</string>
     <string name="prefConges" translatable="false">conges</string>
+    <string name="prefJour" translatable="false">jour</string>
+    <string name="prefHeureDebut1" translatable="false">heureDebut1</string>
+    <string name="prefHeureFin1" translatable="false">heureFin1</string>
+    <string name="prefHeureDebut2" translatable="false">heureDebut2</string>
+    <string name="prefHeureFin2" translatable="false">heureFin2</string>
+    <string name="prefPay" translatable="false">paiement</string>
 
     <!-- Extras -->
     <string name="extraEtabId" translatable="false">etabId</string>
@@ -110,6 +119,11 @@
     <string name="txtSearchCom">Search in orders</string>
     <string name="txtDescription">Description</string>
     <string name="txtPrixLivraison">Delivery price</string>
+    <string name="txtHoraires">Schedules</string>
+    <string name="txtCateg">Categories</string>
+    <string name="txtConso">Consumables</string>
+    <string name="txtPay">Payment methods</string>
+    <string name="txtEdit">Edit :</string>
 
     <!-- EditTexts -->
     <string name="edtPseudo">Pseudonym</string>

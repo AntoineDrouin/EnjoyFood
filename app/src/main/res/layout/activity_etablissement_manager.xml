@@ -45,7 +45,7 @@
                 android:textAlignment="center"
                 android:focusable="true"
                 android:focusableInTouchMode="true"
-                android:inputType="text" />
+                android:inputType="textMultiLine" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -102,6 +102,16 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin" />
 
+            <View style="@style/divider"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/txtEdit"
+                android:id="@+id/txtEdit"
+                android:layout_gravity="center_horizontal" />
+
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
@@ -123,8 +133,8 @@
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="New Button"
-                        android:id="@+id/button3"
+                        android:text="@string/txtCateg"
+                        android:id="@+id/btnEditCateg"
                         android:layout_weight="1"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin" />
@@ -132,8 +142,8 @@
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="New Button"
-                        android:id="@+id/button4"
+                        android:text="@string/txtConso"
+                        android:id="@+id/btnEditConso"
                         android:layout_weight="1"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin" />
@@ -152,15 +162,15 @@
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="New Button"
-                        android:id="@+id/button"
+                        android:text="@string/txtHoraires"
+                        android:id="@+id/btnEditHor"
                         android:layout_weight="1" />
 
                     <Button
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="New Button"
-                        android:id="@+id/button2"
+                        android:text="@string/txtPay"
+                        android:id="@+id/btnEditPay"
                         android:layout_weight="1" />
                 </LinearLayout>
             </LinearLayout>

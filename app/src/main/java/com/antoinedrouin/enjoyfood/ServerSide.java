@@ -2,6 +2,7 @@ package com.antoinedrouin.enjoyfood;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 /**
  * Created by cdsm04 on 26/01/2016.
@@ -94,6 +96,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                 while ((json = buffR.readLine()) != null) {
                     stringB.append(json);
+                    Log.i("marquage", "stringBuilder " + json);
                 }
 
                 buffR.close();
@@ -125,28 +128,22 @@ public class ServerSide extends AsyncTask<String, Void, String> {
         if (result.equals(context.getString(R.string.connectionError))) {
             Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
         }
-
         else if (result.equals(context.getString(R.string.insertUtilisateur))) {
             // Mettre dans pref
             Register.getInstance().putInPrefRegister();
         }
-
         else if (result.equals(context.getString(R.string.eraseCompte))) {
             Compte.getInstance().okErase();
         }
-
         else if (result.equals(context.getString(R.string.changeMdp))) {
             Compte.getInstance().okMdp();
         }
-
         else if (result.equals(context.getString(R.string.changeCoordClient))) {
             Compte.getInstance().okCoord();
         }
-
         else if (result.equals(context.getString(R.string.updateEtab))) {
             EtablissementManager.getInstance().okUpdateEtab();
         }
-
         else if (result.equals(context.getString(R.string.insertEtab))) {
             EtablissementManager.getInstance().okInsertEtab();
         }
@@ -205,8 +202,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                             tel = jso.getString(context.getString(R.string.prefTel));
                             adresse = jso.getString(context.getString(R.string.prefAdresse));
                         }
-//                        else if (compte.equals(context.getString(R.string.varGerant))) {
-//                        }
                     }
 
                     // Si un utilisateur a été trouvé
@@ -243,6 +238,36 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     EtablissementManager.getInstance().getInfos(idEt, nomEt, description, prixLivr, tel, conges);
                 }
 
+                // Horaires d'un établissement
+                else if (script.equals(context.getString(R.string.getHoraires))) {
+                    ArrayList<String> horaires = new ArrayList<>();
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+
+                        horaires.add(jso.getString(context.getString(R.string.prefJour)) + " : " +
+                                jso.getString(context.getString(R.string.prefHeureDebut1)) + " - " +
+                                jso.getString(context.getString(R.string.prefHeureFin1)) + " / " +
+                                jso.getString(context.getString(R.string.prefHeureDebut2)) + " - " +
+                                jso.getString(context.getString(R.string.prefHeureFin2)));
+                    }
+
+                    Coordonnees.getInstance().getHor(horaires);
+                    Log.i("marquage", horaires.toString());
+                }
+
+                // Moyens de paiement d'un établissement
+                else if (script.equals(context.getString(R.string.getPaiements))) {
+                    ArrayList<String> paiements = new ArrayList<>();
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+                        paiements.add(jso.getString(context.getString(R.string.prefPay)));
+                    }
+
+                    Coordonnees.getInstance().getPay(paiements);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -270,19 +295,12 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         URLEncoder.encode(context.getString(R.string.prefNom), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefPrenom), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
             }
-            else if (lien.equals(context.getString(R.string.checkUtilisateur))) {
+            else if (lien.equals(context.getString(R.string.checkUtilisateur)) || lien.equals(context.getString(R.string.eraseCompte))) {
                 data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
-            else if (lien.equals(context.getString(R.string.checkIdentifiants))) {
+            else if (lien.equals(context.getString(R.string.checkIdentifiants)) || lien.equals(context.getString(R.string.changeMdp))) {
                 data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
-            }
-            else if (lien.equals(context.getString(R.string.changeMdp))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
-            }
-            else if (lien.equals(context.getString(R.string.eraseCompte))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.changeCoordClient))) {
                 data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
@@ -291,7 +309,8 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
             }
-            else if (lien.equals(context.getString(R.string.getEtabById))) {
+            else if (lien.equals(context.getString(R.string.getEtabById)) || lien.equals(context.getString(R.string.getHoraires)) ||
+                    lien.equals(context.getString(R.string.getPaiements))) {
                 data =  URLEncoder.encode(context.getString(R.string.prefIdEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.getEtabByManager))) {
@@ -317,6 +336,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         URLEncoder.encode(context.getString(R.string.prefVille), "utf-8") + "=" + URLEncoder.encode(params[10], "utf-8") + "&" +
                         URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[11], "utf-8");
             }
+
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

@@ -66,7 +66,7 @@ public class Etablissements extends Fragment {
                 Cursor loadEtabs = dbEF.rawQuery("Select idEt from Etablissement where nomEt = ?", new String[]{o.toString()});
 
                 if (loadEtabs.moveToFirst()) {
-                    openEtab(loadEtabs.getString(loadEtabs.getColumnIndex("idEt")));
+                    openEtab(loadEtabs.getString(loadEtabs.getColumnIndex("idEt")), o.toString());
                 }
             }
         });
@@ -78,8 +78,7 @@ public class Etablissements extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
+            public void onNothingSelected(AdapterView<?> arg0) {}
         });
         return view;
     }
@@ -175,10 +174,11 @@ public class Etablissements extends Fragment {
         arrayAdapter.notifyDataSetChanged();
     }
 
-    private void openEtab(String idEtab) {
+    private void openEtab(String idEtab, String nomEtab) {
         // Ouvre la fiche d'un établissement en passant en paramètre son id
         Intent intentEtab = new Intent(context, Etablissement.class);
         intentEtab.putExtra(getString(R.string.extraEtabId), idEtab);
+        intentEtab.putExtra(getString(R.string.extraEtabName), nomEtab);
         startActivity(intentEtab);
     }
 

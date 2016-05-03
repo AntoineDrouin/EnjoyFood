@@ -34,4 +34,11 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="divider">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_margin">@dimen/activity_big_padding</item>
+        <item name="android:background">@android:color/darker_gray</item>
+    </style>
+
 </resources>

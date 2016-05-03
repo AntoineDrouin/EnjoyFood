@@ -1,12 +1,20 @@
 package com.antoinedrouin.enjoyfood;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 
 public class Coordonnees extends Fragment {
@@ -15,9 +23,14 @@ public class Coordonnees extends Fragment {
     static Coordonnees instCoord;
     View view;
 
-    TextView txtCpEt, txtVilleEt, txtTelEt;
+    TextView txtDesc, txtAdr, txtTel, txtConges, txtPrixLivr;
+    LinearLayout layoutInfos;
+    RelativeLayout layoutLoading;
+    ListView lvHoraires, lvPay;
 
     String idEt, nomEt, cp, ville, adresse, tel, desc, prixLivr, conges;
+    boolean charged = false;
+    ArrayList<String> horaires, paiements;
 
     public static Coordonnees newInstance() {
         Coordonnees fragment = new Coordonnees();
@@ -36,7 +49,6 @@ public class Coordonnees extends Fragment {
         nomEt = extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab));
 
         // Requête pour trouver les données
-
         ServerSide getEtabInfo = new ServerSide(context);
         getEtabInfo.execute(getString(R.string.getEtabById), getString(R.string.read), idEt);
     }
@@ -49,26 +61,95 @@ public class Coordonnees extends Fragment {
         desc = cDesc;
         prixLivr = cPrixLivr;
         conges = cConges;
+        charged = true;
+
+        // Si des infos ont étés trouvés, on cherche les horaires puis les moyens de paiements
+        if (conges != null) {
+            ServerSide getHor = new ServerSide(context);
+            getHor.execute(getString(R.string.getHoraires), getString(R.string.read), idEt);
+        }
+        else {
+            setCompo();
+        }
+    }
+
+    public void getHor(ArrayList<String> cHor) {
+        horaires = new ArrayList<>();
+        horaires = cHor;
         setCompo();
+//        ServerSide getPay = new ServerSide(context);
+//        getPay.execute(getString(R.string.getPaiements), getString(R.string.read), idEt);
+    }
+
+    public void getPay(ArrayList<String> cPay) {
+        paiements = new ArrayList<>();
+        paiements = cPay;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_coordonnees, container, false);
-        txtCpEt = (TextView) view.findViewById(R.id.txtCodePostalEt);
-        txtVilleEt = (TextView) view.findViewById(R.id.txtVilleEt);
-        txtTelEt = (TextView) view.findViewById(R.id.txtTelEt);
+        layoutInfos = (LinearLayout) view.findViewById(R.id.layoutInfos);
+        layoutLoading = (RelativeLayout) view.findViewById(R.id.loadingPanel);
 
-        // Remplissage des champs
-        setCompo();
+        txtDesc = (TextView) view.findViewById(R.id.txtDesc);
+        txtAdr = (TextView) view.findViewById(R.id.txtAdress);
+        txtTel = (TextView) view.findViewById(R.id.txtTel);
+        txtConges = (TextView) view.findViewById(R.id.txtConges);
+        txtPrixLivr = (TextView) view.findViewById(R.id.txtPrixLivr);
+
+        lvHoraires = (ListView) view.findViewById(R.id.lvHor);
+        lvPay = (ListView) view.findViewById(R.id.lvPay);
+
+        layoutInfos.setVisibility(View.GONE);
+        layoutLoading.setVisibility(View.VISIBLE);
+
+        // Recharge les composants parce que la vue est détruite quand on va au dernier onglet
+        if (charged)
+            setCompo();
 
         return view;
     }
 
+    // Remplissage des champs
     private void setCompo() {
-        txtCpEt.setText(cp);
-        txtVilleEt.setText(ville);
-        txtTelEt.setText(tel);
+        ((TextView) Etablissement.getInstance().findViewById(R.id.txtNomEtab)).setText(nomEt);
+
+        if (conges != null) {
+            txtDesc.setText(desc);
+            txtAdr.setText(adresse);
+            txtTel.setText(tel);
+            txtPrixLivr.setText(prixLivr);
+            if (conges.equals("0"))
+                txtConges.setVisibility(View.GONE);
+
+            ArrayAdapter<String> arrayHor = new ArrayAdapter<>(
+                    context,
+                    android.R.layout.simple_list_item_1,
+                    horaires);
+            lvHoraires.setAdapter(arrayHor);
+
+            lvHoraires.getLayoutParams().height = arrayHor.getCount() * 150;
+
+//            ArrayAdapter<String> arrayPay = new ArrayAdapter<>(
+//                    context,
+//                    android.R.layout.simple_list_item_1,
+//                    paiements);
+//            lvPay.setAdapter(arrayPay);
+
+            layoutInfos.setVisibility(View.VISIBLE);
+        }
+
+        layoutLoading.setVisibility(View.GONE);
+    }
+
+    // Compose le numéro
+    public void call() {
+        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel)));
+    }
+
+    public void openMaps() {
+        startActivity(new Intent(context, MapsActivity.class));
     }
 
     public static Coordonnees getInstance() {

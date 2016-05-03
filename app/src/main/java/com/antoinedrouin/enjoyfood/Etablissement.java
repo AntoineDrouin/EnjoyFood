@@ -6,7 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.TextView;
+import android.view.View;
 
 public class Etablissement extends AppCompatActivity {
 
@@ -30,10 +30,6 @@ public class Etablissement extends AppCompatActivity {
 
         tabLayout = (TabLayout) findViewById(R.id.tabLayoutEtab);
         viewPager = (ViewPager) findViewById(R.id.viewPagerEtab);
-
-        Bundle extras = getIntent().getExtras();
-        String nomEtab = extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab));
-        ((TextView) findViewById(R.id.txtNomEtab)).setText(nomEtab);
 
        // Remplis le viewPager
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), context, 1));
@@ -65,6 +61,14 @@ public class Etablissement extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+    }
+
+    public void onClickCall(View v) {
+        Coordonnees.getInstance().call();
+    }
+
+    public void onClickItinerary(View v) {
+        Coordonnees.getInstance().openMaps();
     }
 
     public static Etablissement getInstance(){

@@ -76,14 +76,14 @@ public class Coordonnees extends Fragment {
     public void getHor(ArrayList<String> cHor) {
         horaires = new ArrayList<>();
         horaires = cHor;
-        setCompo();
-//        ServerSide getPay = new ServerSide(context);
-//        getPay.execute(getString(R.string.getPaiements), getString(R.string.read), idEt);
+        ServerSide getPay = new ServerSide(context);
+        getPay.execute(getString(R.string.getPaiements), getString(R.string.read), idEt);
     }
 
     public void getPay(ArrayList<String> cPay) {
         paiements = new ArrayList<>();
         paiements = cPay;
+        setCompo();
     }
 
     @Override
@@ -128,14 +128,14 @@ public class Coordonnees extends Fragment {
                     android.R.layout.simple_list_item_1,
                     horaires);
             lvHoraires.setAdapter(arrayHor);
-
             lvHoraires.getLayoutParams().height = arrayHor.getCount() * 150;
 
-//            ArrayAdapter<String> arrayPay = new ArrayAdapter<>(
-//                    context,
-//                    android.R.layout.simple_list_item_1,
-//                    paiements);
-//            lvPay.setAdapter(arrayPay);
+            ArrayAdapter<String> arrayPay = new ArrayAdapter<>(
+                    context,
+                    android.R.layout.simple_list_item_1,
+                    paiements);
+            lvPay.setAdapter(arrayPay);
+            lvPay.getLayoutParams().height = arrayPay.getCount() * 150;
 
             layoutInfos.setVisibility(View.VISIBLE);
         }

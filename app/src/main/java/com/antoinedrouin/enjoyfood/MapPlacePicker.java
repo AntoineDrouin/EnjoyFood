@@ -102,10 +102,6 @@ public class MapPlacePicker extends Activity {
                 e.printStackTrace();
             }
         }
-        // Si l'utilisateur quitte le placePicker sans rien choisir
-        else if (resultCode == RESULT_CANCELED) {
-            EtablissementManager.getInstance().finish();
-        }
 
         finish();
     }

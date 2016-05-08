@@ -128,19 +128,16 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/txtPay"
                 android:id="@+id/txtPayIndic"
-                android:textAlignment="center"
-                android:visibility="gone" />
+                android:textAlignment="center" />
 
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/lvPay"
                 android:layout_gravity="center_horizontal"
-                android:choiceMode="none"
-                android:visibility="gone" />
+                android:choiceMode="none" />
 
-            <View style="@style/divider"
-                android:visibility="gone" />
+            <View style="@style/divider" />
 
             <LinearLayout
                 android:orientation="horizontal"

@@ -253,7 +253,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     }
 
                     Coordonnees.getInstance().getHor(horaires);
-                    Log.i("marquage", horaires.toString());
                 }
 
                 // Moyens de paiement d'un établissement

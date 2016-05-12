@@ -1,8 +1,6 @@
 <resources>
-
     <!-- Application -->
     <string name="app_name" translatable="false">EnjoyFood</string>
-    <string name="facebook_app_id" translatable="false">cMej1UZJLPBGtiYSLwAYWd8I4aA=</string>
     <string name="title_activity_maps" translatable="false">Map</string>
 
     <!-- Variables -->
@@ -26,6 +24,7 @@
     <string name="insertEtab" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertEtab.php</string>
     <string name="getHoraires" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getHoraires.php</string>
     <string name="getPaiements" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getPaiements.php</string>
+    <string name="getPaiementsInfos" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getPaiementsInfos.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -80,6 +79,7 @@
     <string name="prefHeureFin1" translatable="false">heureFin1</string>
     <string name="prefHeureDebut2" translatable="false">heureDebut2</string>
     <string name="prefHeureFin2" translatable="false">heureFin2</string>
+    <string name="prefIdPay" translatable="false">idPaiement</string>
     <string name="prefPay" translatable="false">paiement</string>
 
     <!-- Extras -->
@@ -88,6 +88,7 @@
     <string name="useType" translatable="false">useType</string>
     <string name="useTypeCons" translatable="false">consultation</string>
     <string name="useTypeModif" translatable="false">modification</string>
+    <string name="typeInfos" translatable="false">typeInfos</string>
 
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>
@@ -153,8 +154,14 @@
     <!-- Spinners -->
     <string name="spinVarLvRecent">Recent restaurants</string>
     <string name="spinVarLvSearch">Restaurants nearby</string>
-    
+    <string name="spinDayWeek0">Monday</string>
+    <string name="spinDayWeek1">Tuesday</string>
+    <string name="spinDayWeek2">Wednesday</string>
+    <string name="spinDayWeek3">Thursday</string>
+    <string name="spinDayWeek4">Friday</string>
+    <string name="spinDayWeek5">Saturday</string>
+    <string name="spinDayWeek6">Sunday</string>
+
     <!-- Switch -->
     <string name="switchConges">On holiday</string>
-
 </resources>

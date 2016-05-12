@@ -267,6 +267,18 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     Coordonnees.getInstance().getPay(paiements);
                 }
 
+                else if (script.equals(context.getString(R.string.getPaiementsInfos))) {
+                    String[][] paiements = new String[jsonArray.length()][2];
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+                        paiements[i][0] = jso.getString(context.getString(R.string.prefIdPay));
+                        paiements[i][1] = jso.getString(context.getString(R.string.prefPay));
+                    }
+
+                    EtablissementManagerInfos.getInstance().fillLvInfos(paiements);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -309,7 +321,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.getEtabById)) || lien.equals(context.getString(R.string.getHoraires)) ||
-                    lien.equals(context.getString(R.string.getPaiements))) {
+                    lien.equals(context.getString(R.string.getPaiements)) || lien.equals(context.getString(R.string.getPaiementsInfos))) {
                 data =  URLEncoder.encode(context.getString(R.string.prefIdEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
             }
             else if (lien.equals(context.getString(R.string.getEtabByManager))) {
@@ -342,5 +354,4 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
         return data;
     }
-
 }

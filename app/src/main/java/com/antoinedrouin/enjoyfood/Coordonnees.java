@@ -125,14 +125,14 @@ public class Coordonnees extends Fragment {
 
             ArrayAdapter<String> arrayHor = new ArrayAdapter<>(
                     context,
-                    android.R.layout.simple_list_item_1,
+                    R.layout.listitem,
                     horaires);
             lvHoraires.setAdapter(arrayHor);
             lvHoraires.getLayoutParams().height = arrayHor.getCount() * 150;
 
             ArrayAdapter<String> arrayPay = new ArrayAdapter<>(
                     context,
-                    android.R.layout.simple_list_item_1,
+                    R.layout.listitem,
                     paiements);
             lvPay.setAdapter(arrayPay);
             lvPay.getLayoutParams().height = arrayPay.getCount() * 150;

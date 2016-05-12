@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.antoinedrouin.enjoyfood">
+
     // Autoriser la connexion réseau
     <uses-permission android:name="android.permission.INTERNET" />
     // Localisation approximative
@@ -17,7 +18,6 @@
         <activity android:name=".Tabs">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -28,7 +28,8 @@
         <activity android:name=".Etablissement" />
         <activity android:name=".Reglages" />
         <activity android:name=".MapPlacePicker" />
-        <activity android:name=".EtablissementManager"></activity>
+        <activity android:name=".EtablissementManager" />
+        <activity android:name=".EtablissementManagerInfos"></activity>
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
@@ -45,5 +46,4 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_key" />
     </application>
-
 </manifest>

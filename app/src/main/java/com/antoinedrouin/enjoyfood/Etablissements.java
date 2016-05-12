@@ -101,7 +101,6 @@ public class Etablissements extends Fragment {
 
     public void fillLvWithDb() {
         List<String> listEtab = new ArrayList<>();
-
         Cursor loadEtabs = dbEF.rawQuery("Select nomEt from Etablissement", null);
 
         if (loadEtabs.moveToFirst()) {
@@ -114,7 +113,7 @@ public class Etablissements extends Fragment {
 
         arrayAdapter = new ArrayAdapter<>(
                 context,
-                android.R.layout.simple_list_item_1,
+                R.layout.listitem,
                 listEtab);
 
         lvEtab.setAdapter(arrayAdapter);
@@ -155,7 +154,7 @@ public class Etablissements extends Fragment {
 
         arrayAdapter = new ArrayAdapter<>(
                 context,
-                android.R.layout.simple_list_item_1,
+                R.layout.listitem,
                 listEtab);
 
         lvEtab.setAdapter(arrayAdapter);

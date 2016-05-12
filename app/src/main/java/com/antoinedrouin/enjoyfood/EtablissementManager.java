@@ -58,6 +58,10 @@ public class EtablissementManager extends AppCompatActivity {
             switchConges.setChecked(eConges.equals("1"));
 
             script = getString(R.string.updateEtab);
+
+            SharedPreferences.Editor edit = pref.edit();
+            edit.putString(getString(R.string.prefIdEt), idEt);
+            edit.apply();
         }
         else {
             Intent intent = new Intent(this, MapPlacePicker.class);
@@ -107,6 +111,28 @@ public class EtablissementManager extends AppCompatActivity {
         cp = pCp;
         ville = pVille;
         adresse = cAdresse;
+    }
+
+    public void onClickHoraires(View v) {
+        launchInfosActivity(getString(R.string.txtHoraires));
+    }
+
+    public void onClickPaiements(View v) {
+        launchInfosActivity(getString(R.string.txtPay));
+    }
+
+    public void onClickCategories(View v) {
+        launchInfosActivity(getString(R.string.txtCateg));
+    }
+
+    public void onClickConsommables(View v) {
+        launchInfosActivity(getString(R.string.txtConso));
+    }
+
+    private void launchInfosActivity(String typeInfo) {
+        Intent intent = new Intent(this, EtablissementManagerInfos.class);
+        intent.putExtra(getString(R.string.typeInfos), typeInfo);
+        startActivity(intent);
     }
 
     public static EtablissementManager getInstance() {

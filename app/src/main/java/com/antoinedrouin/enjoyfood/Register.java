@@ -1,15 +1,10 @@
 package com.antoinedrouin.enjoyfood;
 
 import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 public class Register extends AppCompatActivity {
@@ -64,7 +59,8 @@ public class Register extends AppCompatActivity {
     }
 
     public void putInPrefRegister() {
-        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
+        // Enelever les commentaires permet de conneter l'utilisateur après la connexion à son compte
+        /*SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         Editor edit = pref.edit();
 
         edit.putString(getString(R.string.prefPseudo), ((EditText) findViewById(R.id.edtPseudo)).getText().toString());
@@ -72,13 +68,13 @@ public class Register extends AppCompatActivity {
         edit.putString(getString(R.string.prefCompte), ((Spinner) findViewById(R.id.spinCompte)).getSelectedItem().toString());
         edit.putString(getString(R.string.prefNom), ((EditText) Register.getInstance().findViewById(R.id.edtNom)).getText().toString());
         edit.putString(getString(R.string.prefPrenom), ((EditText) Register.getInstance().findViewById(R.id.edtPrenom)).getText().toString());
-        edit.apply();
+        edit.apply();*/
 
         Toast.makeText(context, getString(R.string.insertUtilisateurSuccess), Toast.LENGTH_SHORT).show();
 
-        Login.getInstance().finish();
+        //Login.getInstance().finish();
         Tabs.getInstance().recreate();
-        startActivity(new Intent(context, Compte.class));
+        //startActivity(new Intent(context, Compte.class));
         finish();
     }
 

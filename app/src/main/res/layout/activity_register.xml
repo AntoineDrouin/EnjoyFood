@@ -113,8 +113,7 @@
                     android:ems="10"
                     android:id="@+id/edtPrenom"
                     android:layout_weight="1"
-                    android:hint="@string/edtPrenom"
-                    android:focusable="true" />
+                    android:hint="@string/edtPrenom" />
             </LinearLayout>
 
             <LinearLayout

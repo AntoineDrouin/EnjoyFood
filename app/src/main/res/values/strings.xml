@@ -23,8 +23,16 @@
     <string name="updateEtab" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updateEtab.php</string>
     <string name="insertEtab" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertEtab.php</string>
     <string name="getHoraires" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getHoraires.php</string>
+    <string name="getHorairesInfos" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getHorairesInfos.php</string>
+    <string name="updateHoraire" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updateHoraire.php</string>
+    <string name="insertHoraire" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertHoraire.php</string>
     <string name="getPaiements" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getPaiements.php</string>
     <string name="getPaiementsInfos" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getPaiementsInfos.php</string>
+    <string name="updatePaiement" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updatePaiement.php</string>
+    <string name="insertPaiement" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertPaiement.php</string>
+    <string name="getCategInfos" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getCategInfos.php</string>
+    <string name="updateCateg" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updateCateg.php</string>
+    <string name="insertCateg" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertCateg.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -47,6 +55,7 @@
     <string name="choosePlace">Choose your restaurant</string>
     <string name="placeUpdated">Your restaurant is now up to date</string>
     <string name="placeInserted">Restaurant created successfully</string>
+    <string name="update">Update done</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
@@ -74,13 +83,16 @@
     <string name="prefDesc" translatable="false">description</string>
     <string name="prefPrixLivr" translatable="false">prixLivraison</string>
     <string name="prefConges" translatable="false">conges</string>
-    <string name="prefJour" translatable="false">jour</string>
+    <string name="prefIdHor" translatable="false">idHo</string>
+    <string name="prefJour" translatable="false">jourHo</string>
     <string name="prefHeureDebut1" translatable="false">heureDebut1</string>
     <string name="prefHeureFin1" translatable="false">heureFin1</string>
     <string name="prefHeureDebut2" translatable="false">heureDebut2</string>
     <string name="prefHeureFin2" translatable="false">heureFin2</string>
-    <string name="prefIdPay" translatable="false">idPaiement</string>
-    <string name="prefPay" translatable="false">paiement</string>
+    <string name="prefIdPa" translatable="false">idPa</string>
+    <string name="prefNomPa" translatable="false">nomPa</string>
+    <string name="prefIdCa" translatable="false">idCa</string>
+    <string name="prefNomCa" translatable="false">nomCa</string>
 
     <!-- Extras -->
     <string name="extraEtabId" translatable="false">etabId</string>
@@ -89,6 +101,8 @@
     <string name="useTypeCons" translatable="false">consultation</string>
     <string name="useTypeModif" translatable="false">modification</string>
     <string name="typeInfos" translatable="false">typeInfos</string>
+    <string name="idObject" translatable="false">idObject</string>
+    <string name="nameObject" translatable="false">nameObject</string>
 
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>
@@ -125,6 +139,9 @@
     <string name="txtConso">Consumables</string>
     <string name="txtPay">Payment methods</string>
     <string name="txtEdit">Edit :</string>
+    <string name="txtLabel">Label</string>
+    <string name="txtStart">Start at</string>
+    <string name="txtEnd">End at</string>
 
     <!-- EditTexts -->
     <string name="edtPseudo">Pseudonym</string>

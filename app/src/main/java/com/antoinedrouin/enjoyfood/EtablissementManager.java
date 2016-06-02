@@ -42,7 +42,6 @@ public class EtablissementManager extends AppCompatActivity {
         idUt = pref.getString(getString(R.string.prefId), "");
 
         // Recherche des infos de l'étab
-
         ServerSide getEtabByManager = new ServerSide(context);
         getEtabByManager.execute(getString(R.string.getEtabByManager), getString(R.string.read), idUt);
     }
@@ -114,24 +113,24 @@ public class EtablissementManager extends AppCompatActivity {
     }
 
     public void onClickHoraires(View v) {
-        launchInfosActivity(getString(R.string.txtHoraires));
+        launchInfosActivity(R.string.txtHoraires);
     }
 
     public void onClickPaiements(View v) {
-        launchInfosActivity(getString(R.string.txtPay));
+        launchInfosActivity(R.string.txtPay);
     }
 
     public void onClickCategories(View v) {
-        launchInfosActivity(getString(R.string.txtCateg));
+        launchInfosActivity(R.string.txtCateg);
     }
 
     public void onClickConsommables(View v) {
-        launchInfosActivity(getString(R.string.txtConso));
+        launchInfosActivity(R.string.txtConso);
     }
 
-    private void launchInfosActivity(String typeInfo) {
+    private void launchInfosActivity(int typeInfo) {
         Intent intent = new Intent(this, EtablissementManagerInfos.class);
-        intent.putExtra(getString(R.string.typeInfos), typeInfo);
+        intent.putExtra(getString(R.string.typeInfos), getString(typeInfo));
         startActivity(intent);
     }
 

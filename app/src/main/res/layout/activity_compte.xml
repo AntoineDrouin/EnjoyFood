@@ -81,8 +81,7 @@
                                 android:ems="10"
                                 android:id="@+id/edtNewTel"
                                 android:layout_weight="1"
-                                android:hint="@string/edtTel"
-                                android:focusable="true" />
+                                android:hint="@string/edtTel" />
                         </LinearLayout>
 
                         <LinearLayout

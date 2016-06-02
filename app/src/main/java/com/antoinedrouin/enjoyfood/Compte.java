@@ -21,7 +21,7 @@ public class Compte extends AppCompatActivity {
     SharedPreferences pref;
     SharedPreferences.Editor edit;
 
-    String script, methode, pseudo, compte;
+    String script, methode, id, pseudo, compte, newMdp1;
 
     LinearLayout layoutMdp, mainLayoutCoord, layoutCoord;
     EditText edtOldMdp, edtNewMdp1, edtNewMdp2, edtNewVille, edtNewCp, edtNewTel, edtNewAd;
@@ -38,6 +38,7 @@ public class Compte extends AppCompatActivity {
         instCompte = this;
 
         pref = PreferenceManager.getDefaultSharedPreferences(this);
+        id = pref.getString(getString(R.string.prefId), "");
         pseudo = pref.getString(getString(R.string.prefPseudo), "");
         compte = pref.getString(getString(R.string.prefCompte), "");
         edit = pref.edit();
@@ -78,7 +79,7 @@ public class Compte extends AppCompatActivity {
     }
 
     public void onClickMdpChangeValider(View v) {
-        String oldMdp, newMdp1, newMdp2, error;
+        String oldMdp, newMdp2, error;
 
         error = "";
         oldMdp = edtOldMdp.getText().toString();
@@ -144,7 +145,7 @@ public class Compte extends AppCompatActivity {
         ad = edtNewAd.getText().toString();
 
         ServerSide changeCoord = new ServerSide(context);
-        changeCoord.execute(script, methode, pseudo, ville, cp, tel, ad);
+        changeCoord.execute(script, methode, id, ville, cp, tel, ad);
     }
 
     public void onClickSupprCompte(View v) {
@@ -176,6 +177,8 @@ public class Compte extends AppCompatActivity {
 
     public void okMdp() {
         layoutMdp.setVisibility(View.GONE);
+        edit.putString(getString(R.string.prefMdp), newMdp1);
+        edit.apply();
         edtOldMdp.setText("");
         edtNewMdp1.setText("");
         edtNewMdp2.setText("");

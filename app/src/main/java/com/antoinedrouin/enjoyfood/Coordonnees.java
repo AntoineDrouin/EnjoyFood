@@ -76,13 +76,6 @@ public class Coordonnees extends Fragment {
     public void getHor(ArrayList<String> cHor) {
         horaires = new ArrayList<>();
         horaires = cHor;
-        ServerSide getPay = new ServerSide(context);
-        getPay.execute(getString(R.string.getPaiements), getString(R.string.read), idEt);
-    }
-
-    public void getPay(ArrayList<String> cPay) {
-        paiements = new ArrayList<>();
-        paiements = cPay;
         setCompo();
     }
 
@@ -130,12 +123,12 @@ public class Coordonnees extends Fragment {
             lvHoraires.setAdapter(arrayHor);
             lvHoraires.getLayoutParams().height = arrayHor.getCount() * 150;
 
-            ArrayAdapter<String> arrayPay = new ArrayAdapter<>(
+            /*ArrayAdapter<String> arrayPay = new ArrayAdapter<>(
                     context,
                     R.layout.listitem,
                     paiements);
             lvPay.setAdapter(arrayPay);
-            lvPay.getLayoutParams().height = arrayPay.getCount() * 150;
+            lvPay.getLayoutParams().height = arrayPay.getCount() * 150;*/
 
             layoutInfos.setVisibility(View.VISIBLE);
         }

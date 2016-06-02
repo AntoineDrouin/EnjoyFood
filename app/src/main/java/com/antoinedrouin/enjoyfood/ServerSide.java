@@ -22,6 +22,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 /**
@@ -31,8 +33,8 @@ import java.util.ArrayList;
 public class ServerSide extends AsyncTask<String, Void, String> {
 
     Context context;
-
     String script, methode, id, idEt, pseudo, mdp, nom, prenom, compte, user, ville, cp, tel, adresse, nomEt, description, conges, prixLivr;
+    private static final String encodage = "utf-8";
 
     public ServerSide (Context context) {
         this.context = context;
@@ -59,9 +61,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             httpURLConnection.setDoOutput(true);
 
             OutputStream os = httpURLConnection.getOutputStream();
-            BufferedWriter buffW = new BufferedWriter(new OutputStreamWriter(os, "utf-8"));
+            BufferedWriter buffW = new BufferedWriter(new OutputStreamWriter(os, encodage));
 
-            // Encodage des données
+            // 2. Encodage des données
             String data = encodeData(script, params);
             buffW.write(data);
 
@@ -96,7 +98,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                 while ((json = buffR.readLine()) != null) {
                     stringB.append(json);
-                    Log.i("marquage", "stringBuilder " + json);
                 }
 
                 buffR.close();
@@ -147,6 +148,11 @@ public class ServerSide extends AsyncTask<String, Void, String> {
         else if (result.equals(context.getString(R.string.insertEtab))) {
             EtablissementManager.getInstance().okInsertEtab();
         }
+        else if (result.equals(context.getString(R.string.updateHoraire)) || result.equals(context.getString(R.string.insertHoraire)) ||
+                result.equals(context.getString(R.string.insertPaiement)) || result.equals(context.getString(R.string.insertCateg)) ||
+                result.equals(context.getString(R.string.updateCateg))) {
+            EtablissementManagerInfosDetails.getInstance().okUpdateHoraire();
+        }
 
         /** 4. ... OU LECTURE DES RETOURS JSON */
 
@@ -155,9 +161,11 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             JSONArray jsonArray;
 
             try {
-                user = "";
+                Log.i("marquage", "on post execute, read");
                 jsonObject = new JSONObject(result);
+                Log.i("marquage", "script : " + script);
                 jsonArray = jsonObject.getJSONArray(context.getString(R.string.varReponseJson));
+                Log.i("marquage", "réponse : " + jsonArray);
 
                 // On utilise le json différement pour chaque script
                 if (script.equals(context.getString(R.string.checkUtilisateur))) {
@@ -167,7 +175,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     }
 
                     // S'il ne trouve aucun pseudo similaire, on lance l'insertion
-                    if (user.equals("")) {
+                    if (user == null) {
                         script = context.getString(R.string.insertUtilisateur);
                         methode = context.getString(R.string.write);
 
@@ -190,8 +198,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     if (jsonArray.length() > 0) {
                         jso = jsonArray.getJSONObject(0);
                         id = jso.getString(context.getString(R.string.prefId));
-                        user = jso.getString(context.getString(R.string.prefPseudo));
-                        mdp = jso.getString(context.getString(R.string.prefMdp));
+                        // On ne retourne pas le pseudo et le mdp, question de sécurité
                         nom = jso.getString(context.getString(R.string.prefNom));
                         prenom = jso.getString(context.getString(R.string.prefPrenom));
                         compte = jso.getString(context.getString(R.string.prefCompte));
@@ -205,7 +212,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     }
 
                     // Si un utilisateur a été trouvé
-                    if (!user.equals("")) {
+                    if (id != null) {
                         Login.getInstance().putInPrefLogin(id, user, mdp, compte, nom, prenom, ville, cp, tel, adresse);
                     }
                     else {
@@ -246,25 +253,30 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         jso = jsonArray.getJSONObject(i);
 
                         horaires.add(jso.getString(context.getString(R.string.prefJour)) + " : " +
-                                jso.getString(context.getString(R.string.prefHeureDebut1)) + " - " +
-                                jso.getString(context.getString(R.string.prefHeureFin1)) + " / " +
-                                jso.getString(context.getString(R.string.prefHeureDebut2)) + " - " +
-                                jso.getString(context.getString(R.string.prefHeureFin2)));
+                            jso.getString(context.getString(R.string.prefHeureDebut1)) + " - " +
+                            jso.getString(context.getString(R.string.prefHeureFin1)) + " / " +
+                            jso.getString(context.getString(R.string.prefHeureDebut2)) + " - " +
+                            jso.getString(context.getString(R.string.prefHeureFin2)));
                     }
 
                     Coordonnees.getInstance().getHor(horaires);
                 }
 
-                // Moyens de paiement d'un établissement
-                else if (script.equals(context.getString(R.string.getPaiements))) {
-                    ArrayList<String> paiements = new ArrayList<>();
+                else if (script.equals(context.getString(R.string.getHorairesInfos))) {
+                    String[][] horaires = new String[jsonArray.length()][6];
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-                        paiements.add(jso.getString(context.getString(R.string.prefPay)));
+
+                        horaires[i][0] = jso.getString(context.getString(R.string.prefIdHor));
+                        horaires[i][1] = jso.getString(context.getString(R.string.prefJour));
+                        horaires[i][2] = jso.getString(context.getString(R.string.prefHeureDebut1));
+                        horaires[i][3] = jso.getString(context.getString(R.string.prefHeureFin1));
+                        horaires[i][4] = jso.getString(context.getString(R.string.prefHeureDebut2));
+                        horaires[i][5] = jso.getString(context.getString(R.string.prefHeureFin2));
                     }
 
-                    Coordonnees.getInstance().getPay(paiements);
+                    EtablissementManagerInfos.getInstance().fillLvInfos(horaires);
                 }
 
                 else if (script.equals(context.getString(R.string.getPaiementsInfos))) {
@@ -272,15 +284,30 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-                        paiements[i][0] = jso.getString(context.getString(R.string.prefIdPay));
-                        paiements[i][1] = jso.getString(context.getString(R.string.prefPay));
+
+                        paiements[i][0] = jso.getString(context.getString(R.string.prefIdPa));
+                        paiements[i][1] = jso.getString(context.getString(R.string.prefNomPa));
                     }
 
                     EtablissementManagerInfos.getInstance().fillLvInfos(paiements);
                 }
 
+                else if (script.equals(context.getString(R.string.getCategInfos))) {
+                    String[][] categories = new String[jsonArray.length()][2];
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+
+                        categories[i][0] = jso.getString(context.getString(R.string.prefIdCa));
+                        categories[i][1] = jso.getString(context.getString(R.string.prefNomCa));
+                    }
+
+                    EtablissementManagerInfos.getInstance().fillLvInfos(categories);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
+                Log.i("marquage", e.getMessage());
             }
         }
     }
@@ -296,62 +323,112 @@ public class ServerSide extends AsyncTask<String, Void, String> {
     /** 2. FONCTION D'ENCODAGE DES DONNEES EN FONCTION DU SCRIPT A EXECUTER */
 
     private String encodeData(String lien, String... params) {
-        String data = null;
+        String key, value;
+        String data = "";
+        int[] keys = new int[0];
+        String[] values = params;
+        int i;
+        Log.i("marquage", "lien : " + lien);
+
+        // On n'a plus besoin des 2 premiers paramètres
+        for (i = 0; i < params.length - 2; i++) {
+            values[i] = values[i+2];
+        }
 
         try {
             if (lien.equals(context.getString(R.string.insertUtilisateur))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefCompte), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefNom), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefPrenom), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
+                keys = new int[]{R.string.prefCompte, R.string.prefPseudo, R.string.prefMdp, R.string.prefNom, R.string.prefPrenom};
             }
             else if (lien.equals(context.getString(R.string.checkUtilisateur)) || lien.equals(context.getString(R.string.eraseCompte))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+                keys = new int[]{R.string.prefPseudo};
             }
             else if (lien.equals(context.getString(R.string.checkIdentifiants)) || lien.equals(context.getString(R.string.changeMdp))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefMdp), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8");
+                keys = new int[]{R.string.prefPseudo, R.string.prefMdp};
             }
             else if (lien.equals(context.getString(R.string.changeCoordClient))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefPseudo), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefVille), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefCp), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8");
+                keys = new int[]{R.string.prefId, R.string.prefVille, R.string.prefCp, R.string.prefTel, R.string.prefAdresse};
             }
             else if (lien.equals(context.getString(R.string.getEtabById)) || lien.equals(context.getString(R.string.getHoraires)) ||
-                    lien.equals(context.getString(R.string.getPaiements)) || lien.equals(context.getString(R.string.getPaiementsInfos))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefIdEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+                    lien.equals(context.getString(R.string.getHorairesInfos)) || lien.equals(context.getString(R.string.getPaiements)) ||
+                    lien.equals(context.getString(R.string.getPaiementsInfos)) || lien.equals(context.getString(R.string.getCategInfos))) {
+                keys = new int[]{R.string.prefIdEt};
             }
             else if (lien.equals(context.getString(R.string.getEtabByManager))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefId), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8");
+                keys = new int[]{R.string.prefId};
             }
             else if (lien.equals(context.getString(R.string.updateEtab))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefIdEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefId), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefDesc), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefPrixLivr), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefConges), "utf-8") + "=" + URLEncoder.encode(params[7], "utf-8");
+                keys = new int[]{R.string.prefIdEt, R.string.prefId, R.string.prefDesc, R.string.prefPrixLivr, R.string.prefTel, R.string.prefConges};
             }
             else if (lien.equals(context.getString(R.string.insertEtab))) {
-                data =  URLEncoder.encode(context.getString(R.string.prefIdEt), "utf-8") + "=" + URLEncoder.encode(params[2], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefNomEt), "utf-8") + "=" + URLEncoder.encode(params[3], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefId), "utf-8") + "=" + URLEncoder.encode(params[4], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefDesc), "utf-8") + "=" + URLEncoder.encode(params[5], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefPrixLivr), "utf-8") + "=" + URLEncoder.encode(params[6], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefTel), "utf-8") + "=" + URLEncoder.encode(params[7], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefConges), "utf-8") + "=" + URLEncoder.encode(params[8], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefCp), "utf-8") + "=" + URLEncoder.encode(params[9], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefVille), "utf-8") + "=" + URLEncoder.encode(params[10], "utf-8") + "&" +
-                        URLEncoder.encode(context.getString(R.string.prefAdresse), "utf-8") + "=" + URLEncoder.encode(params[11], "utf-8");
+                keys = new int[]{R.string.prefIdEt, R.string.prefNomEt, R.string.prefId, R.string.prefDesc, R.string.prefPrixLivr, R.string.prefTel,
+                    R.string.prefConges, R.string.prefCp, R.string.prefVille, R.string.prefAdresse};
+            }
+            else if (lien.equals(context.getString(R.string.updateHoraire))) {
+                keys = new int[]{R.string.prefIdHor, R.string.prefJour, R.string.prefHeureDebut1, R.string.prefHeureFin1,
+                        R.string.prefHeureDebut2, R.string.prefHeureFin2};
+            }
+            else if (lien.equals(context.getString(R.string.insertHoraire))) {
+                keys = new int[]{R.string.prefIdEt, R.string.prefJour, R.string.prefHeureDebut1, R.string.prefHeureFin1,
+                        R.string.prefHeureDebut2, R.string.prefHeureFin2};
+            }
+            else if (lien.equals(context.getString(R.string.insertPaiement))) {
+                keys = new int[]{R.string.prefIdEt, R.string.prefNomPa};
+            }
+            else if (lien.equals(context.getString(R.string.insertCateg))) {
+                keys = new int[]{R.string.prefIdEt, R.string.prefNomCa};
+            }
+            else if (lien.equals(context.getString(R.string.updateCateg))) {
+                keys = new int[]{R.string.prefIdCa, R.string.prefNomCa};
             }
 
+            int lengArray = keys.length;
+
+            // Création de la chaine de paramètres à envoyer
+            for (i = 0; i < lengArray; i++) {
+                key = context.getString(keys[i]);
+                Log.i("marquage", "key : " + key);
+                value = values[i];
+
+                // Si le paramètre est un pseudo ou un mot de passe, il est haché
+                if (key.equals(context.getString(R.string.prefPseudo)) || key.equals(context.getString(R.string.prefMdp))) {
+                    value = hash(value);
+                }
+
+                data = data + URLEncoder.encode(key, encodage) + "=" + URLEncoder.encode(value, encodage);
+
+                // Si ce n'est pas le dernier paramètre, on rajoute un caractère de liaison
+                if (i < lengArray - 1) {
+                    data = data + "&";
+                }
+            }
+
+            Log.i("marquage", "data : " + data);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
+            Log.i("marquage", e.getMessage());
         }
 
         return data;
+    }
+
+    // Permet de hacher une chaine grâce à SHA-512
+    private String hash(String chaine) {
+        String encryptedString = "";
+
+        try {
+            byte[] bytesOfMessage = chaine.getBytes(encodage);
+            MessageDigest md = MessageDigest.getInstance("SHA-512");
+            byte[] digest = md.digest(bytesOfMessage);
+
+            for (int i = 0; i < digest.length; i++)
+                encryptedString += String.format("%02x", digest[i]);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
+
+        return encryptedString;
     }
 }

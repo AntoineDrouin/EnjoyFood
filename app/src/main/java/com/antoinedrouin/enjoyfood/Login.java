@@ -35,7 +35,6 @@ public class Login extends AppCompatActivity {
         FacebookSdk.sdkInitialize(context);
         setContentView(R.layout.activity_login);
 
-
         instLogin = this;
 
         edtPseudo = (EditText) findViewById(R.id.edtPseudoLogin);
@@ -89,7 +88,6 @@ public class Login extends AppCompatActivity {
                 Toast.makeText(context, "404", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     public void onClickLogin(View v) {
@@ -102,6 +100,8 @@ public class Login extends AppCompatActivity {
 
         // Test si les identifiants correspondent à un compte
         ServerSide checkIdentifiant = new ServerSide(context);
+        checkIdentifiant.user = pseudo;
+        checkIdentifiant.mdp = mdp;
         checkIdentifiant.execute(script, methode, pseudo, mdp);
     }
 
@@ -144,7 +144,7 @@ public class Login extends AppCompatActivity {
 
         Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
 
-        Tabs.getInstance().recreate(); // On recrée l'instance pour prendre en compte l'uilisateur nouvellement connecté
+        Tabs.getInstance().recreate(); // On recrée l'instance pour prendre en compte l'utilisateur nouvellement connecté
         startActivity(new Intent(context, Compte.class));
         finish();
     }

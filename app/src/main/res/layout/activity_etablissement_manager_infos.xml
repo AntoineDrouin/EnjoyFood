@@ -18,10 +18,22 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTypeInfos"
+        android:layout_height="match_parent"
         android:id="@+id/lvInfos"
         android:layout_gravity="center_horizontal"
-        android:choiceMode="singleChoice" />
+        android:choiceMode="singleChoice"
+        android:layout_below="@+id/txtTypeInfos"
+        android:layout_centerHorizontal="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:src="@android:drawable/ic_menu_add"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/txtTypeInfos"
+        android:onClick="onClickAdd"
+        android:layout_margin="@dimen/activity_big_padding" />
 
 </RelativeLayout>

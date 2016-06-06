@@ -31,6 +31,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         return PAGE_COUNT;
     }
 
+    // Retourne l'instance du Fragment par rapport à l'index passé en paramètre
     @Override
     public Fragment getItem(int position) {
         switch (tab) {
@@ -51,6 +52,7 @@ public class PagerAdapter extends FragmentPagerAdapter {
         return null;
     }
 
+    // Retourne l'apparence de l'onglet par rapport à l'index passé en paramètre
     @Override
     public CharSequence getPageTitle(int position) {
         int[][] imageId = new int[][]{

@@ -6,17 +6,17 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class EtablissementManagerInfos extends AppCompatActivity {
+
+    /** Modèle utilisé pour : les catégories, consommables, horaires, moyens de paiements */
 
     Context context;
     SharedPreferences pref;
@@ -53,18 +53,14 @@ public class EtablissementManagerInfos extends AppCompatActivity {
         ServerSide getObjectsInfo = new ServerSide(context);
 
         // En fonction du bouton cliqué on charge différentes données
-         if (typeInfo.equals(getString(R.string.txtConso)))  {
-            script = "";
-        }
-        else if (typeInfo.equals(getString(R.string.txtCateg))) {
+         if (typeInfo.equals(getString(R.string.txtConso)))
+            script = getString(R.string.getConsosInfos);
+        else if (typeInfo.equals(getString(R.string.txtCateg)))
             script = getString(R.string.getCategInfos);
-        }
-        else if (typeInfo.equals(getString(R.string.txtHoraires))) {
+        else if (typeInfo.equals(getString(R.string.txtHoraires)))
             script = getString(R.string.getHorairesInfos);
-        }
-        else if (typeInfo.equals(getString(R.string.txtPay))) {
+        else if (typeInfo.equals(getString(R.string.txtPay)))
             script = getString(R.string.getPaiementsInfos);
-        }
 
         // Cherche les données de l'établissement
         getObjectsInfo.execute(script, method, idEt);
@@ -77,10 +73,12 @@ public class EtablissementManagerInfos extends AppCompatActivity {
 
                 intent.putExtra(getString(R.string.typeInfos), typeInfo);
 
+                // Si l'objet est nouveau
                 if (o.toString().equals("")){
                     intent.putExtra(getString(R.string.idObject), "");
                     intent.putExtra(getString(R.string.nameObject), "");
                 }
+                // Si il existe déjà
                 else {
                     intent.putExtra(getString(R.string.idObject), info[position][0]);
                     intent.putExtra(getString(R.string.nameObject), info[position][1]);
@@ -92,7 +90,9 @@ public class EtablissementManagerInfos extends AppCompatActivity {
                         intent.putExtra(getString(R.string.prefHeureFin2), info[position][5]);
                     }
                     else if (typeInfo.equals(getString(R.string.txtConso))) {
-
+                        intent.putExtra(getString(R.string.prefDescriptionConso), info[position][2]);
+                        intent.putExtra(getString(R.string.prefPrixConso), info[position][3]);
+                        intent.putExtra(getString(R.string.prefIdCa), info[position][4]);
                     }
                 }
 
@@ -101,6 +101,7 @@ public class EtablissementManagerInfos extends AppCompatActivity {
         });
     }
 
+    // Remplis la listView
     public void fillLvInfos(String[][] infos)  {
         listInfos = new ArrayList();
         info = infos;
@@ -117,6 +118,7 @@ public class EtablissementManagerInfos extends AppCompatActivity {
         lvInfos.setAdapter(arrayInfos);
     }
 
+    // Ajoute une ligne vide à la listView, ne sera sauvegardé que si l'objet de la ligne est crée
     public void onClickAdd(View v) {
         listInfos.add("");
         arrayInfos.notifyDataSetChanged();

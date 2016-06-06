@@ -97,6 +97,7 @@ public class EtablissementManager extends AppCompatActivity {
 
     public void okUpdateEtab() {
         Toast.makeText(context, getString(R.string.placeUpdated), Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     public void okInsertEtab() {

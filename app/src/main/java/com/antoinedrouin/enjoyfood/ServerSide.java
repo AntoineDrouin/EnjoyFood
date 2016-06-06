@@ -110,7 +110,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             }
         }
 
-        // Return par défaut
+        // Return par défaut si aucune connexion
         return context.getString(R.string.connectionError);
     }
 
@@ -148,10 +148,13 @@ public class ServerSide extends AsyncTask<String, Void, String> {
         else if (result.equals(context.getString(R.string.insertEtab))) {
             EtablissementManager.getInstance().okInsertEtab();
         }
-        else if (result.equals(context.getString(R.string.updateHoraire)) || result.equals(context.getString(R.string.insertHoraire)) ||
-                result.equals(context.getString(R.string.insertPaiement)) || result.equals(context.getString(R.string.insertCateg)) ||
-                result.equals(context.getString(R.string.updateCateg))) {
-            EtablissementManagerInfosDetails.getInstance().okUpdateHoraire();
+        else if (result.equals(context.getString(R.string.insertHoraire)) || result.equals(context.getString(R.string.updateHoraire)) ||
+                result.equals(context.getString(R.string.insertPaiement)) || result.equals(context.getString(R.string.updatePaiement)) ||
+                result.equals(context.getString(R.string.insertCateg)) || result.equals(context.getString(R.string.updateCateg)) ||
+                result.equals(context.getString(R.string.insertConso)) || result.equals(context.getString(R.string.updateConso)) ||
+                result.equals(context.getString(R.string.deleteCateg)) ||  result.equals(context.getString(R.string.deleteConso)) ||
+                result.equals(context.getString(R.string.deleteHoraire)) || result.equals(context.getString(R.string.deletePaiement))) {
+            EtablissementManagerInfosDetails.getInstance().okUpdateObject();
         }
 
         /** 4. ... OU LECTURE DES RETOURS JSON */
@@ -161,11 +164,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             JSONArray jsonArray;
 
             try {
-                Log.i("marquage", "on post execute, read");
                 jsonObject = new JSONObject(result);
-                Log.i("marquage", "script : " + script);
                 jsonArray = jsonObject.getJSONArray(context.getString(R.string.varReponseJson));
-                Log.i("marquage", "réponse : " + jsonArray);
+                Log.i("marquage", "Réponse json : " + jsonArray);
 
                 // On utilise le json différement pour chaque script
                 if (script.equals(context.getString(R.string.checkUtilisateur))) {
@@ -279,6 +280,17 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     EtablissementManagerInfos.getInstance().fillLvInfos(horaires);
                 }
 
+                else if (script.equals(context.getString(R.string.getPaiements))) {
+                    ArrayList<String> paiements = new ArrayList<>();
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+                        paiements.add(jso.getString(context.getString(R.string.prefNomPa)));
+                    }
+
+                    Coordonnees.getInstance().getPai(paiements);
+                }
+
                 else if (script.equals(context.getString(R.string.getPaiementsInfos))) {
                     String[][] paiements = new String[jsonArray.length()][2];
 
@@ -292,7 +304,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     EtablissementManagerInfos.getInstance().fillLvInfos(paiements);
                 }
 
-                else if (script.equals(context.getString(R.string.getCategInfos))) {
+                else if (script.equals(context.getString(R.string.getCategInfos)) || script.equals(context.getString(R.string.getCategs))) {
                     String[][] categories = new String[jsonArray.length()][2];
 
                     for (int i = 0; i < jsonArray.length(); i++) {
@@ -301,13 +313,47 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         categories[i][0] = jso.getString(context.getString(R.string.prefIdCa));
                         categories[i][1] = jso.getString(context.getString(R.string.prefNomCa));
                     }
+                    if (script.equals(context.getString(R.string.getCategInfos)))
+                        EtablissementManagerInfos.getInstance().fillLvInfos(categories);
+                    else if (script.equals(context.getString(R.string.getCategs)))
+                        EtablissementManagerInfosDetails.getInstance().setComposConso(categories);
+                }
 
-                    EtablissementManagerInfos.getInstance().fillLvInfos(categories);
+                else if (script.equals(context.getString(R.string.getConsosInfos))) {
+                    String[][] consos = new String[jsonArray.length()][5];
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+
+                        consos[i][0] = jso.getString(context.getString(R.string.prefIdConso));
+                        consos[i][1] = jso.getString(context.getString(R.string.prefNomConso));
+                        consos[i][2] = jso.getString(context.getString(R.string.prefDescriptionConso));
+                        consos[i][3] = jso.getString(context.getString(R.string.prefPrixConso));
+                        consos[i][4] = jso.getString(context.getString(R.string.prefIdCa));
+                    }
+
+                    EtablissementManagerInfos.getInstance().fillLvInfos(consos);
+                }
+
+                else if (script.equals(context.getString(R.string.getMenu))) {
+                    String[][] menu = new String[jsonArray.length()][6];
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+                        menu[i][0] = jso.getString(context.getString(R.string.prefIdConso));
+                        menu[i][1] = jso.getString(context.getString(R.string.prefNomConso));
+                        menu[i][2] = jso.getString(context.getString(R.string.prefDescriptionConso));
+                        menu[i][3] = jso.getString(context.getString(R.string.prefPrixConso));
+                        menu[i][4] = jso.getString(context.getString(R.string.prefIdCa));
+                        menu[i][5] = jso.getString(context.getString(R.string.prefNomCa));
+                    }
+
+                    ExpandableListData.assembleData(menu);
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
-                Log.i("marquage", e.getMessage());
+                Log.i("marquage", "Erreur de lecture du json ServerSide : " + e.getMessage());
             }
         }
     }
@@ -323,12 +369,11 @@ public class ServerSide extends AsyncTask<String, Void, String> {
     /** 2. FONCTION D'ENCODAGE DES DONNEES EN FONCTION DU SCRIPT A EXECUTER */
 
     private String encodeData(String lien, String... params) {
-        String key, value;
-        String data = "";
-        int[] keys = new int[0];
+        String key, value, data = "";
         String[] values = params;
         int i;
-        Log.i("marquage", "lien : " + lien);
+        int[] keys = new int[0];
+        Log.i("marquage", "Script utilisé : " + lien);
 
         // On n'a plus besoin des 2 premiers paramètres
         for (i = 0; i < params.length - 2; i++) {
@@ -350,7 +395,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             }
             else if (lien.equals(context.getString(R.string.getEtabById)) || lien.equals(context.getString(R.string.getHoraires)) ||
                     lien.equals(context.getString(R.string.getHorairesInfos)) || lien.equals(context.getString(R.string.getPaiements)) ||
-                    lien.equals(context.getString(R.string.getPaiementsInfos)) || lien.equals(context.getString(R.string.getCategInfos))) {
+                    lien.equals(context.getString(R.string.getPaiementsInfos)) || lien.equals(context.getString(R.string.getCategInfos)) ||
+                    lien.equals(context.getString(R.string.getConsosInfos)) || lien.equals(context.getString(R.string.getCategs)) ||
+                    lien.equals(context.getString(R.string.getMenu))) {
                 keys = new int[]{R.string.prefIdEt};
             }
             else if (lien.equals(context.getString(R.string.getEtabByManager))) {
@@ -371,8 +418,17 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 keys = new int[]{R.string.prefIdEt, R.string.prefJour, R.string.prefHeureDebut1, R.string.prefHeureFin1,
                         R.string.prefHeureDebut2, R.string.prefHeureFin2};
             }
+            else if (lien.equals(context.getString(R.string.deleteHoraire))) {
+                keys = new int[]{R.string.prefIdHor};
+            }
             else if (lien.equals(context.getString(R.string.insertPaiement))) {
                 keys = new int[]{R.string.prefIdEt, R.string.prefNomPa};
+            }
+            else if (lien.equals(context.getString(R.string.updatePaiement))) {
+                keys = new int[]{R.string.prefIdPa, R.string.prefNomPa};
+            }
+            else if (lien.equals(context.getString(R.string.deletePaiement))) {
+                keys = new int[]{R.string.prefIdPa};
             }
             else if (lien.equals(context.getString(R.string.insertCateg))) {
                 keys = new int[]{R.string.prefIdEt, R.string.prefNomCa};
@@ -380,13 +436,24 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             else if (lien.equals(context.getString(R.string.updateCateg))) {
                 keys = new int[]{R.string.prefIdCa, R.string.prefNomCa};
             }
+            else if (lien.equals(context.getString(R.string.deleteCateg))) {
+                keys = new int[]{R.string.prefIdCa};
+            }
+            else if (lien.equals(context.getString(R.string.insertConso))) {
+                keys = new int[]{R.string.prefIdEt, R.string.prefNomConso, R.string.prefDescriptionConso, R.string.prefPrixConso, R.string.prefIdCa};
+            }
+            else if (lien.equals(context.getString(R.string.updateConso))) {
+                keys = new int[]{R.string.prefIdConso, R.string.prefNomConso, R.string.prefDescriptionConso, R.string.prefPrixConso, R.string.prefIdCa};
+            }
+            else if (lien.equals(context.getString(R.string.deleteConso))) {
+                keys = new int[]{R.string.prefIdConso};
+            }
 
             int lengArray = keys.length;
 
             // Création de la chaine de paramètres à envoyer
             for (i = 0; i < lengArray; i++) {
                 key = context.getString(keys[i]);
-                Log.i("marquage", "key : " + key);
                 value = values[i];
 
                 // Si le paramètre est un pseudo ou un mot de passe, il est haché
@@ -402,10 +469,10 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 }
             }
 
-            Log.i("marquage", "data : " + data);
+            Log.i("marquage", "Data : " + data);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            Log.i("marquage", e.getMessage());
+            Log.i("marquage", "Erreur de formatage de la chaine de paramètres : " + e.getMessage());
         }
 
         return data;

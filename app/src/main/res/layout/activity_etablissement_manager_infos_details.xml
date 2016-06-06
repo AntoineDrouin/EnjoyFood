@@ -14,7 +14,7 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_above="@+id/btnValiderObject">
+        android:layout_above="@+id/linearLayout5">
 
         <LinearLayout
             android:orientation="vertical"
@@ -54,7 +54,8 @@
                     android:text="@string/txtStart"
                     android:id="@+id/txtHd1"
                     android:textAlignment="center"
-                    android:layout_gravity="center_horizontal" />
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="openTimePicker" />
 
                 <EditText
                     android:layout_width="fill_parent"
@@ -62,7 +63,10 @@
                     android:inputType="time"
                     android:ems="10"
                     android:id="@+id/edtHd1"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:onClick="onClickHd1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -79,7 +83,10 @@
                     android:inputType="time"
                     android:ems="10"
                     android:id="@+id/edtHf1"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:onClick="onClickHf1"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -96,7 +103,10 @@
                     android:inputType="time"
                     android:ems="10"
                     android:id="@+id/edtHd2"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:onClick="onClickHd2"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -113,7 +123,11 @@
                     android:inputType="time"
                     android:ems="10"
                     android:id="@+id/edtHf2"
-                    android:textAlignment="center" />
+                    android:textAlignment="center"
+                    android:onClick="onClickHf2"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"/>
+
             </LinearLayout>
 
             <LinearLayout
@@ -121,19 +135,75 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/layoutEditConso"
-                android:visibility="gone"></LinearLayout>
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/txtDescription"
+                    android:id="@+id/txtDescConso"
+                    android:textAlignment="center" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textMultiLine"
+                    android:ems="10"
+                    android:id="@+id/edtDescConso" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="@string/txtPrice"
+                    android:id="@+id/txtPrixConso"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_horizontal" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="numberDecimal"
+                    android:ems="10"
+                    android:id="@+id/edtPrixConso" />
+
+                <Spinner
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spinCateg"
+                    android:spinnerMode="dialog" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
     </ScrollView>
 
-    <Button
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btnValider"
-        android:id="@+id/btnValiderObject"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/scrollView4"
-        android:onClick="onClickOkObject" />
+        android:id="@+id/linearLayout5">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnDelete"
+            android:id="@+id/btnDeleteObject"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:onClick="onClickDeleteObject" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btnValider"
+            android:id="@+id/btnValiderObject"
+            android:layout_alignParentBottom="true"
+            android:onClick="onClickOkObject"
+            android:layout_weight="99"/>
+    </LinearLayout>
 
 </RelativeLayout>

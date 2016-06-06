@@ -63,7 +63,6 @@ public class Login extends AppCompatActivity {
             }
         });
 
-
         // Bouton Facebook
 
         CallbackManager callbackManager = CallbackManager.Factory.create();
@@ -120,7 +119,7 @@ public class Login extends AppCompatActivity {
                           String nom, String prenom, String ville,
                           String cp, String tel, String adresse) {
 
-        // Mettre dans pref
+        // Mettre dans les préférences
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = pref.edit();
         edit.putString(getString(R.string.prefId), id);
@@ -136,12 +135,8 @@ public class Login extends AppCompatActivity {
             edit.putString(getString(R.string.prefTel), tel);
             edit.putString(getString(R.string.prefAdresse), adresse);
         }
-//        else if (compte.equals(context.getString(R.string.varGerant))) {
-//
-//        }
 
         edit.apply();
-
         Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
 
         Tabs.getInstance().recreate(); // On recrée l'instance pour prendre en compte l'utilisateur nouvellement connecté

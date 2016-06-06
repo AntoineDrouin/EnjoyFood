@@ -6,17 +6,7 @@
     </string-array>
 
     <string-array name="spinLvEtab">
-        <item>@string/spinVarLvSearch</item>
         <item>@string/spinVarLvRecent</item>
-    </string-array>
-
-    <string-array name="spinDayWeek">
-        <item>@string/spinDayWeek0</item>
-        <item>@string/spinDayWeek1</item>
-        <item>@string/spinDayWeek2</item>
-        <item>@string/spinDayWeek3</item>
-        <item>@string/spinDayWeek4</item>
-        <item>@string/spinDayWeek5</item>
-        <item>@string/spinDayWeek6</item>
+        <item>@string/spinVarLvSearch</item>
     </string-array>
 </resources>

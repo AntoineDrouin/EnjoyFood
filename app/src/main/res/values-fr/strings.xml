@@ -75,12 +75,12 @@
     <string name="txtCateg">Catégories</string>
     <string name="txtConso">Consommables</string>
     <string name="txtPay">Moyens de paiement</string>
-    <string name="read" translatable="false"></string>
-    <string name="spinDayWeek0">Lundi</string>
-    <string name="spinDayWeek1">Mardi</string>
-    <string name="spinDayWeek2">Mercredi</string>
-    <string name="spinDayWeek3">Jeudi</string>
-    <string name="spinDayWeek4">Vendredi</string>
-    <string name="spinDayWeek5">Samedi</string>
-    <string name="spinDayWeek6">Dimanche</string>
+    <string name="txtEnd">Ferme à</string>
+    <string name="txtLabel">Label</string>
+    <string name="txtPrice">Prix</string>
+    <string name="txtStart">Ouvre à</string>
+    <string name="update">Mise à jour effectuée</string>
+    <string name="read" translatable="false"> </string>
+    <string name="btnDelete">Supprimer</string>
+    <string name="errorNoCateg">Aucune catégorie, veuillez en ajouter une pour continuer</string>
 </resources>

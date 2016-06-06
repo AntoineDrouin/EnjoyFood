@@ -52,8 +52,7 @@ public class MapPlacePicker extends Activity {
 
             Geocoder gcd = new Geocoder(context, Locale.getDefault());
             List<Address> addresses;
-            String idEt, nomEt, ville, cp;
-            ville = cp = "";
+            String idEt, nomEt, ville = "", cp = "";
 
             try {
                 // Informations du lieu

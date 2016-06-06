@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,7 @@ public class Coordonnees extends Fragment {
         idEt = extras.getString(getString(R.string.extraEtabId), "");
         nomEt = extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab));
 
-        // Requête pour trouver les données
+        // Requête pour trouver les données de l'établissement
         ServerSide getEtabInfo = new ServerSide(context);
         getEtabInfo.execute(getString(R.string.getEtabById), getString(R.string.read), idEt);
     }
@@ -76,6 +77,13 @@ public class Coordonnees extends Fragment {
     public void getHor(ArrayList<String> cHor) {
         horaires = new ArrayList<>();
         horaires = cHor;
+        ServerSide getPai = new ServerSide(context);
+        getPai.execute(getString(R.string.getPaiements), getString(R.string.read), idEt);
+    }
+
+    public void getPai(ArrayList<String> cPai) {
+        paiements = new ArrayList<>();
+        paiements = cPai;
         setCompo();
     }
 
@@ -106,31 +114,38 @@ public class Coordonnees extends Fragment {
 
     // Remplissage des champs
     private void setCompo() {
-        ((TextView) Etablissement.getInstance().findViewById(R.id.txtNomEtab)).setText(nomEt);
+        try {
+            ((TextView) Etablissement.getInstance().findViewById(R.id.txtNomEtab)).setText(nomEt);
 
-        if (conges != null) {
-            txtDesc.setText(desc);
-            txtAdr.setText(adresse);
-            txtTel.setText(tel);
-            txtPrixLivr.setText(prixLivr);
-            if (conges.equals("0"))
-                txtConges.setVisibility(View.GONE);
+            if (conges != null) {
+                txtDesc.setText(desc);
+                txtAdr.setText(adresse);
+                txtTel.setText(tel);
+                txtPrixLivr.setText(prixLivr);
+                if (conges.equals("0"))
+                    txtConges.setVisibility(View.GONE);
 
-            ArrayAdapter<String> arrayHor = new ArrayAdapter<>(
-                    context,
-                    R.layout.listitem,
-                    horaires);
-            lvHoraires.setAdapter(arrayHor);
-            lvHoraires.getLayoutParams().height = arrayHor.getCount() * 150;
+                ArrayAdapter<String> arrayHor = new ArrayAdapter<>(
+                        context,
+                        R.layout.listitem,
+                        horaires);
+                lvHoraires.setAdapter(arrayHor);
+                lvHoraires.getLayoutParams().height = arrayHor.getCount() * 150;
 
-            /*ArrayAdapter<String> arrayPay = new ArrayAdapter<>(
-                    context,
-                    R.layout.listitem,
-                    paiements);
-            lvPay.setAdapter(arrayPay);
-            lvPay.getLayoutParams().height = arrayPay.getCount() * 150;*/
+                ArrayAdapter<String> arrayPay = new ArrayAdapter<>(
+                        context,
+                        R.layout.listitem,
+                        paiements);
+                lvPay.setAdapter(arrayPay);
+                lvPay.getLayoutParams().height = arrayPay.getCount() * 150;
 
+                layoutInfos.setVisibility(View.VISIBLE);
+            }
+        }
+        catch (Exception e) {
+            Log.i("marquage", "Erreur setCompo : " + e.getMessage());
             layoutInfos.setVisibility(View.VISIBLE);
+            layoutLoading.setVisibility(View.GONE);
         }
 
         layoutLoading.setVisibility(View.GONE);
@@ -141,6 +156,7 @@ public class Coordonnees extends Fragment {
         startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel)));
     }
 
+    // Ouvre Maps
     public void openMaps() {
         startActivity(new Intent(context, MapsActivity.class));
     }

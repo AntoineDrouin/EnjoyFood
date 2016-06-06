@@ -30,9 +30,18 @@
     <string name="getPaiementsInfos" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getPaiementsInfos.php</string>
     <string name="updatePaiement" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updatePaiement.php</string>
     <string name="insertPaiement" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertPaiement.php</string>
+    <string name="getCategs" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getCategs.php</string>
     <string name="getCategInfos" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getCategInfos.php</string>
     <string name="updateCateg" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updateCateg.php</string>
     <string name="insertCateg" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertCateg.php</string>
+    <string name="getConsosInfos" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getConsosInfos.php</string>
+    <string name="updateConso" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updateConso.php</string>
+    <string name="insertConso" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertConso.php</string>
+    <string name="getMenu" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getMenu.php</string>
+    <string name="deleteCateg" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/deleteCateg.php</string>
+    <string name="deleteConso" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/deleteConso.php</string>
+    <string name="deleteHoraire" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/deleteHoraire.php</string>
+    <string name="deletePaiement" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/deletePaiement.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -55,7 +64,7 @@
     <string name="choosePlace">Choose your restaurant</string>
     <string name="placeUpdated">Your restaurant is now up to date</string>
     <string name="placeInserted">Restaurant created successfully</string>
-    <string name="update">Update done</string>
+    <string name="update">Update completed</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
@@ -66,6 +75,7 @@
     <string name="errorNom">Please enter a first name</string>
     <string name="errorPrenom">Please enter a last name</string>
     <string name="errorFields">Please fill all the fields</string>
+    <string name="errorNoCateg">No categories found, add one to continue</string>
 
     <!-- Preferences -->
     <string name="prefId" translatable="false">idUt</string>
@@ -93,6 +103,10 @@
     <string name="prefNomPa" translatable="false">nomPa</string>
     <string name="prefIdCa" translatable="false">idCa</string>
     <string name="prefNomCa" translatable="false">nomCa</string>
+    <string name="prefIdConso" translatable="false">idConso</string>
+    <string name="prefNomConso" translatable="false">nomConso</string>
+    <string name="prefDescriptionConso" translatable="false">descriptionConso</string>
+    <string name="prefPrixConso" translatable="false">prixConso</string>
 
     <!-- Extras -->
     <string name="extraEtabId" translatable="false">etabId</string>
@@ -126,6 +140,7 @@
     <string name="btnDeco">Log out</string>
     <string name="btnSearch">Search</string>
     <string name="btnConnexion">Connection</string>
+    <string name="btnDelete">Delete</string>
 
     <!-- TextViews -->
     <string name="txtTypeCompte">Type of account :</string>
@@ -141,7 +156,8 @@
     <string name="txtEdit">Edit :</string>
     <string name="txtLabel">Label</string>
     <string name="txtStart">Start at</string>
-    <string name="txtEnd">End at</string>
+    <string name="txtEnd">Close at</string>
+    <string name="txtPrice">Price</string>
 
     <!-- EditTexts -->
     <string name="edtPseudo">Pseudonym</string>
@@ -171,13 +187,6 @@
     <!-- Spinners -->
     <string name="spinVarLvRecent">Recent restaurants</string>
     <string name="spinVarLvSearch">Restaurants nearby</string>
-    <string name="spinDayWeek0">Monday</string>
-    <string name="spinDayWeek1">Tuesday</string>
-    <string name="spinDayWeek2">Wednesday</string>
-    <string name="spinDayWeek3">Thursday</string>
-    <string name="spinDayWeek4">Friday</string>
-    <string name="spinDayWeek5">Saturday</string>
-    <string name="spinDayWeek6">Sunday</string>
 
     <!-- Switch -->
     <string name="switchConges">On holiday</string>

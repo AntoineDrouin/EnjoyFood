@@ -56,6 +56,7 @@ public class Compte extends AppCompatActivity {
         edtNewTel = (EditText) findViewById(R.id.edtNewTel);
         edtNewAd = (EditText) findViewById(R.id.edtNewAdresse);
 
+        // Si le l'utilisateur est un manager, il n'a pas besoin, du layout de coordonnées
         if (compte.equals(getString(R.string.varGerant)))
             mainLayoutCoord.setVisibility(View.GONE);
         else {
@@ -86,6 +87,7 @@ public class Compte extends AppCompatActivity {
         newMdp1 = edtNewMdp1.getText().toString();
         newMdp2 = edtNewMdp2.getText().toString();
 
+        // Test sur les champs
         if (oldMdp.length() < 3 || newMdp1.length() < 3 || newMdp2.length() < 3 )
             error = getString(R.string.errorMdpLength);
         else if (!newMdp1.equals(newMdp2))
@@ -93,6 +95,7 @@ public class Compte extends AppCompatActivity {
         else if (oldMdp.equals(newMdp1))
             error = getString(R.string.errorMdpSame);
 
+        // Si tout est renseigné, lance la procédure de changemet de mot de passe
         if (!error.equals(""))
             Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
         else {
@@ -115,6 +118,7 @@ public class Compte extends AppCompatActivity {
         }
     }
 
+    // Si trouve une localsiation correcte
     public void goodReturnLocation() {
         edtNewCp.setText(googleLocation.getCp());
         edtNewVille.setText(googleLocation.getCity());
@@ -122,6 +126,7 @@ public class Compte extends AppCompatActivity {
         layoutLoading.setVisibility(View.GONE);
     }
 
+    // Si la localisation a échoué
     public void badReturnLocation(String error) {
         Toast.makeText(context, error, Toast.LENGTH_SHORT).show();
         layoutLoading.setVisibility(View.GONE);
@@ -149,6 +154,7 @@ public class Compte extends AppCompatActivity {
     }
 
     public void onClickSupprCompte(View v) {
+        // Boite de dialogue pour confirmer la suppressino du compte
         new AlertDialog.Builder(this)
             .setMessage(getString(R.string.eraseCompteMessage))
             .setCancelable(false)

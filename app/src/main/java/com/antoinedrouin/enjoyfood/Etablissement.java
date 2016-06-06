@@ -17,6 +17,7 @@ public class Etablissement extends AppCompatActivity {
     ViewPager viewPager;
 
     int currentTab = 0;
+    // tableaux contenant l'icône et le titre des onglets
     int[] titleId = new int[] {R.string.tabCoord, R.string.tabMenu, R.string.tabNotes};
     int[] imageId = new int[] {R.drawable.ic_coo, R.drawable.ic_menu, R.drawable.ic_not};
 
@@ -34,7 +35,7 @@ public class Etablissement extends AppCompatActivity {
        // Remplis le viewPager
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), context, 1));
 
-        // Donne le viewPage au tabLayout
+        // Donne le ViewPager au tabLayout
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.getTabAt(currentTab).setText(titleId[currentTab]);
 
@@ -43,6 +44,7 @@ public class Etablissement extends AppCompatActivity {
             public void onTabSelected(TabLayout.Tab tab) {
                 currentTab = tab.getPosition();
 
+                // L'onglet actuel affiche le texte et non l'icône
                 tab.setText(titleId[currentTab]);
                 tab.setIcon(null);
 
@@ -53,6 +55,7 @@ public class Etablissement extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                // L'onglet déselectionné reprend son icône et non plus son texte
                 tab.setIcon(ContextCompat.getDrawable(context, imageId[currentTab]));
                 tab.setText(null);
             }

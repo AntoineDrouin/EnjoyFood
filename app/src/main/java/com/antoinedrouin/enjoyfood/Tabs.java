@@ -81,6 +81,7 @@ public class Tabs extends AppCompatActivity {
                     case 2 : loadComTabDrawer(); break;
                 }
 
+                // L'onglet actuel affiche le texte et non l'icône
                 tab.setText(titleId[currentTab]);
                 tab.setIcon(null);
 
@@ -91,6 +92,7 @@ public class Tabs extends AppCompatActivity {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+                // L'onglet déselectionné reprend son icône et non plus son texte
                 tab.setIcon(ContextCompat.getDrawable(context, imageId[currentTab]));
                 tab.setText(null);
             }
@@ -158,6 +160,7 @@ public class Tabs extends AppCompatActivity {
         layoutLoading.setVisibility(View.GONE);
     }
 
+    // Recherche d'un établissement
     public void onClickSearch(View v) {
         switch (currentTab) {
             case 0 : Etablissements.getInstance().searchInLv(); break;

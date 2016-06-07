@@ -45,7 +45,7 @@
         <activity android:name=".MapPlacePicker" />
         <activity android:name=".EtablissementManager" />
         <activity android:name=".EtablissementManagerInfos" />
-        <activity android:name=".EtablissementManagerInfosDetails"></activity>
+        <activity android:name=".EtablissementManagerInfosDetails" />
     </application>
 
 </manifest>

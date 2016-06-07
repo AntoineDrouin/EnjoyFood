@@ -126,9 +126,9 @@ public class EtablissementManagerInfosDetails extends AppCompatActivity {
 
     // Click sur le bouton de validation
     public void onClickOkObject(View v) {
-        String method, label, error = "";
-        String hd1 = "", hf1 = "", hd2 = "", hf2 = "";
-        String desc = "", prix = "", categ = "", indexCateg = "";
+        String method, label, error = "",
+                hd1 = "", hf1 = "", hd2 = "", hf2 = "",
+                desc = "", prix = "", categ = "", indexCateg = "";
 
         label = edtObjectName.getText().toString();
 

@@ -52,11 +52,10 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
         /** 1. PREPARATION DE LA CONNEXION */
 
-        HttpURLConnection httpURLConnection = null;
         try {
             // Donne l'adresse du script php
             URL url = new URL(script);
-            httpURLConnection = (HttpURLConnection) url.openConnection();
+            HttpURLConnection httpURLConnection = (HttpURLConnection) url.openConnection();
             httpURLConnection.setRequestMethod("POST");
             httpURLConnection.setDoOutput(true);
 
@@ -70,28 +69,20 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             buffW.flush();
             buffW.close();
             os.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
-        /** 3. ALGORITHME DE LECTURE OU D'ECRITURE */
+            /** 3. ALGORITHME DE LECTURE OU D'ECRITURE */
 
-        // Ecriture
-        if (methode.equals(context.getString(R.string.write))) {
-            try {
+            // Ecriture
+            if (methode.equals(context.getString(R.string.write))) {
                 InputStream is = httpURLConnection.getInputStream();
                 is.close();
                 httpURLConnection.disconnect();
 
                 return script;
-            } catch (IOException e) {
-                e.printStackTrace();
             }
-        }
 
-        // Lecture
-        else if (methode.equals(context.getString(R.string.read))) {
-            try {
+            // Lecture
+            else if (methode.equals(context.getString(R.string.read))) {
                 InputStream is = httpURLConnection.getInputStream();
                 BufferedReader buffR = new BufferedReader(new InputStreamReader(is));
                 StringBuilder stringB = new StringBuilder();
@@ -105,9 +96,10 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 httpURLConnection.disconnect();
 
                 return stringB.toString().trim();
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.i("marquage", "doInBackground : " + e.getMessage());
         }
 
         // Return par défaut si aucune connexion
@@ -472,7 +464,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             Log.i("marquage", "Data : " + data);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-            Log.i("marquage", "Erreur de formatage de la chaine de paramètres : " + e.getMessage());
+                Log.i("marquage", "Erreur de formatage de la chaine de paramètres : " + e.getMessage());
         }
 
         return data;

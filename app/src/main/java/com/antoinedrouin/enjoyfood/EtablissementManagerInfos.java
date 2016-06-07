@@ -39,10 +39,7 @@ public class EtablissementManagerInfos extends AppCompatActivity {
         instEtabManInf = this;
 
         idEt = pref.getString(getString(R.string.prefIdEt), "");
-
-        String script, method;
-        method = getString(R.string.read);
-        script = "";
+        String script = "", method = getString(R.string.read);
 
         Bundle extras = getIntent().getExtras();
         typeInfo = extras.getString(getString(R.string.typeInfos));
@@ -68,32 +65,23 @@ public class EtablissementManagerInfos extends AppCompatActivity {
         lvInfos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                Object o = lvInfos.getItemAtPosition(position);
                 Intent intent = new Intent(context, EtablissementManagerInfosDetails.class);
-
                 intent.putExtra(getString(R.string.typeInfos), typeInfo);
 
-                // Si l'objet est nouveau
-                if (o.toString().equals("")){
-                    intent.putExtra(getString(R.string.idObject), "");
-                    intent.putExtra(getString(R.string.nameObject), "");
-                }
-                // Si il existe déjà
-                else {
-                    intent.putExtra(getString(R.string.idObject), info[position][0]);
-                    intent.putExtra(getString(R.string.nameObject), info[position][1]);
+                // L'objet existe déjà
+                intent.putExtra(getString(R.string.idObject), info[position][0]);
+                intent.putExtra(getString(R.string.nameObject), info[position][1]);
 
-                    if (typeInfo.equals(getString(R.string.txtHoraires))) {
-                        intent.putExtra(getString(R.string.prefHeureDebut1), info[position][2]);
-                        intent.putExtra(getString(R.string.prefHeureFin1), info[position][3]);
-                        intent.putExtra(getString(R.string.prefHeureDebut2), info[position][4]);
-                        intent.putExtra(getString(R.string.prefHeureFin2), info[position][5]);
-                    }
-                    else if (typeInfo.equals(getString(R.string.txtConso))) {
-                        intent.putExtra(getString(R.string.prefDescriptionConso), info[position][2]);
-                        intent.putExtra(getString(R.string.prefPrixConso), info[position][3]);
-                        intent.putExtra(getString(R.string.prefIdCa), info[position][4]);
-                    }
+                if (typeInfo.equals(getString(R.string.txtHoraires))) {
+                    intent.putExtra(getString(R.string.prefHeureDebut1), info[position][2]);
+                    intent.putExtra(getString(R.string.prefHeureFin1), info[position][3]);
+                    intent.putExtra(getString(R.string.prefHeureDebut2), info[position][4]);
+                    intent.putExtra(getString(R.string.prefHeureFin2), info[position][5]);
+                }
+                else if (typeInfo.equals(getString(R.string.txtConso))) {
+                    intent.putExtra(getString(R.string.prefDescriptionConso), info[position][2]);
+                    intent.putExtra(getString(R.string.prefPrixConso), info[position][3]);
+                    intent.putExtra(getString(R.string.prefIdCa), info[position][4]);
                 }
 
                 startActivity(intent);
@@ -118,10 +106,16 @@ public class EtablissementManagerInfos extends AppCompatActivity {
         lvInfos.setAdapter(arrayInfos);
     }
 
-    // Ajoute une ligne vide à la listView, ne sera sauvegardé que si l'objet de la ligne est crée
+    // Ouvre l'activité pour créer un nouvel objet
     public void onClickAdd(View v) {
-        listInfos.add("");
-        arrayInfos.notifyDataSetChanged();
+        Intent intent = new Intent(context, EtablissementManagerInfosDetails.class);
+        intent.putExtra(getString(R.string.typeInfos), typeInfo);
+
+        // L'objet est nouveau
+        intent.putExtra(getString(R.string.idObject), "");
+        intent.putExtra(getString(R.string.nameObject), "");
+
+        startActivity(intent);
     }
 
     public static EtablissementManagerInfos getInstance() {

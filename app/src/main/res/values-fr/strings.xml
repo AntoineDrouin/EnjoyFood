@@ -79,7 +79,7 @@
     <string name="txtPrice">Prix</string>
     <string name="txtStart">Ouvre à</string>
     <string name="update">Mise à jour effectuée</string>
-    <string name="read" translatable="false"> </string>
     <string name="btnDelete">Supprimer</string>
     <string name="errorNoCateg">Aucune catégorie, veuillez en ajouter une pour continuer</string>
+    <string name="noCateg">Sans catégorie</string>
 </resources>

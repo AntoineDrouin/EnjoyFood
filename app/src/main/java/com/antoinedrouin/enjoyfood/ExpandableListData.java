@@ -12,7 +12,7 @@ import java.util.List;
  * Created by cdsm04 on 03/06/2016.
  */
 public class ExpandableListData {
-
+        // Recherche les catégories et les consommables de l'établissement grâce à son id
     public static void getData(Context context) {
 
         Bundle extras = Etablissement.getInstance().getIntent().getExtras();
@@ -22,13 +22,17 @@ public class ExpandableListData {
         getMenu.execute(context.getString(R.string.getMenu), context.getString(R.string.read), idEt);
     }
 
-    public static void assembleData(String[][] menu) {
+    public static void assembleData(String[][] menu, Context context) {
         HashMap<String, List<String>> expandableListDetail = new HashMap<>();
         List<String> categorie = new ArrayList<>();
         String actualCateg = "";
 
         for (int i = 0; i < menu.length; i++) {
             Log.i("marquage", "Menu : " + menu[i][1] + " " + menu[i][5]);
+
+            // Si le manager a supprimé la catégorie mais qu'il restait des consommables dedans, on les affiches
+            // dans une catégorie générique
+            if (menu[i][5].equals("null"))
 
             // Initialise la catégorie
             if (actualCateg.equals("")) {

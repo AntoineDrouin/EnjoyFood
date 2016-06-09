@@ -189,4 +189,7 @@
 
     <!-- Switch -->
     <string name="switchConges">On holiday</string>
+
+    <!-- ExpandableListView -->
+    <string name="noCateg">No categorie</string>
 </resources>

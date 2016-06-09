@@ -335,7 +335,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         menu[i][5] = jso.getString(context.getString(R.string.prefNomCa));
                     }
 
-                    ExpandableListData.assembleData(menu);
+                    ExpandableListData.assembleData(menu, context);
                 }
 
             } catch (JSONException e) {

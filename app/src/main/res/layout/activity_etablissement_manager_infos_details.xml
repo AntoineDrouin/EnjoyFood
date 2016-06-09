@@ -38,7 +38,9 @@
                 android:text="@string/nameObject"
                 android:id="@+id/edtObjectName"
                 android:textAlignment="center"
-                android:inputType="text" />
+                android:inputType="text"
+                android:maxLength="25"
+                android:singleLine="true" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -150,7 +152,8 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:ems="10"
-                    android:id="@+id/edtDescConso" />
+                    android:id="@+id/edtDescConso"
+                    android:maxLength="150" />
 
                 <TextView
                     android:layout_width="fill_parent"

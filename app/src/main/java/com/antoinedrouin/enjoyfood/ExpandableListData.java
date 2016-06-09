@@ -12,9 +12,9 @@ import java.util.List;
  * Created by cdsm04 on 03/06/2016.
  */
 public class ExpandableListData {
-        // Recherche les catégories et les consommables de l'établissement grâce à son id
-    public static void getData(Context context) {
 
+    public static void getData(Context context) {
+        // Recherche les catégories et les consommables de l'établissement grâce à son id
         Bundle extras = Etablissement.getInstance().getIntent().getExtras();
         String idEt = extras.getString(context.getString(R.string.extraEtabId), "");
 
@@ -33,6 +33,7 @@ public class ExpandableListData {
             // Si le manager a supprimé la catégorie mais qu'il restait des consommables dedans, on les affiches
             // dans une catégorie générique
             if (menu[i][5].equals("null"))
+                menu[i][5] = context.getString(R.string.noCateg);
 
             // Initialise la catégorie
             if (actualCateg.equals("")) {

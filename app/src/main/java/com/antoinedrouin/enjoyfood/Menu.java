@@ -47,6 +47,7 @@ public class Menu extends Fragment {
     }
 
     public void fillExpLstMenu(HashMap<String, List<String>> menu) {
+        // Remplissage de l'expandableListView
         expandableListDetail = menu;
         expandableListTitle = new ArrayList<>(expandableListDetail.keySet());
         expandableListAdapter = new CustomExpandableListAdapter(context, expandableListTitle, expandableListDetail);

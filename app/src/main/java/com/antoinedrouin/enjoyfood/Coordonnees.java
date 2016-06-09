@@ -145,10 +145,10 @@ public class Coordonnees extends Fragment {
         catch (Exception e) {
             Log.i("marquage", "Erreur setCompo : " + e.getMessage());
             layoutInfos.setVisibility(View.VISIBLE);
+        }
+        finally {
             layoutLoading.setVisibility(View.GONE);
         }
-
-        layoutLoading.setVisibility(View.GONE);
     }
 
     // Compose le numéro

@@ -30,15 +30,14 @@ import java.util.Locale;
  * Created by cdsm04 on 22/02/2016.
  */
 
-public class GoogleLocation implements
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public class GoogleLocation implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     Context context;
     Activity activity;
-    int mode;
     GoogleApiClient mGoogleApiClient;
 
     Address address;
+    int mode;
 
     // Constructeur si la géolocalisation est demandé par l'utilisateur
     public GoogleLocation(Context gcontext, Activity gActivity, int gMode) {
@@ -87,7 +86,6 @@ public class GoogleLocation implements
                         }
                     })
                     .show();
-
         }
 
         // Check connexion
@@ -98,8 +96,7 @@ public class GoogleLocation implements
                     .setMessage(context.getString(R.string.dataConnectionFailed))
                     .setCancelable(false)
                     .setNegativeButton(context.getString(R.string.varNo), new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
+                        public void onClick(DialogInterface dialog, int which) {}
                     })
                     .setPositiveButton(context.getString(R.string.varYes), new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -112,7 +109,6 @@ public class GoogleLocation implements
         }
 
         if (itsOk) {
-
             double lat, lon;
 
             if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
@@ -146,7 +142,6 @@ public class GoogleLocation implements
                 }
             }
         }
-
         // Retours infructueux
         else {
             badReturn(context.getString(R.string.connectionError));
@@ -167,8 +162,7 @@ public class GoogleLocation implements
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-    }
+    public void onConnectionSuspended(int i) {}
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {

@@ -192,18 +192,18 @@
             android:layout_height="wrap_content"
             android:text="@string/btnDelete"
             android:id="@+id/btnDeleteObject"
-            android:layout_alignParentBottom="true"
             android:layout_weight="1"
-            android:onClick="onClickDeleteObject" />
+            android:onClick="onClickDeleteObject"
+            style="@style/buttonStyle" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/btnValider"
             android:id="@+id/btnValiderObject"
-            android:layout_alignParentBottom="true"
             android:onClick="onClickOkObject"
-            android:layout_weight="99"/>
+            android:layout_weight="99"
+            style="@style/buttonStyle" />
     </LinearLayout>
 
 </RelativeLayout>

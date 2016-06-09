@@ -27,7 +27,6 @@
     <string name="edtOldMdp">Ancien mot de passe</string>
     <string name="edtPseudo">Pseudonyme</string>
     <string name="edtRepeatMdp">Répéter le mot de passe</string>
-    <string name="edtSpecialite">Spécialité</string>
     <string name="edtTel">Téléphone</string>
     <string name="edtVille">Ville</string>
     <string name="eraseCompteFail">Suppression du compte annulée</string>

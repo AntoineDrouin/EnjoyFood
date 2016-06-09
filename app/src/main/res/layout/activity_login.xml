@@ -47,14 +47,16 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onClickLogin"
             android:visibility="invisible"
-            android:text="@string/btnConnexion" />
+            android:text="@string/btnConnexion"
+            style="@style/customTabLayout"/>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/btnCreerCompte"
             android:id="@+id/btnRegister"
-            android:onClick="onClickRegister" />
+            android:onClick="onClickRegister"
+            style="@style/customTabLayout"/>
 
     </LinearLayout>
 

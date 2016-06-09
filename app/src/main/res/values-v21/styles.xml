@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
+<!-- Styles pour les versions API >= 21 -->
+
 <resources>
 
     <style name="customTheme" parent="Theme.AppCompat.Light.DarkActionBar">

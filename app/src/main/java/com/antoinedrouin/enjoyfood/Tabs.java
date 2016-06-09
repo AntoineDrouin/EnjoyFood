@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -36,7 +37,7 @@ public class Tabs extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
     TextView txtTitreTab;
-    EditText edtSearchEtab, edtSearchVille, edtSearchSpecialite, edtSearchArticle, edtSearchCommande;
+    EditText edtSearchEtab, edtSearchVille, edtSearchArticle, edtSearchCommande;
     LinearLayout layoutVille;
     RelativeLayout layoutLoading;
 
@@ -61,7 +62,6 @@ public class Tabs extends AppCompatActivity {
         edtSearchVille = (EditText) findViewById(R.id.edtSearchVille);
         edtSearchArticle = (EditText) findViewById(R.id.edtSearchArticle);
         edtSearchCommande = (EditText) findViewById(R.id.edtSearchCommande);
-        edtSearchSpecialite = (EditText) findViewById(R.id.edtSearchSpecialite);
 
         // Remplis le viewPager
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), context, 0));
@@ -98,8 +98,24 @@ public class Tabs extends AppCompatActivity {
             }
 
             @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            public void onTabReselected(TabLayout.Tab tab) {}
+        });
+
+        // Ajoute un listener pour capter les changements d'état du drawer
+        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            // Permet de fermer le clavier en même temps que le drawer
+            public void onDrawerClosed(View view) {
+                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
             }
+
+            @Override
+            public void onDrawerSlide(View view, float v) {}
+            @Override
+            public void onDrawerOpened(View drawerView) {}
+            @Override
+            public void onDrawerStateChanged(int i) {}
         });
     }
 
@@ -110,11 +126,12 @@ public class Tabs extends AppCompatActivity {
 
     /** DRAWER **/
 
+    // Affiche des champs du drawer en fonction de l'onglet actuel
+
     private void loadEtabTabDrawer() {
         txtTitreTab.setText(getString(R.string.txtSearchEtab));
         layoutVille.setVisibility(View.VISIBLE);
         edtSearchEtab.setVisibility(View.VISIBLE);
-        edtSearchSpecialite.setVisibility(View.VISIBLE);
         edtSearchArticle.setVisibility(View.GONE);
         edtSearchCommande.setVisibility(View.GONE);
     }
@@ -123,7 +140,6 @@ public class Tabs extends AppCompatActivity {
         txtTitreTab.setText(getString(R.string.txtSearchPanier));
         layoutVille.setVisibility(View.GONE);
         edtSearchEtab.setVisibility(View.GONE);
-        edtSearchSpecialite.setVisibility(View.GONE);
         edtSearchArticle.setVisibility(View.VISIBLE);
         edtSearchCommande.setVisibility(View.GONE);
     }
@@ -132,7 +148,6 @@ public class Tabs extends AppCompatActivity {
         txtTitreTab.setText(getString(R.string.txtSearchCom));
         layoutVille.setVisibility(View.GONE);
         edtSearchEtab.setVisibility(View.GONE);
-        edtSearchSpecialite.setVisibility(View.GONE);
         edtSearchArticle.setVisibility(View.GONE);
         edtSearchCommande.setVisibility(View.VISIBLE);
     }

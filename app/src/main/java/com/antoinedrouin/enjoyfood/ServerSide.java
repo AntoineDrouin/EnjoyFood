@@ -244,7 +244,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-
                         horaires.add(jso.getString(context.getString(R.string.prefJour)) + " : " +
                             jso.getString(context.getString(R.string.prefHeureDebut1)) + " - " +
                             jso.getString(context.getString(R.string.prefHeureFin1)) + " / " +
@@ -260,7 +259,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-
                         horaires[i][0] = jso.getString(context.getString(R.string.prefIdHor));
                         horaires[i][1] = jso.getString(context.getString(R.string.prefJour));
                         horaires[i][2] = jso.getString(context.getString(R.string.prefHeureDebut1));
@@ -288,7 +286,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-
                         paiements[i][0] = jso.getString(context.getString(R.string.prefIdPa));
                         paiements[i][1] = jso.getString(context.getString(R.string.prefNomPa));
                     }
@@ -301,7 +298,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-
                         categories[i][0] = jso.getString(context.getString(R.string.prefIdCa));
                         categories[i][1] = jso.getString(context.getString(R.string.prefNomCa));
                     }
@@ -316,7 +312,6 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-
                         consos[i][0] = jso.getString(context.getString(R.string.prefIdConso));
                         consos[i][1] = jso.getString(context.getString(R.string.prefNomConso));
                         consos[i][2] = jso.getString(context.getString(R.string.prefDescriptionConso));
@@ -464,7 +459,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             Log.i("marquage", "Data : " + data);
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
-                Log.i("marquage", "Erreur de formatage de la chaine de paramètres : " + e.getMessage());
+            Log.i("marquage", "Erreur de formatage de la chaine de paramètres : " + e.getMessage());
         }
 
         return data;

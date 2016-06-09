@@ -168,7 +168,7 @@ public class Etablissements extends Fragment {
     }
 
     private void emptyLv(){
-        // Supprime tous les éléments de la listview
+        // Supprime tous les éléments de la listView
         arrayAdapter.clear();
         arrayAdapter.notifyDataSetChanged();
     }

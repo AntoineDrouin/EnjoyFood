@@ -133,7 +133,8 @@
                         android:layout_weight="1"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:onClick="onClickCategories" />
+                        android:onClick="onClickCategories"
+                        style="@style/buttonStyle" />
 
                     <Button
                         android:layout_width="0dp"
@@ -143,7 +144,8 @@
                         android:layout_weight="1"
                         android:layout_marginTop="@dimen/activity_vertical_margin"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
-                        android:onClick="onClickConsommables" />
+                        android:onClick="onClickConsommables"
+                        style="@style/buttonStyle"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -162,7 +164,8 @@
                         android:text="@string/txtHoraires"
                         android:id="@+id/btnEditHor"
                         android:layout_weight="1"
-                        android:onClick="onClickHoraires" />
+                        android:onClick="onClickHoraires"
+                        style="@style/buttonStyle"/>
 
                     <Button
                         android:layout_width="0dp"
@@ -170,8 +173,11 @@
                         android:text="@string/txtPay"
                         android:id="@+id/btnEditPay"
                         android:layout_weight="1"
-                        android:onClick="onClickPaiements" />
+                        android:onClick="onClickPaiements"
+                        style="@style/buttonStyle"/>
+
                 </LinearLayout>
+
             </LinearLayout>
 
             <Button
@@ -184,6 +190,7 @@
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin" />
         </LinearLayout>
+
     </ScrollView>
 
 </RelativeLayout>

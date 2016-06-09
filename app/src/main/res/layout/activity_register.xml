@@ -121,7 +121,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/btnRegister"
                 android:onClick="onClickCreation"
-                android:text="@string/btnValider" />
+                android:text="@string/btnValider"
+                style="@style/customTabLayout" />
         </LinearLayout>
 
     </LinearLayout>

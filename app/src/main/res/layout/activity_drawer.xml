@@ -48,13 +48,7 @@
         android:id="@+id/edtSearchEtab"
         android:hint="@string/edtEtablissement" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/edtSearchSpecialite"
-        android:hint="@string/edtSpecialite" />
-
-    <EditText
+        <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/edtSearchArticle"
@@ -73,7 +67,8 @@
         android:layout_height="wrap_content"
         android:text="@string/btnSearch"
         android:id="@+id/btnSearch"
-        android:onClick="onClickSearch"/>
+        android:onClick="onClickSearch"
+        style="@style/buttonStyle"/>
 
     </LinearLayout>
 

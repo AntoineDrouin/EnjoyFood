@@ -52,10 +52,10 @@
     <string name="insertUtilisateurFail">This pseudonym is already used</string>
     <string name="connectionError">Connection error</string>
     <string name="connectionFail">No account found</string>
-    <string name="connectionSuccess">Connection success</string>
-    <string name="disconnectionSuccess">Logout success</string>
+    <string name="connectionSuccess">Connection successful</string>
+    <string name="disconnectionSuccess">Logout successful</string>
     <string name="eraseCompteMessage">Deleting the account is permanent. Do you really want to continue ?</string>
-    <string name="eraseCompteSuccess">Deleting account success</string>
+    <string name="eraseCompteSuccess">Deleting account successful</string>
     <string name="eraseCompteFail">Delete account canceled</string>
     <string name="changeMdpSuccess">Password changed</string>
     <string name="changeCoordSuccess">Contact information changed</string>
@@ -70,7 +70,7 @@
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
     <string name="errorMdpLength">The password must be at least 3 characters long</string>
     <string name="errorMdpNotSame">The passwords are different</string>
-    <string name="errorMdpSame">The old and the new password are the same</string>
+    <string name="errorMdpSame">The old and the new passwords are the same</string>
     <string name="errorOldMdp">The old password is incorrect</string>
     <string name="errorNom">Please enter a first name</string>
     <string name="errorPrenom">Please enter a last name</string>
@@ -174,7 +174,6 @@
     <string name="edtEtablissement">Restaurant</string>
     <string name="edtArticle">Article</string>
     <string name="edtCommande">Order</string>
-    <string name="edtSpecialite">Speciality</string>
 
     <!-- Tabs -->
     <string name="tabEtab">Restaurants</string>

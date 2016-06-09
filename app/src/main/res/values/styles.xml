@@ -1,5 +1,6 @@
-<resources>
+<!-- Styles pour les versions API < 21 -->
 
+<resources>
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
@@ -18,6 +19,7 @@
     <style name="buttonStyle" parent="Base.Widget.AppCompat.Button">
         <item name="android:background">@color/mainColor</item>
         <item name="android:textColor">@color/colorButtonFont</item>
+        <item name="android:layout_margin">@dimen/activity_padding</item>
     </style>
 
     <style name="imageButtonStyle" parent="Base.Widget.AppCompat.ImageButton">

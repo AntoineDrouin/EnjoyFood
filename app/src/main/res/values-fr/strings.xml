@@ -82,4 +82,6 @@
     <string name="btnDelete">Supprimer</string>
     <string name="errorNoCateg">Aucune catégorie, veuillez en ajouter une pour continuer</string>
     <string name="noCateg">Sans catégorie</string>
+    <string name="txtCurrency">€</string>
+    <string name="txtEtabNotRegistered">Cet établissement n\'est pas inscrit</string>
 </resources>

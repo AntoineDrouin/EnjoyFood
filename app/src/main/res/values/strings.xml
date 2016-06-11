@@ -158,6 +158,8 @@
     <string name="txtStart">Start at</string>
     <string name="txtEnd">Close at</string>
     <string name="txtPrice">Price</string>
+    <string name="txtCurrency">$</string>
+    <string name="txtEtabNotRegistered">This restaurant is not registered</string>
 
     <!-- EditTexts -->
     <string name="edtPseudo">Pseudonym</string>

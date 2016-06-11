@@ -146,12 +146,14 @@ public class EtablissementManagerInfosDetails extends AppCompatActivity {
         }
 
         // Test les champs
-        if (typeInfo.equals(getString(R.string.txtHoraires))) {
-            if (label.equals("") || hd1.equals("") || hf1.equals("") || hd2.equals("") || hf2.equals(""))
+        if (label.equals(""))
+            error = getString(R.string.errorFields);
+        else if (typeInfo.equals(getString(R.string.txtHoraires))) {
+            if (hd1.equals("") || hf1.equals("") || hd2.equals("") || hf2.equals(""))
                 error = getString(R.string.errorFields);
         }
         else if (typeInfo.equals(getString(R.string.txtConso))) {
-            if (label.equals("") || prix.equals(""))
+            if (prix.equals(""))
                 error = getString(R.string.errorFields);
             else {
                 for (int i = 0; i < categs.length; i++) {

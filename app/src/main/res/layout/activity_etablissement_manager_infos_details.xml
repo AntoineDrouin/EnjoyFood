@@ -153,7 +153,8 @@
                     android:inputType="textMultiLine"
                     android:ems="10"
                     android:id="@+id/edtDescConso"
-                    android:maxLength="150" />
+                    android:maxLength="150"
+                    android:textAlignment="center" />
 
                 <TextView
                     android:layout_width="fill_parent"
@@ -164,12 +165,27 @@
                     android:textAlignment="center"
                     android:layout_gravity="center_horizontal" />
 
-                <EditText
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
-                    android:id="@+id/edtPrixConso" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <EditText
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:ems="10"
+                        android:id="@+id/edtPrixConso"
+                        android:layout_weight="1"
+                        android:textAlignment="center" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:text="@string/txtCurrency"
+                        android:id="@+id/txtCurrency" />
+                </LinearLayout>
 
                 <Spinner
                     android:layout_width="fill_parent"

@@ -24,7 +24,7 @@ public class Coordonnees extends Fragment {
     static Coordonnees instCoord;
     View view;
 
-    TextView txtDesc, txtAdr, txtTel, txtConges, txtPrixLivr;
+    TextView txtDesc, txtAdr, txtTel, txtConges, txtPrixLivr, txtEtabNotRegistered;
     LinearLayout layoutInfos;
     RelativeLayout layoutLoading;
     ListView lvHoraires, lvPay;
@@ -98,6 +98,7 @@ public class Coordonnees extends Fragment {
         txtTel = (TextView) view.findViewById(R.id.txtTel);
         txtConges = (TextView) view.findViewById(R.id.txtConges);
         txtPrixLivr = (TextView) view.findViewById(R.id.txtPrixLivr);
+        txtEtabNotRegistered = (TextView) view.findViewById(R.id.txtEtabNotRegistered);
 
         lvHoraires = (ListView) view.findViewById(R.id.lvHor);
         lvPay = (ListView) view.findViewById(R.id.lvPay);
@@ -117,6 +118,7 @@ public class Coordonnees extends Fragment {
         try {
             ((TextView) Etablissement.getInstance().findViewById(R.id.txtNomEtab)).setText(nomEt);
 
+            // Si l'établissement a été trouvé, remplissage de la fiche
             if (conges != null) {
                 txtDesc.setText(desc);
                 txtAdr.setText(adresse);
@@ -140,6 +142,10 @@ public class Coordonnees extends Fragment {
                 lvPay.getLayoutParams().height = arrayPay.getCount() * 150;
 
                 layoutInfos.setVisibility(View.VISIBLE);
+            }
+            // Sinon on affiche un message
+            else {
+                txtEtabNotRegistered.setVisibility(View.VISIBLE);
             }
         }
         catch (Exception e) {

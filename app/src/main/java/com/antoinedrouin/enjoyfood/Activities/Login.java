@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;

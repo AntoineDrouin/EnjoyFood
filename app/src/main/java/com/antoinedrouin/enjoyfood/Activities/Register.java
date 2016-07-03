@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.R;
 
 public class Register extends AppCompatActivity {
 

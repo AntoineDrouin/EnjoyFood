@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,6 +12,10 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import com.antoinedrouin.enjoyfood.Classes.GoogleLocation;
+import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.R;
 
 public class Compte extends AppCompatActivity {
 

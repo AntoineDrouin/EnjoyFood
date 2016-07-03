@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Activities;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -10,6 +10,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 
+import com.antoinedrouin.enjoyfood.Fragments.Etablissements;
+import com.antoinedrouin.enjoyfood.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.Place;

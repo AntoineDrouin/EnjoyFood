@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +21,13 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.antoinedrouin.enjoyfood.Classes.GoogleLocation;
+import com.antoinedrouin.enjoyfood.Classes.PagerAdapter;
+import com.antoinedrouin.enjoyfood.Fragments.Commandes;
+import com.antoinedrouin.enjoyfood.Fragments.Etablissements;
+import com.antoinedrouin.enjoyfood.Fragments.Panier;
+import com.antoinedrouin.enjoyfood.R;
 
 public class Tabs extends AppCompatActivity {
 

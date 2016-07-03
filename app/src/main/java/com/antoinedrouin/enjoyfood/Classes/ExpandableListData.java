@@ -1,8 +1,12 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Classes;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.antoinedrouin.enjoyfood.Activities.Etablissement;
+import com.antoinedrouin.enjoyfood.Fragments.Menu;
+import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;

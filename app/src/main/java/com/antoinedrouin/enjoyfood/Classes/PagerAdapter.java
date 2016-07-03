@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Classes;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -9,6 +9,14 @@ import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ImageSpan;
+
+import com.antoinedrouin.enjoyfood.Fragments.Commandes;
+import com.antoinedrouin.enjoyfood.Fragments.Coordonnees;
+import com.antoinedrouin.enjoyfood.Fragments.Etablissements;
+import com.antoinedrouin.enjoyfood.Fragments.Menu;
+import com.antoinedrouin.enjoyfood.Fragments.Notes;
+import com.antoinedrouin.enjoyfood.Fragments.Panier;
+import com.antoinedrouin.enjoyfood.R;
 
 /**
  * Created by cdsm04 on 24/02/2016.

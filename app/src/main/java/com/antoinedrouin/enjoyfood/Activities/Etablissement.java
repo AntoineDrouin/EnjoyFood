@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Activities;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.antoinedrouin.enjoyfood.Classes.PagerAdapter;
+import com.antoinedrouin.enjoyfood.Fragments.Coordonnees;
+import com.antoinedrouin.enjoyfood.R;
 
 public class Etablissement extends AppCompatActivity {
 

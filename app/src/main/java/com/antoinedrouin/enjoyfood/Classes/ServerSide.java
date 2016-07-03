@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Classes;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -6,6 +6,15 @@ import android.util.Log;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.antoinedrouin.enjoyfood.Activities.Compte;
+import com.antoinedrouin.enjoyfood.Activities.EtablissementManager;
+import com.antoinedrouin.enjoyfood.Activities.EtablissementManagerInfos;
+import com.antoinedrouin.enjoyfood.Activities.EtablissementManagerInfosDetails;
+import com.antoinedrouin.enjoyfood.Activities.Login;
+import com.antoinedrouin.enjoyfood.Activities.Register;
+import com.antoinedrouin.enjoyfood.Fragments.Coordonnees;
+import com.antoinedrouin.enjoyfood.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,7 +42,8 @@ import java.util.ArrayList;
 public class ServerSide extends AsyncTask<String, Void, String> {
 
     Context context;
-    String script, methode, id, idEt, pseudo, mdp, nom, prenom, compte, user, ville, cp, tel, adresse, nomEt, description, conges, prixLivr;
+    String script, methode, id, idEt, nom, prenom, compte, pseudo, ville, cp, tel, adresse, nomEt, description, conges, prixLivr;
+    public String user, mdp;
     private static final String encodage = "utf-8";
 
     public ServerSide (Context context) {

@@ -1,8 +1,9 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Activities;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.antoinedrouin.enjoyfood.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;

@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -6,32 +6,31 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Commandes extends Fragment {
+import com.antoinedrouin.enjoyfood.R;
 
-    static Commandes instCommandes;
+public class Notes extends Fragment {
 
-    public static Commandes newInstance() {
-        Commandes fragment = new Commandes();
+    static Notes instNotes;
+
+    public static Notes newInstance() {
+        Notes fragment = new Notes();
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        instCommandes = this;
+        instNotes = this;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_commandes, container, false);
+        View view = inflater.inflate(R.layout.fragment_notes, container, false);
         return view;
     }
 
-    public void searchInLv() {
-
+    public static final Notes getInstance() {
+        return instNotes;
     }
 
-    public static Commandes getInstance() {
-        return instCommandes;
-    }
 }

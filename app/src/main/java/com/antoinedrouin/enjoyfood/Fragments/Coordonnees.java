@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,6 +14,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.antoinedrouin.enjoyfood.Activities.Etablissement;
+import com.antoinedrouin.enjoyfood.Activities.MapsActivity;
+import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
 

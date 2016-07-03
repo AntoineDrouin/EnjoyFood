@@ -3,23 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_padding"
-    tools:context=".Activities.Informations">
+    android:padding="@dimen/activity_vertical_margin"
+    tools:context="com.antoinedrouin.enjoyfood.Activities.Consommable">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Debug"
-        android:id="@+id/textView3"
+        android:text="@string/nameObject"
+        android:id="@+id/txtNomConso"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
-
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvValues"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true"
-        android:choiceMode="none" />
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.antoinedrouin.enjoyfood.Activities.MapsActivity;
+import com.antoinedrouin.enjoyfood.R;
 
 public class Panier extends Fragment {
 

@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Classes;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,6 +17,9 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 
+import com.antoinedrouin.enjoyfood.Activities.Compte;
+import com.antoinedrouin.enjoyfood.Activities.Tabs;
+import com.antoinedrouin.enjoyfood.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;

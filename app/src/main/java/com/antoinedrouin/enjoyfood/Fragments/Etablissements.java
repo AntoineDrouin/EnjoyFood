@@ -1,4 +1,4 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
+
+import com.antoinedrouin.enjoyfood.Activities.Etablissement;
+import com.antoinedrouin.enjoyfood.Activities.Tabs;
+import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
 import java.util.List;

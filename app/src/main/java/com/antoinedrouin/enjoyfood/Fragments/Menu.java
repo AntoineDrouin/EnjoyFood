@@ -1,6 +1,7 @@
-package com.antoinedrouin.enjoyfood;
+package com.antoinedrouin.enjoyfood.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
+
+import com.antoinedrouin.enjoyfood.Activities.Consommable;
+import com.antoinedrouin.enjoyfood.Classes.CustomExpandableListAdapter;
+import com.antoinedrouin.enjoyfood.Classes.ExpandableListData;
+import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -71,9 +77,14 @@ public class Menu extends Fragment {
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-                Toast.makeText(context, expandableListTitle.get(groupPosition)
-                        + " -> " + expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition),
-                        Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, expandableListTitle.get(groupPosition)
+//                        + " -> " + expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition),
+//                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(context, Consommable.class);
+                intent.putExtra(getString(R.string.nameObject), expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition));
+                startActivity(intent);
+
                 return false;
             }
         });

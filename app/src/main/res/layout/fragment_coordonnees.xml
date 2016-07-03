@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.antoinedrouin.enjoyfood.Coordonnees">
+    tools:context=".Fragments.Coordonnees">
 
     <include layout="@layout/loading_panel"></include>
 

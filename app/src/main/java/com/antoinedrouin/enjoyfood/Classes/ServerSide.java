@@ -8,6 +8,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.antoinedrouin.enjoyfood.Activities.Compte;
+import com.antoinedrouin.enjoyfood.Activities.Consommable;
 import com.antoinedrouin.enjoyfood.Activities.EtablissementManager;
 import com.antoinedrouin.enjoyfood.Activities.EtablissementManagerInfos;
 import com.antoinedrouin.enjoyfood.Activities.EtablissementManagerInfosDetails;
@@ -333,19 +334,27 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 }
 
                 else if (script.equals(context.getString(R.string.getMenu))) {
-                    String[][] menu = new String[jsonArray.length()][6];
+                    String[][] menu = new String[jsonArray.length()][2];
 
                     for (int i = 0; i < jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-                        menu[i][0] = jso.getString(context.getString(R.string.prefIdConso));
-                        menu[i][1] = jso.getString(context.getString(R.string.prefNomConso));
-                        menu[i][2] = jso.getString(context.getString(R.string.prefDescriptionConso));
-                        menu[i][3] = jso.getString(context.getString(R.string.prefPrixConso));
-                        menu[i][4] = jso.getString(context.getString(R.string.prefIdCa));
-                        menu[i][5] = jso.getString(context.getString(R.string.prefNomCa));
+                        menu[i][0] = jso.getString(context.getString(R.string.prefNomConso));
+                        menu[i][1] = jso.getString(context.getString(R.string.prefNomCa));
                     }
 
                     ExpandableListData.assembleData(menu, context);
+                }
+
+                else if (script.equals(context.getString(R.string.getConso))) {
+                    String[][] conso = new String[jsonArray.length()][2];
+
+                    for (int i = 0; i <jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+                        conso[i][0] = jso.getString(context.getString(R.string.prefDescriptionConso));
+                        conso[i][1] = jso.getString(context.getString(R.string.prefPrixConso));
+                    }
+
+                    Consommable.getInstance().getConso(conso);
                 }
 
             } catch (JSONException e) {
@@ -444,6 +453,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             }
             else if (lien.equals(context.getString(R.string.deleteConso))) {
                 keys = new int[]{R.string.prefIdConso};
+            }
+            else if (lien.equals(context.getString(R.string.getConso))) {
+                keys = new int[]{R.string.prefIdEt, R.string.prefNomConso};
             }
 
             int lengArray = keys.length;

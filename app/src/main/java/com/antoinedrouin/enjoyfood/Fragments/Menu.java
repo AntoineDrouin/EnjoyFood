@@ -9,9 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
-import android.widget.Toast;
 
 import com.antoinedrouin.enjoyfood.Activities.Consommable;
+import com.antoinedrouin.enjoyfood.Activities.Etablissement;
 import com.antoinedrouin.enjoyfood.Classes.CustomExpandableListAdapter;
 import com.antoinedrouin.enjoyfood.Classes.ExpandableListData;
 import com.antoinedrouin.enjoyfood.R;
@@ -24,6 +24,7 @@ public class Menu extends Fragment {
 
     Context context;
     public static Menu instMenu;
+    String idEt;
 
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
@@ -48,6 +49,9 @@ public class Menu extends Fragment {
 
         expandableListView = (ExpandableListView) view.findViewById(R.id.expLvMenu);
         ExpandableListData.getData(context);
+
+        Bundle extras = Etablissement.getInstance().getIntent().getExtras();
+        idEt = extras.getString(getString(R.string.extraEtabId), "");
 
         return view;
     }
@@ -77,11 +81,8 @@ public class Menu extends Fragment {
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-//                Toast.makeText(context, expandableListTitle.get(groupPosition)
-//                        + " -> " + expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition),
-//                        Toast.LENGTH_SHORT).show();
-
                 Intent intent = new Intent(context, Consommable.class);
+                intent.putExtra(getString(R.string.extraEtabId), idEt);
                 intent.putExtra(getString(R.string.nameObject), expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition));
                 startActivity(intent);
 

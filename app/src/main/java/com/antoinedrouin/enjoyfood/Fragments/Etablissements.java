@@ -157,9 +157,9 @@ public class Etablissements extends Fragment {
         }
 
         arrayAdapter = new ArrayAdapter<>(
-                context,
-                R.layout.listitem,
-                listEtab);
+            context,
+            R.layout.listitem,
+            listEtab);
 
         lvEtab.setAdapter(arrayAdapter);
     }

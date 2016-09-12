@@ -45,6 +45,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
     Context context;
     String script, methode, id, idEt, nom, prenom, compte, pseudo, ville, cp, tel, adresse, nomEt, description, conges, prixLivr;
     public String user, mdp;
+    long timeStart, timeEnd;
     private static final String encodage = "utf-8";
 
     public ServerSide (Context context) {
@@ -52,7 +53,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
     }
 
     @Override
-    protected void onPreExecute() {}
+    protected void onPreExecute() {
+        timeStart = System.nanoTime();
+    }
 
 
     @Override
@@ -126,6 +129,8 @@ public class ServerSide extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
+        timeEnd = System.nanoTime();
+        Log.i("marquage", "Temps en nanosecondes : " + String.valueOf(timeEnd - timeStart));
 
         /** 4. TRAITEMENTS DES RETOURS D'ECRITURE ... */
 

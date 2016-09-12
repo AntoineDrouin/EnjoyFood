@@ -24,7 +24,7 @@ public class Menu extends Fragment {
 
     Context context;
     public static Menu instMenu;
-    String idEt;
+    String idEt, nomEt;
 
     ExpandableListView expandableListView;
     ExpandableListAdapter expandableListAdapter;
@@ -52,6 +52,7 @@ public class Menu extends Fragment {
 
         Bundle extras = Etablissement.getInstance().getIntent().getExtras();
         idEt = extras.getString(getString(R.string.extraEtabId), "");
+        nomEt = extras.getString(getString(R.string.extraEtabName), "");
 
         return view;
     }
@@ -83,6 +84,7 @@ public class Menu extends Fragment {
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
                 Intent intent = new Intent(context, Consommable.class);
                 intent.putExtra(getString(R.string.extraEtabId), idEt);
+                intent.putExtra(getString(R.string.extraEtabName), nomEt);
                 intent.putExtra(getString(R.string.nameObject), expandableListDetail.get(expandableListTitle.get(groupPosition)).get(childPosition));
                 startActivity(intent);
 

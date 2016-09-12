@@ -24,7 +24,6 @@ public class Register extends AppCompatActivity {
         instRegister = this;
     }
 
-
     public void onClickCreation(View v) {
         String script, methode, pseudo, mdp, mdp2, nom, prenom;
 
@@ -62,7 +61,7 @@ public class Register extends AppCompatActivity {
     }
 
     public void putInPrefRegister() {
-        // Enelever les commentaires permet de conneter l'utilisateur après la connexion à son compte
+        // Enlever les commentaires permet de connecter l'utilisateur après la connexion à son compte
         /*SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         Editor edit = pref.edit();
 

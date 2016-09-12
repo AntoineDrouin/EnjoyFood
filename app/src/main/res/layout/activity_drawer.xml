@@ -51,9 +51,9 @@
         <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/edtSearchArticle"
+        android:id="@+id/edtSearchPanier"
         android:visibility="gone"
-        android:hint="@string/edtArticle" />
+        android:hint="@string/edtEtablissement" />
 
     <EditText
         android:layout_width="match_parent"

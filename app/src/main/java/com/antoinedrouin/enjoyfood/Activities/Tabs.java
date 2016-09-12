@@ -67,7 +67,7 @@ public class Tabs extends AppCompatActivity {
         txtTitreTab = (TextView) findViewById(R.id.txtTitreTab);
         edtSearchEtab = (EditText) findViewById(R.id.edtSearchEtab);
         edtSearchVille = (EditText) findViewById(R.id.edtSearchVille);
-        edtSearchArticle = (EditText) findViewById(R.id.edtSearchArticle);
+        edtSearchArticle = (EditText) findViewById(R.id.edtSearchPanier);
         edtSearchCommande = (EditText) findViewById(R.id.edtSearchCommande);
 
         // Remplis le viewPager

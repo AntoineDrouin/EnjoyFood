@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.antoinedrouin.enjoyfood.Activities.Etablissement;
-import com.antoinedrouin.enjoyfood.Activities.MapsActivity;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
 import com.antoinedrouin.enjoyfood.R;
 
@@ -169,7 +168,13 @@ public class Coordonnees extends Fragment {
 
     // Ouvre Maps
     public void openMaps() {
-        startActivity(new Intent(context, MapsActivity.class));
+        // Lien qui va donner l'itinéraire de l'adresse
+        Uri gmmIntentUri = Uri.parse(getString(R.string.varLinkMaps) + adresse);
+        Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+
+        // L'intent va prendre le package de Maps
+        mapIntent.setPackage(getString(R.string.varPackageMaps));
+        startActivity(mapIntent);
     }
 
     public static Coordonnees getInstance() {

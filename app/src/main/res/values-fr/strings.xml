@@ -47,7 +47,7 @@
     <string name="txtTypeCompte">Type de compte :</string>
     <string name="menuLabelCompte">Mon compte</string>
     <string name="menuLabelEtab">Mon établissement</string>
-    <string name="menuLabelInfo">Informations</string>
+    <string name="menuLabelSupp">Support</string>
     <string name="menuLabelReglages">Réglages</string>
     <string name="tabCommandes">Commandes</string>
     <string name="tabCoord">Coordonnées</string>
@@ -85,4 +85,7 @@
     <string name="txtCurrency">€</string>
     <string name="txtEtabNotRegistered">Cet établissement n\'est pas inscrit</string>
     <string name="btnAddToCart">Ajouter au panier</string>
+    <string name="btnDoc">Télécharger la documentation</string>
+    <string name="btnReport">Envoyer un rapport</string>
+    <string name="edtTitre">Titre</string>
 </resources>

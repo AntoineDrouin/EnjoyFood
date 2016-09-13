@@ -239,8 +239,8 @@ public class Tabs extends AppCompatActivity {
             case R.string.menuIdEtab :
                 startActivity(new Intent(this, EtablissementManager.class));
                 return true;
-            case R.string.menuIdInfo :
-                startActivity(new Intent(this, Informations.class));
+            case R.string.menuIdSupp :
+                startActivity(new Intent(this, Support.class));
                 return true;
             case R.string.menuIdReglages :
                 startActivity(new Intent(this, Reglages.class));

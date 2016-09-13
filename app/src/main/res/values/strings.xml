@@ -10,6 +10,10 @@
     <string name="varYes">Yes</string>
     <string name="varReponseJson" translatable="false">response</string>
     <string name="varDbName" translatable="false">dbEnjoyFood</string>
+    <string name="varMailAdmin" translatable="false">antoine-drouin@hotmail.fr</string>
+    <string name="varPackageMaps" translatable="false">com.google.android.apps.maps</string>
+    <string name="varLinkMaps" translatable="false">http://maps.google.com/maps?daddr=</string>
+    <string name="varPdfManuel" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Documentation/ManuelUtilisateurEF.pdf</string>
 
     <!-- Scripts -->
     <!--<string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
@@ -154,11 +158,11 @@
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>
     <string name="menuIdEtab" translatable="false">idEtab</string>
-    <string name="menuIdInfo" translatable="false">idInfo</string>
+    <string name="menuIdSupp" translatable="false">idSupp</string>
     <string name="menuIdReglages" translatable="false">idReglages</string>
     <string name="menuLabelCompte">My account</string>
     <string name="menuLabelEtab">My restaurant</string>
-    <string name="menuLabelInfo">Informations</string>
+    <string name="menuLabelSupp">Support</string>
     <string name="menuLabelReglages">Settings</string>
 
 
@@ -175,6 +179,8 @@
     <string name="btnConnexion">Connection</string>
     <string name="btnDelete">Delete</string>
     <string name="btnAddToCart">Add to cart</string>
+    <string name="btnDoc">Download documentation</string>
+    <string name="btnReport">Send report</string>
 
     <!-- TextViews -->
     <string name="txtTypeCompte">Type of account :</string>
@@ -210,6 +216,7 @@
     <string name="edtEtablissement">Restaurant</string>
     <string name="edtArticle">Article</string>
     <string name="edtCommande">Order</string>
+    <string name="edtTitre">Title</string>
 
     <!-- Tabs -->
     <string name="tabEtab">Restaurants</string>

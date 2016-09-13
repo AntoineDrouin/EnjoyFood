@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.antoinedrouin.enjoyfood.Activities.MapsActivity;
+import com.antoinedrouin.enjoyfood.Activities.PanierDetails;
 import com.antoinedrouin.enjoyfood.Activities.Tabs;
 import com.antoinedrouin.enjoyfood.R;
 
@@ -30,6 +31,7 @@ public class Panier extends Fragment {
     SQLiteDatabase dbEF;
 
     ListView lvPanier;
+    SwipeRefreshLayout swipeContainer;
 
     String nomEt;
 
@@ -49,6 +51,7 @@ public class Panier extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_panier, container, false);
         lvPanier = (ListView) view.findViewById(R.id.lvPanier);
+        swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
 
         // Création de la bdd si elle n'existe pas
         dbEF = getActivity().openOrCreateDatabase(getString(R.string.varDbName), context.MODE_PRIVATE, null);
@@ -61,13 +64,27 @@ public class Panier extends Fragment {
         lvPanier.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                Object o = lvPanier.getItemAtPosition(position);
-                Cursor loadEtabs = dbEF.rawQuery("Select idEt from Etablissement where nomEt = ?", new String[]{o.toString()});
+                nomEt = lvPanier.getItemAtPosition(position).toString();
+                Cursor loadEtabs = dbEF.rawQuery("Select idEt from Etablissement where nomEt = ?", new String[]{nomEt});
 
                 // Recherche du panier pour cet établissement
                 if (loadEtabs.moveToFirst()) {
                     String idEt = loadEtabs.getString(loadEtabs.getColumnIndex("idEt"));
+
+                    Intent intent = new Intent(context, PanierDetails.class);
+                    intent.putExtra(getString(R.string.extraEtabId), idEt);
+                    intent.putExtra(getString(R.string.extraEtabName), nomEt);
+                    startActivity(intent);
                 }
+            }
+        });
+
+        // Rafraichissement de la listView
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fillLv();
+                swipeContainer.setRefreshing(false);
             }
         });
 
@@ -76,7 +93,6 @@ public class Panier extends Fragment {
 
     private void fillLv() {
         List<String> listPanier = new ArrayList<>();
-        // Requête
         Cursor loadEtabs = dbEF.rawQuery("Select distinct nomEt From panier", null);
 
         if (loadEtabs.moveToFirst()) {

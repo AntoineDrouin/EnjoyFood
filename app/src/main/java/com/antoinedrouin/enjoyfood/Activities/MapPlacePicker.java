@@ -10,6 +10,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 
+import com.antoinedrouin.enjoyfood.Classes.Etab;
 import com.antoinedrouin.enjoyfood.Fragments.Etablissements;
 import com.antoinedrouin.enjoyfood.R;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
@@ -54,17 +55,18 @@ public class MapPlacePicker extends Activity {
 
             Geocoder gcd = new Geocoder(context, Locale.getDefault());
             List<Address> addresses;
-            String idEt, nomEt, ville = "", cp = "";
+            Etab etab;
 
             try {
                 // Informations du lieu
-                idEt = place.getId();
-                nomEt = place.getName().toString();
+                etab = new Etab(place.getId(), place.getName().toString());
+
                 addresses = gcd.getFromLocation(place.getLatLng().latitude, place.getLatLng().longitude, 1);
 
                 if (addresses.size() > 0) {
-                    ville = addresses.get(0).getLocality();
-                    cp = addresses.get(0).getPostalCode();
+                    etab.setAdresse(place.getAddress().toString());
+                    etab.setVille(addresses.get(0).getLocality());
+                    etab.setCp( addresses.get(0).getPostalCode());
                 }
 
                 Bundle extras = getIntent().getExtras();
@@ -72,17 +74,17 @@ public class MapPlacePicker extends Activity {
 
                 //  Si on utilise le placePicker pour consulter un établissement
                 if (useType.equals(getString(R.string.useTypeCons))) {
-                    Cursor loadEtabs = dbEF.rawQuery("Select nomEt from Etablissement where idEt = ?", new String[]{idEt});
+                    Cursor loadEtabs = dbEF.rawQuery("Select nomEt from Etablissement where idEt = ?", new String[]{etab.getId()});
 
                     // Si l'établissement n'est pas déjà dans la base, on l'enregistre
                     if (!loadEtabs.moveToFirst()) {
                         // Ajoute à la base
                         ContentValues values = new ContentValues();
-                        values.put("idEt", idEt);
-                        values.put("nomEt", nomEt);
-                        values.put("adresseEt", place.getAddress().toString());
-                        values.put("villeEt", ville);
-                        values.put("codePostalEt", cp);
+                        values.put("idEt", etab.getId());
+                        values.put("nomEt", etab.getNom());
+                        values.put("adresseEt", etab.getAdresse());
+                        values.put("villeEt", etab.getVille());
+                        values.put("codePostalEt", etab.getCp());
                         dbEF.insert("Etablissement", null, values);
 
                         // Et met à jour la listview
@@ -91,13 +93,13 @@ public class MapPlacePicker extends Activity {
 
                     // Ouvre l'établissement
                     Intent intentEtab = new Intent(this, Etablissement.class);
-                    intentEtab.putExtra(getString(R.string.extraEtabId), idEt);
-                    intentEtab.putExtra(getString(R.string.extraEtabName), nomEt);
+                    intentEtab.putExtra(getString(R.string.extraEtabId), etab.getId());
+                    intentEtab.putExtra(getString(R.string.extraEtabName), etab.getNom());
                     startActivity(intentEtab);
                 }
                 // Si on utilise le placePicker pour modifier un établissement
                 else if (useType.equals(getString(R.string.useTypeModif))) {
-                    EtablissementManager.getInstance().getPlaceInfos(idEt, nomEt, cp, ville, place.getAddress().toString());
+                    EtablissementManager.getInstance().getPlaceInfos(etab);
                 }
             } catch (IOException e) {
                 e.printStackTrace();

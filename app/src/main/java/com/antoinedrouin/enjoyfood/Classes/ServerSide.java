@@ -43,7 +43,7 @@ import java.util.ArrayList;
 public class ServerSide extends AsyncTask<String, Void, String> {
 
     Context context;
-    String script, methode, id, idEt, nom, prenom, compte, pseudo, ville, cp, tel, adresse, nomEt, description, conges, prixLivr;
+    String script, methode, nom, prenom, compte, pseudo;
     public String user, mdp;
     long timeStart, timeEnd;
     private static final String encodage = "utf-8";
@@ -198,60 +198,68 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         insertUtilisateur.execute(script, methode, compte, pseudo, mdp, nom, prenom);
                     }
                     else {
-                        Toast.makeText(context, context.getString(R.string.insertUtilisateurFail), Toast.LENGTH_SHORT).show();
+                       Register.getInstance().insertFail();
                     }
                 }
 
                 // Cherche un compte avec les identifiants en paramètres
                 else if (script.equals(context.getString(R.string.checkIdentifiants))) {
+                    // Si un utilisateur a été trouvé
                     if (jsonArray.length() > 0) {
                         jso = jsonArray.getJSONObject(0);
-                        id = jso.getString(context.getString(R.string.prefId));
-                        // On ne retourne pas le pseudo et le mdp, question de sécurité
-                        nom = jso.getString(context.getString(R.string.prefNom));
-                        prenom = jso.getString(context.getString(R.string.prefPrenom));
-                        compte = jso.getString(context.getString(R.string.prefCompte));
+                        Utilisateur utilisateur;
 
-                        if (compte.equals(context.getString(R.string.varClient))) {
-                            ville = jso.getString(context.getString(R.string.prefVille));
-                            cp = jso.getString(context.getString(R.string.prefCp));
-                            tel = jso.getString(context.getString(R.string.prefTel));
-                            adresse = jso.getString(context.getString(R.string.prefAdresse));
+                        // Si client
+                        if (jso.getString(context.getString(R.string.prefCompte)).equals(context.getString(R.string.varClient))) {
+                            utilisateur = new Utilisateur(
+                                    jso.getString(context.getString(R.string.prefId)),
+                                    user, mdp,
+                                    jso.getString(context.getString(R.string.prefNom)),
+                                    jso.getString(context.getString(R.string.prefPrenom)),
+                                    jso.getString(context.getString(R.string.prefCompte)),
+                                    jso.getString(context.getString(R.string.prefVille)),
+                                    jso.getString(context.getString(R.string.prefCp)),
+                                    jso.getString(context.getString(R.string.prefTel)),
+                                    jso.getString(context.getString(R.string.prefAdresse)));
                         }
-                    }
+                        // Si manager
+                        else {
+                            utilisateur = new Utilisateur(
+                                    jso.getString(context.getString(R.string.prefId)),
+                                    user, mdp,
+                                    jso.getString(context.getString(R.string.prefNom)),
+                                    jso.getString(context.getString(R.string.prefPrenom)),
+                                    jso.getString(context.getString(R.string.prefCompte)));
+                        }
 
-                    // Si un utilisateur a été trouvé
-                    if (id != null) {
-                        Login.getInstance().putInPrefLogin(id, user, mdp, compte, nom, prenom, ville, cp, tel, adresse);
+                        Login.getInstance().putInPrefLogin(utilisateur);
                     }
+                    // Sinon
                     else {
-                        Toast.makeText(context, context.getString(R.string.connectionFail), Toast.LENGTH_SHORT).show();
+                        Login.getInstance().noAccount();
                     }
                 }
 
                 // Informations d'un établissement pour le consulter
                 else if (script.equals(context.getString(R.string.getEtabById))) {
+                    Etab etab = new Etab();
                     if (jsonArray.length() > 0) {
                         jso = jsonArray.getJSONObject(0);
-                        cp = jso.getString(context.getString(R.string.prefCp));
-                        ville = jso.getString(context.getString(R.string.prefVille));
-                        adresse = jso.getString(context.getString(R.string.prefAdresse));
-                        getEtabData(jso);
+                        etab = getEtabData(jso);
                     }
 
-                    Coordonnees.getInstance().getInfos(cp, ville, adresse, tel, description, prixLivr, conges);
+                    Coordonnees.getInstance().getInfos(etab);
                 }
 
                 // Informations d'un établissement pour le modifier
                 else if (script.equals(context.getString(R.string.getEtabByManager))) {
+                    Etab etab = new Etab();
                     if (jsonArray.length() > 0) {
                         jso = jsonArray.getJSONObject(0);
-                        idEt = jso.getString(context.getString(R.string.prefIdEt));
-                        nomEt = jso.getString(context.getString(R.string.prefNomEt));
-                        getEtabData(jso);
+                        etab = getEtabData(jso);
                     }
 
-                    EtablissementManager.getInstance().getInfos(idEt, nomEt, description, prixLivr, tel, conges);
+                    EtablissementManager.getInstance().getInfos(etab);
                 }
 
                 // Horaires d'un établissement
@@ -369,11 +377,17 @@ public class ServerSide extends AsyncTask<String, Void, String> {
         }
     }
 
-    private void getEtabData(JSONObject jso) throws JSONException {
-        description = jso.getString(context.getString(R.string.prefDesc));
-        prixLivr = jso.getString(context.getString(R.string.prefPrixLivr));
-        tel = jso.getString(context.getString(R.string.prefTel));
-        conges = jso.getString(context.getString(R.string.prefConges));
+    private Etab getEtabData(JSONObject jso) throws JSONException {
+        return new Etab(
+                jso.getString(context.getString(R.string.prefIdEt)),
+                jso.getString(context.getString(R.string.prefNomEt)),
+                jso.getString(context.getString(R.string.prefCp)),
+                jso.getString(context.getString(R.string.prefVille)),
+                jso.getString(context.getString(R.string.prefAdresse)),
+                jso.getString(context.getString(R.string.prefTel)),
+                jso.getString(context.getString(R.string.prefDesc)),
+                jso.getDouble(context.getString(R.string.prefPrixLivr)),
+                Utilitaire.returnBoolFromString(jso.getString(context.getString(R.string.prefConges))));
     }
 
 

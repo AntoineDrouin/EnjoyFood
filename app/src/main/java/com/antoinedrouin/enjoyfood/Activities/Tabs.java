@@ -109,7 +109,7 @@ public class Tabs extends AppCompatActivity {
         });
 
         // Ajoute un listener pour capter les changements d'état du drawer
-        mDrawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+        mDrawerLayout.setDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             // Permet de fermer le clavier en même temps que le drawer
             public void onDrawerClosed(View view) {

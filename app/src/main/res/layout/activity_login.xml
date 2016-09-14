@@ -6,6 +6,8 @@
     android:padding="@dimen/activity_padding"
     tools:context=".Activities.Login">
 
+    <include layout="@layout/loading_panel"></include>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,11 +29,6 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:hint="@string/edtMdp" />
-
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/login_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:orientation="vertical"

@@ -16,11 +16,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.antoinedrouin.enjoyfood.Activities.Etablissement;
+import com.antoinedrouin.enjoyfood.Classes.Etab;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
 import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
-
 
 public class Coordonnees extends Fragment {
 
@@ -33,9 +33,9 @@ public class Coordonnees extends Fragment {
     RelativeLayout layoutLoading;
     ListView lvHoraires, lvPay;
 
-    String idEt, nomEt, cp, ville, adresse, tel, desc, prixLivr, conges;
     boolean charged = false;
     ArrayList<String> horaires, paiements;
+    Etab etab;
 
     public static Coordonnees newInstance() {
         Coordonnees fragment = new Coordonnees();
@@ -50,28 +50,21 @@ public class Coordonnees extends Fragment {
         instCoord = this;
 
         Bundle extras = Etablissement.getInstance().getIntent().getExtras();
-        idEt = extras.getString(getString(R.string.extraEtabId), "");
-        nomEt = extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab));
+        etab = new Etab(extras.getString(getString(R.string.extraEtabId), ""), extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab)));
 
         // Requête pour trouver les données de l'établissement
         ServerSide getEtabInfo = new ServerSide(context);
-        getEtabInfo.execute(getString(R.string.getEtabById), getString(R.string.read), idEt);
+        getEtabInfo.execute(getString(R.string.getEtabById), getString(R.string.read), etab.getId());
     }
 
-    public void getInfos(String cCp, String cVille, String cAdresse, String cTel, String cDesc, String cPrixLivr, String cConges) {
-        cp = cCp;
-        ville = cVille;
-        adresse = cAdresse;
-        tel = cTel;
-        desc = cDesc;
-        prixLivr = cPrixLivr;
-        conges = cConges;
+    public void getInfos(Etab et) {
+        etab = et;
         charged = true;
 
         // Si des infos ont étés trouvés, on cherche les horaires puis les moyens de paiements
-        if (conges != null) {
+        if (etab.getId() != null) {
             ServerSide getHor = new ServerSide(context);
-            getHor.execute(getString(R.string.getHoraires), getString(R.string.read), idEt);
+            getHor.execute(getString(R.string.getHoraires), getString(R.string.read), etab.getId());
         }
         else {
             setCompo();
@@ -82,7 +75,7 @@ public class Coordonnees extends Fragment {
         horaires = new ArrayList<>();
         horaires = cHor;
         ServerSide getPai = new ServerSide(context);
-        getPai.execute(getString(R.string.getPaiements), getString(R.string.read), idEt);
+        getPai.execute(getString(R.string.getPaiements), getString(R.string.read), etab.getId());
     }
 
     public void getPai(ArrayList<String> cPai) {
@@ -120,15 +113,15 @@ public class Coordonnees extends Fragment {
     // Remplissage des champs
     private void setCompo() {
         try {
-            ((TextView) Etablissement.getInstance().findViewById(R.id.txtNomEtab)).setText(nomEt);
+            ((TextView) Etablissement.getInstance().findViewById(R.id.txtNomEtab)).setText(etab.getNom());
 
             // Si l'établissement a été trouvé, remplissage de la fiche
-            if (conges != null) {
-                txtDesc.setText(desc);
-                txtAdr.setText(adresse);
-                txtTel.setText(tel);
-                txtPrixLivr.setText(prixLivr);
-                if (conges.equals("0"))
+            if (etab.getId() != null) {
+                txtDesc.setText(etab.getDescription());
+                txtAdr.setText(etab.getAdresse());
+                txtTel.setText(etab.getTel());
+                txtPrixLivr.setText(Double.toString(etab.getPrixLivr()));
+                if (!etab.isConges())
                     txtConges.setVisibility(View.GONE);
 
                 ArrayAdapter<String> arrayHor = new ArrayAdapter<>(
@@ -163,13 +156,13 @@ public class Coordonnees extends Fragment {
 
     // Compose le numéro
     public void call() {
-        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel)));
+        startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + etab.getTel())));
     }
 
     // Ouvre Maps
     public void openMaps() {
         // Lien qui va donner l'itinéraire de l'adresse
-        Uri gmmIntentUri = Uri.parse(getString(R.string.varLinkMaps) + adresse);
+        Uri gmmIntentUri = Uri.parse(getString(R.string.varLinkMaps) + etab.getAdresse());
         Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
 
         // L'intent va prendre le package de Maps

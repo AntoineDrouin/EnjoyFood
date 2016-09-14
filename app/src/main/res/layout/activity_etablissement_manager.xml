@@ -6,6 +6,8 @@
     android:padding="@dimen/activity_vertical_margin"
     tools:context=".Activities.EtablissementManager">
 
+    <include layout="@layout/loading_panel"></include>
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

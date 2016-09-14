@@ -8,11 +8,14 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.antoinedrouin.enjoyfood.Classes.Etab;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.Classes.Utilitaire;
 import com.antoinedrouin.enjoyfood.R;
 
 public class EtablissementManager extends AppCompatActivity {
@@ -24,8 +27,10 @@ public class EtablissementManager extends AppCompatActivity {
     TextView txtEt;
     EditText edtDesc, edtPrixLivr, edtTel;
     Switch switchConges;
+    RelativeLayout layoutLoading;
 
-    String idUt, idEt, script, nomEt, desc, prixLivr, tel, conges, cp, ville, adresse;
+    String idUt, script;
+    Etab etab = new Etab();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,8 @@ public class EtablissementManager extends AppCompatActivity {
         edtPrixLivr = (EditText) findViewById(R.id.edtPrixLivr);
         edtTel = (EditText) findViewById(R.id.edtTel);
         switchConges = (Switch) findViewById(R.id.switchConges);
+        layoutLoading = (RelativeLayout) findViewById(R.id.loadingPanel);
+        layoutLoading.setVisibility(View.VISIBLE);
 
         idUt = pref.getString(getString(R.string.prefId), "");
 
@@ -50,51 +57,62 @@ public class EtablissementManager extends AppCompatActivity {
     }
 
     // Reçoit les infos, et si il n'y en a pas, ouvre le placePicker
-    public void getInfos(String eIdEt, String eNomEt, String eDesc, String ePrixLivr, String eTel, String eConges) {
-        if (eIdEt != null) {
-            idEt = eIdEt;
-            txtEt.setText(eNomEt);
-            edtDesc.setText(eDesc);
-            edtPrixLivr.setText(ePrixLivr);
-            edtTel.setText(eTel);
-            switchConges.setChecked(eConges.equals("1"));
+    public void getInfos(Etab et) {
+        try {
+            if (et.getId() != null) {
+                etab = et;
 
-            script = getString(R.string.updateEtab);
+                txtEt.setText(etab.getNom());
+                edtDesc.setText(etab.getDescription());
+                edtPrixLivr.setText(Double.toString(etab.getPrixLivr()));
+                edtTel.setText(etab.getTel());
+                switchConges.setChecked(etab.isConges());
 
-            SharedPreferences.Editor edit = pref.edit();
-            edit.putString(getString(R.string.prefIdEt), idEt);
-            edit.apply();
+                script = getString(R.string.updateEtab);
+
+                SharedPreferences.Editor edit = pref.edit();
+                edit.putString(getString(R.string.prefIdEt), etab.getId());
+                edit.apply();
+            }
+            else {
+                Intent intent = new Intent(this, MapPlacePicker.class);
+                intent.putExtra(getString(R.string.useType), getString(R.string.useTypeModif));
+
+                Toast.makeText(context, getString(R.string.choosePlace), Toast.LENGTH_LONG).show();
+                startActivity(intent);
+            }
         }
-        else {
-            Intent intent = new Intent(this, MapPlacePicker.class);
-            intent.putExtra(getString(R.string.useType), getString(R.string.useTypeModif));
-
-            Toast.makeText(context, getString(R.string.choosePlace), Toast.LENGTH_LONG).show();
-            startActivity(intent);
+        finally {
+            layoutLoading.setVisibility(View.GONE);
         }
     }
 
     // Enregistre les modifications
     public void onClickSaveChanges(View v) {
-        nomEt = txtEt.getText().toString();
-        desc = edtDesc.getText().toString();
-        prixLivr = edtPrixLivr.getText().toString();
-        tel = edtTel.getText().toString();
-        if (switchConges.isChecked())
-            conges = "1";
-        else
-            conges = "0";
+        try {
+            layoutLoading.setVisibility(View.VISIBLE);
 
-        if (desc.equals("") || prixLivr.equals("") || tel.equals(""))
-            Toast.makeText(context, getString(R.string.errorFields), Toast.LENGTH_SHORT).show();
-        else {
-            ServerSide etab = new ServerSide(context);
+            etab.setNom(txtEt.getText().toString());
+            etab.setDescription(edtDesc.getText().toString());
+            if (!edtPrixLivr.getText().toString().equals(""))
+                etab.setPrixLivr(Double.parseDouble(edtPrixLivr.getText().toString()));
+            etab.setTel(edtTel.getText().toString());
+            etab.setConges(switchConges.isChecked());
 
-            if (script.equals(getString(R.string.updateEtab))) {
-                etab.execute(script, getString(R.string.write), idEt, idUt, desc, prixLivr, tel, conges);
-            } else if (script.equals(getString(R.string.insertEtab))) {
-                etab.execute(script, getString(R.string.write), idEt, nomEt, idUt, desc, prixLivr, tel, conges, cp, ville, adresse);
+            if (etab.getDescription().equals("") || etab.getTel().equals(""))
+                Toast.makeText(context, getString(R.string.errorFields), Toast.LENGTH_SHORT).show();
+            else {
+                ServerSide etabl = new ServerSide(context);
+
+                if (script.equals(getString(R.string.updateEtab))) {
+                    etabl.execute(script, getString(R.string.write), etab.getId(), idUt, etab.getDescription(), Double.toString(etab.getPrixLivr()), etab.getTel(), Utilitaire.returnStringFromBool(etab.isConges()));
+                } else if (script.equals(getString(R.string.insertEtab))) {
+                    etabl.execute(script, getString(R.string.write), etab.getId(), etab.getNom(), idUt, etab.getDescription(), Double.toString(etab.getPrixLivr()), etab.getTel(), Utilitaire.returnStringFromBool(etab.isConges()), etab.getCp(), etab.getVille(), etab.getAdresse());
+                }
             }
+        }
+        finally {
+            layoutLoading.setVisibility(View.GONE);
         }
     }
 
@@ -107,13 +125,10 @@ public class EtablissementManager extends AppCompatActivity {
         Toast.makeText(context, getString(R.string.placeInserted), Toast.LENGTH_SHORT).show();
     }
 
-    public void getPlaceInfos(String pId, String pNom, String pCp, String pVille, String cAdresse) {
+    public void getPlaceInfos(Etab et) {
         script = getString(R.string.insertEtab);
-        idEt = pId;
-        txtEt.setText(pNom);
-        cp = pCp;
-        ville = pVille;
-        adresse = cAdresse;
+        etab = et;
+        txtEt.setText(etab.getNom());
     }
 
     public void onClickHoraires(View v) {

@@ -6,6 +6,8 @@
     android:padding="@dimen/activity_padding"
     tools:context=".Activities.Register">
 
+    <include layout="@layout/loading_panel"></include>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"

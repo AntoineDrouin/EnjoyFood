@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
@@ -15,6 +16,8 @@ public class Register extends AppCompatActivity {
     Context context;
     static Register instRegister;
 
+    RelativeLayout layoutLoading;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,41 +25,50 @@ public class Register extends AppCompatActivity {
 
         context = getApplicationContext();
         instRegister = this;
+
+        layoutLoading = (RelativeLayout) findViewById(R.id.loadingPanel);
     }
 
     public void onClickCreation(View v) {
-        String script, methode, pseudo, mdp, mdp2, nom, prenom;
+        try {
+            layoutLoading.setVisibility(View.VISIBLE);
 
-        pseudo = ((EditText) findViewById(R.id.edtPseudo)).getText().toString();
-        mdp = ((EditText) findViewById(R.id.edtMdp1)).getText().toString();
-        mdp2 = ((EditText) findViewById(R.id.edtMdp2)).getText().toString();
-        nom = ((EditText) findViewById(R.id.edtNom)).getText().toString();
-        prenom = ((EditText) findViewById(R.id.edtPrenom)).getText().toString();
+            String script, methode, pseudo, mdp, mdp2, nom, prenom;
 
-        // Chaine qui va retourner toutes les erreurs de saisies
-        String error = "";
+            pseudo = ((EditText) findViewById(R.id.edtPseudo)).getText().toString();
+            mdp = ((EditText) findViewById(R.id.edtMdp1)).getText().toString();
+            mdp2 = ((EditText) findViewById(R.id.edtMdp2)).getText().toString();
+            nom = ((EditText) findViewById(R.id.edtNom)).getText().toString();
+            prenom = ((EditText) findViewById(R.id.edtPrenom)).getText().toString();
 
-        // Test des champs
-        if (pseudo.length() < 3)
-            error = getString(R.string.errorPseudoLength);
-        else if (mdp.length() < 3 || mdp2.length() < 3)
-            error = getString(R.string.errorMdpLength);
-        else if (!mdp.equals(mdp2))
-            error = getString(R.string.errorMdpNotSame);
-        else if (nom.length() == 0)
-            error = getString(R.string.errorNom);
-        else if (prenom.length() == 0)
-            error = getString(R.string.errorPrenom);
+            // Chaine qui va retourner toutes les erreurs de saisies
+            String error = "";
 
-        if (!error.equals(""))
-            Toast.makeText(context, error, Toast.LENGTH_LONG).show();
-        else {
-            // Vérifie si le pseudo est disponible
-            script = getString(R.string.checkUtilisateur);
-            methode = getString(R.string.read);
+            // Test des champs
+            if (pseudo.length() < 3)
+                error = getString(R.string.errorPseudoLength);
+            else if (mdp.length() < 3 || mdp2.length() < 3)
+                error = getString(R.string.errorMdpLength);
+            else if (!mdp.equals(mdp2))
+                error = getString(R.string.errorMdpNotSame);
+            else if (nom.length() == 0)
+                error = getString(R.string.errorNom);
+            else if (prenom.length() == 0)
+                error = getString(R.string.errorPrenom);
 
-            ServerSide checkUtilisateur = new ServerSide(context);
-            checkUtilisateur.execute(script, methode, pseudo);
+            if (!error.equals(""))
+                Toast.makeText(context, error, Toast.LENGTH_LONG).show();
+            else {
+                // Vérifie si le pseudo est disponible
+                script = getString(R.string.checkUtilisateur);
+                methode = getString(R.string.read);
+
+                ServerSide checkUtilisateur = new ServerSide(context);
+                checkUtilisateur.execute(script, methode, pseudo);
+            }
+        }
+        finally {
+            layoutLoading.setVisibility(View.GONE);
         }
     }
 
@@ -78,6 +90,10 @@ public class Register extends AppCompatActivity {
         Tabs.getInstance().recreate();
         //startActivity(new Intent(context, Compte.class));
         finish();
+    }
+
+    public void insertFail() {
+        Toast.makeText(context, context.getString(R.string.insertUtilisateurFail), Toast.LENGTH_SHORT).show();
     }
 
     public static Register getInstance(){

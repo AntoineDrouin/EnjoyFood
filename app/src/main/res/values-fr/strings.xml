@@ -16,7 +16,6 @@
     <string name="connectionSuccess">Connexion réussie</string>
     <string name="disconnectionSuccess">Déconnexion réussie</string>
     <string name="edtAdresse">Adresse</string>
-    <string name="edtArticle">Article</string>
     <string name="edtCommande">Commande</string>
     <string name="edtCp">Code postal</string>
     <string name="edtEtablissement">Établissement</string>
@@ -84,7 +83,6 @@
     <string name="noCateg">Sans catégorie</string>
     <string name="txtCurrency">€</string>
     <string name="txtEtabNotRegistered">Cet établissement n\'est pas inscrit</string>
-    <string name="btnAddToCart">Ajouter au panier</string>
     <string name="btnDoc">Télécharger la documentation</string>
     <string name="btnReport">Envoyer un rapport</string>
     <string name="edtTitre">Titre</string>

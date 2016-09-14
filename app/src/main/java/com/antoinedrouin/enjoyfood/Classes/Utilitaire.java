@@ -49,9 +49,6 @@ public class Utilitaire {
     }
 
     public static Boolean returnBoolFromString(String st) {
-        if (st.equals("1"))
-            return true;
-        else
-            return false;
+        return st.equals("1");
     }
 }

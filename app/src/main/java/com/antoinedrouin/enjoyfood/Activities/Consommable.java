@@ -53,7 +53,7 @@ public class Consommable extends AppCompatActivity {
         txtNomConso.setText(nomConso);
 
         // Création de la bdd si elle n'existe pas
-        dbEF = openOrCreateDatabase(getString(R.string.varDbName), context.MODE_PRIVATE, null);
+        dbEF = openOrCreateDatabase(getString(R.string.varDbName), MODE_PRIVATE, null);
         // Création de la table si elle n'existe pas
         dbEF.execSQL("CREATE TABLE IF NOT EXISTS PANIER (idUt VARCHAR, idEt VARCHAR, nomEt VARCHAR, nomConso VARCHAR, qteConso INTEGER)");
 

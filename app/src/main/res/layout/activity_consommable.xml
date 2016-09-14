@@ -83,7 +83,6 @@
         android:layout_gravity="bottom|end"
         android:src="@drawable/ic_more"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/txtTypeInfos"
         android:onClick="onClickMore"
         android:layout_margin="@dimen/activity_big_padding"
         android:layout_alignParentRight="true" />
@@ -94,10 +93,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/txtTypeInfos"
         android:onClick="onClickLess"
         android:layout_margin="@dimen/activity_big_padding"
-        android:layout_alignParentRight="false"
         android:layout_alignParentLeft="true"
         android:src="@drawable/ic_less" />
 

@@ -68,7 +68,7 @@ public class GoogleLocation implements GoogleApiClient.ConnectionCallbacks, Goog
         // S'il y a un problème
         boolean itsOk = true;
 
-        LocationManager locationManager = (LocationManager) context.getSystemService(context.LOCATION_SERVICE);
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
 
         // Check géolocalisation
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)){

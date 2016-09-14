@@ -73,16 +73,14 @@ public class EtablissementManager extends AppCompatActivity {
                 SharedPreferences.Editor edit = pref.edit();
                 edit.putString(getString(R.string.prefIdEt), etab.getId());
                 edit.apply();
-            }
-            else {
+            } else {
                 Intent intent = new Intent(this, MapPlacePicker.class);
                 intent.putExtra(getString(R.string.useType), getString(R.string.useTypeModif));
 
                 Toast.makeText(context, getString(R.string.choosePlace), Toast.LENGTH_LONG).show();
                 startActivity(intent);
             }
-        }
-        finally {
+        } finally {
             layoutLoading.setVisibility(View.GONE);
         }
     }
@@ -110,8 +108,7 @@ public class EtablissementManager extends AppCompatActivity {
                     etabl.execute(script, getString(R.string.write), etab.getId(), etab.getNom(), idUt, etab.getDescription(), Double.toString(etab.getPrixLivr()), etab.getTel(), Utilitaire.returnStringFromBool(etab.isConges()), etab.getCp(), etab.getVille(), etab.getAdresse());
                 }
             }
-        }
-        finally {
+        } finally {
             layoutLoading.setVisibility(View.GONE);
         }
     }

@@ -1,7 +1,6 @@
 <resources>
     <!-- Application -->
     <string name="app_name" translatable="false">EnjoyFood</string>
-    <string name="title_activity_maps" translatable="false">Map</string>
 
     <!-- Variables -->
     <string name="varClient">Client</string>
@@ -178,7 +177,6 @@
     <string name="btnSearch">Search</string>
     <string name="btnConnexion">Connection</string>
     <string name="btnDelete">Delete</string>
-    <string name="btnAddToCart">Add to cart</string>
     <string name="btnDoc">Download documentation</string>
     <string name="btnReport">Send report</string>
 
@@ -214,7 +212,6 @@
     <string name="edtTel">Phone number</string>
     <string name="edtAdresse">Address</string>
     <string name="edtEtablissement">Restaurant</string>
-    <string name="edtArticle">Article</string>
     <string name="edtCommande">Order</string>
     <string name="edtTitre">Title</string>
 

@@ -2,9 +2,11 @@ package com.antoinedrouin.enjoyfood.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 
 import com.antoinedrouin.enjoyfood.Activities.PanierDetails;
 import com.antoinedrouin.enjoyfood.Activities.Tabs;
+import com.antoinedrouin.enjoyfood.Classes.Utilitaire;
 import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
@@ -26,6 +29,7 @@ public class Panier extends Fragment {
 
     Context context;
     static Panier instPanier;
+    SharedPreferences pref;
 
     ArrayAdapter<String> arrayAdapter;
     SQLiteDatabase dbEF;
@@ -45,6 +49,7 @@ public class Panier extends Fragment {
         super.onCreate(savedInstanceState);
         instPanier = this;
         context = getContext();
+        pref = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @Override
@@ -56,7 +61,7 @@ public class Panier extends Fragment {
         // Création de la bdd si elle n'existe pas
         dbEF = getActivity().openOrCreateDatabase(getString(R.string.varDbName), Context.MODE_PRIVATE, null);
         // Création de la table si elle n'existe pas
-        dbEF.execSQL("CREATE TABLE IF NOT EXISTS PANIER (idUt VARCHAR, idEt VARCHAR, nomEt VARCHAR, nomConso VARCHAR, qteConso INTEGER)");
+        Utilitaire.createBasePanier(dbEF);
 
         fillLv();
 
@@ -76,6 +81,8 @@ public class Panier extends Fragment {
                     intent.putExtra(getString(R.string.extraEtabName), nomEt);
                     startActivity(intent);
                 }
+
+                loadEtabs.close();
             }
         });
 
@@ -92,22 +99,26 @@ public class Panier extends Fragment {
     }
 
     private void fillLv() {
-        List<String> listPanier = new ArrayList<>();
-        Cursor loadEtabs = dbEF.rawQuery("Select distinct nomEt From panier", null);
+        if (!pref.getString(getString(R.string.prefCompte), "").equals(getString(R.string.varGerant))) {
+            List<String> listPanier = new ArrayList<>();
+            Cursor loadEtabs = dbEF.rawQuery("Select distinct nomEt From panier", null);
 
-        if (loadEtabs.moveToFirst()) {
-            do {
-                nomEt = loadEtabs.getString(loadEtabs.getColumnIndex("nomEt"));
-                listPanier.add(nomEt);
-            } while (loadEtabs.moveToNext());
+            if (loadEtabs.moveToFirst()) {
+                do {
+                    nomEt = loadEtabs.getString(loadEtabs.getColumnIndex("nomEt"));
+                    listPanier.add(nomEt);
+                } while (loadEtabs.moveToNext());
+            }
+
+            loadEtabs.close();
+
+            arrayAdapter = new ArrayAdapter<>(
+                    context,
+                    R.layout.listitem,
+                    listPanier);
+
+            lvPanier.setAdapter(arrayAdapter);
         }
-
-        arrayAdapter = new ArrayAdapter<>(
-                context,
-                R.layout.listitem,
-                listPanier);
-
-        lvPanier.setAdapter(arrayAdapter);
     }
 
     public void searchInLv() {
@@ -123,6 +134,8 @@ public class Panier extends Fragment {
                 listEtab.add(nomEt);
             } while (loadEtabs.moveToNext());
         }
+
+        loadEtabs.close();
 
         arrayAdapter = new ArrayAdapter<>(
                 context,

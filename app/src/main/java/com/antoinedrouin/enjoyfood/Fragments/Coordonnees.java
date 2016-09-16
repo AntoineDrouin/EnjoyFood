@@ -2,6 +2,7 @@ package com.antoinedrouin.enjoyfood.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import com.antoinedrouin.enjoyfood.Activities.Etablissement;
 import com.antoinedrouin.enjoyfood.Classes.Etab;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.Classes.Utilitaire;
 import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class Coordonnees extends Fragment {
 
     Context context;
     static Coordonnees instCoord;
+    SQLiteDatabase dbEF;
     View view;
 
     TextView txtDesc, txtAdr, txtTel, txtConges, txtPrixLivr, txtEtabNotRegistered;
@@ -51,6 +54,11 @@ public class Coordonnees extends Fragment {
 
         Bundle extras = Etablissement.getInstance().getIntent().getExtras();
         etab = new Etab(extras.getString(getString(R.string.extraEtabId), ""), extras.getString(getString(R.string.extraEtabName), getString(R.string.tabEtab)));
+
+        // Création de la bdd si elle n'existe pas
+        dbEF = context.openOrCreateDatabase(getString(R.string.varDbName), Context.MODE_PRIVATE, null);
+        // Création de la table si elle n'existe pas
+        Utilitaire.createBasePanier(dbEF);
 
         // Requête pour trouver les données de l'établissement
         ServerSide getEtabInfo = new ServerSide(context);
@@ -120,7 +128,7 @@ public class Coordonnees extends Fragment {
                 txtDesc.setText(etab.getDescription());
                 txtAdr.setText(etab.getAdresse());
                 txtTel.setText(etab.getTel());
-                txtPrixLivr.setText(Double.toString(etab.getPrixLivr()));
+                txtPrixLivr.setText(etab.getPrixLivr());
                 if (!etab.isConges())
                     txtConges.setVisibility(View.GONE);
 
@@ -139,6 +147,9 @@ public class Coordonnees extends Fragment {
                 lvPay.getLayoutParams().height = arrayPay.getCount() * 150;
 
                 layoutInfos.setVisibility(View.VISIBLE);
+
+                // Ajout d'infos à l'établissement
+                dbEF.execSQL("Update Etablissement Set telEt = ?, prixLivrEt = ? Where idEt = ?", new String[]{etab.getTel(), etab.getPrixLivr(), etab.getId()});
             }
             // Sinon on affiche un message
             else {

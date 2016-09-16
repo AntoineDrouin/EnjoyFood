@@ -18,6 +18,7 @@ import android.widget.Spinner;
 
 import com.antoinedrouin.enjoyfood.Activities.Etablissement;
 import com.antoinedrouin.enjoyfood.Activities.Tabs;
+import com.antoinedrouin.enjoyfood.Classes.Utilitaire;
 import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
@@ -49,7 +50,7 @@ public class Etablissements extends Fragment {
         // Création de la bdd si elle n'existe pas
         dbEF = getActivity().openOrCreateDatabase(getString(R.string.varDbName), Context.MODE_PRIVATE, null);
         // Création de la table si elle n'existe pas
-        dbEF.execSQL("CREATE TABLE IF NOT EXISTS Etablissement (idEt VARCHAR, nomEt VARCHAR, adresseEt VARCHAR, villeEt VARCHAR, codePostalEt VARCHAR)");
+        Utilitaire.createBaseEtab(dbEF);
     }
 
     @Override
@@ -72,6 +73,8 @@ public class Etablissements extends Fragment {
                 if (loadEtabs.moveToFirst()) {
                     openEtab(loadEtabs.getString(loadEtabs.getColumnIndex("idEt")), o.toString());
                 }
+
+                loadEtabs.close();
             }
         });
 
@@ -115,6 +118,8 @@ public class Etablissements extends Fragment {
             } while (loadEtabs.moveToNext());
         }
 
+        loadEtabs.close();
+
         arrayAdapter = new ArrayAdapter<>(
                 context,
                 R.layout.listitem,
@@ -155,6 +160,8 @@ public class Etablissements extends Fragment {
                 listEtab.add(nomEt);
             } while (loadEtabs.moveToNext());
         }
+
+        loadEtabs.close();
 
         arrayAdapter = new ArrayAdapter<>(
             context,

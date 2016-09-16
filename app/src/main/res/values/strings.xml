@@ -143,6 +143,14 @@
     <string name="prefNomConso" translatable="false">nomConso</string>
     <string name="prefDescriptionConso" translatable="false">descriptionConso</string>
     <string name="prefPrixConso" translatable="false">prixConso</string>
+    <string name="prefIdCom" translatable="false">idCom</string>
+    <string name="prefEtatCom" translatable="false">etatCom</string>
+    <string name="prefRemarqueCom" translatable="false">remarqueCom</string>
+    <string name="prefAdresseCom" translatable="false">adresseCom</string>
+    <string name="prefPrixCom" translatable="false">prixCom</string>
+    <string name="prefPrixLivrCom" translatable="false">prixLivrCom</string>
+    <string name="prefPrixTotalCom" translatable="false">prixTotalCom</string>
+    <string name="prefQuantiteCom" translatable="false">quantiteCom</string>
 
     <!-- Extras -->
     <string name="extraEtabId" translatable="false">etabId</string>
@@ -179,6 +187,7 @@
     <string name="btnDelete">Delete</string>
     <string name="btnDoc">Download documentation</string>
     <string name="btnReport">Send report</string>
+    <string name="btnOrder">Order</string>
 
     <!-- TextViews -->
     <string name="txtTypeCompte">Type of account :</string>
@@ -214,6 +223,7 @@
     <string name="edtEtablissement">Restaurant</string>
     <string name="edtCommande">Order</string>
     <string name="edtTitre">Title</string>
+    <string name="edtRemarque">Remark</string>
 
     <!-- Tabs -->
     <string name="tabEtab">Restaurants</string>
@@ -226,10 +236,17 @@
     <!-- Spinners -->
     <string name="spinVarLvRecent">Recent restaurants</string>
     <string name="spinVarLvSearch">Restaurants nearby</string>
+    <string name="spinEtatCom1">Is prepared</string>
+    <string name="spinEtatCom2">In delivering</string>
+    <string name="spinEtatCom3">Delivered</string>
 
-    <!-- Switch -->
+    <!-- Switchs -->
     <string name="switchConges">On holiday</string>
 
-    <!-- ExpandableListView -->
+    <!-- ListViews -->
+    <string name="lvPrixLivr">Delivery price :</string>
+    <string name="lvTotal">Total :</string>
+
+    <!-- ExpandableListViews -->
     <string name="noCateg">No categorie</string>
 </resources>

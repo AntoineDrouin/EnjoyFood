@@ -64,8 +64,8 @@ public class Etab {
         return description;
     }
 
-    public double getPrixLivr() {
-        return prixLivr;
+    public String getPrixLivr() {
+        return Double.toString(prixLivr);
     }
 
     public boolean isConges() {
@@ -100,8 +100,8 @@ public class Etab {
         this.description = description;
     }
 
-    public void setPrixLivr(double prixLivr) {
-        this.prixLivr = prixLivr;
+    public void setPrixLivr(String prixLiv) {
+        this.prixLivr = Double.parseDouble(prixLiv);
     }
 
     public void setConges(boolean conges) {

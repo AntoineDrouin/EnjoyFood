@@ -86,4 +86,11 @@
     <string name="btnDoc">Télécharger la documentation</string>
     <string name="btnReport">Envoyer un rapport</string>
     <string name="edtTitre">Titre</string>
+    <string name="btnOrder">Commander</string>
+    <string name="lvTotal">Total : </string>
+    <string name="spinEtatCom1">En préparation</string>
+    <string name="spinEtatCom2">En livraison</string>
+    <string name="spinEtatCom3">Livré</string>
+    <string name="edtRemarque">Remarque</string>
+    <string name="lvPrixLivr">Prix de livraison :</string>
 </resources>

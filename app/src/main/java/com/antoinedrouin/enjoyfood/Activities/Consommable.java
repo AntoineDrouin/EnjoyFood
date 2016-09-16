@@ -1,9 +1,11 @@
 package com.antoinedrouin.enjoyfood.Activities;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,19 +13,25 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.antoinedrouin.enjoyfood.Classes.Conso;
+import com.antoinedrouin.enjoyfood.Classes.Etab;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.Classes.Utilitaire;
 import com.antoinedrouin.enjoyfood.R;
 
 public class Consommable extends AppCompatActivity {
 
     Context context;
     static Consommable instConso;
-    String idUt, idEt, nomEt, nomConso;
-    int quantity;
+    SharedPreferences pref;
+
+    Etab etab;
+    Conso conso;
+
     ScrollView scrollViewConso;
     RelativeLayout layoutLoading;
     TextView txtQuantity, txtDesc, txtPrice;
-    FloatingActionButton btnLess;
+    FloatingActionButton btnLess, btnMore;
     SQLiteDatabase dbEF;
 
     @Override
@@ -33,80 +41,92 @@ public class Consommable extends AppCompatActivity {
 
         context = getApplicationContext();
         instConso = this;
+        pref = PreferenceManager.getDefaultSharedPreferences(this);
 
         TextView txtNomConso = (TextView) findViewById(R.id.txtNomConso);
         txtQuantity = (TextView) findViewById(R.id.txtQuantity);
         txtDesc = (TextView) findViewById(R.id.txtDescConso);
         txtPrice = (TextView) findViewById(R.id.txtPrice);
         btnLess = (FloatingActionButton) findViewById(R.id.btnLess);
+        btnMore = (FloatingActionButton) findViewById(R.id.btnMore);
         scrollViewConso = (ScrollView) findViewById(R.id.scrollViewConso);
         layoutLoading = (RelativeLayout) findViewById(R.id.loadingPanel);
 
         Bundle extras = getIntent().getExtras();
-        idUt = extras.getString(getString(R.string.prefId), "");
-        idEt = extras.getString(getString(R.string.extraEtabId), "");
-        nomEt = extras.getString(getString(R.string.extraEtabName), "");
-        nomConso = extras.getString(getString(R.string.nameObject), "");
+        etab = new Etab(extras.getString(getString(R.string.extraEtabId), ""), extras.getString(getString(R.string.extraEtabName), ""));
+        conso = new Conso(extras.getString(getString(R.string.nameObject), ""));
 
         scrollViewConso.setVisibility(View.GONE);
         layoutLoading.setVisibility(View.VISIBLE);
-        txtNomConso.setText(nomConso);
+        txtNomConso.setText(conso.getNom());
 
         // Création de la bdd si elle n'existe pas
         dbEF = openOrCreateDatabase(getString(R.string.varDbName), MODE_PRIVATE, null);
         // Création de la table si elle n'existe pas
-        dbEF.execSQL("CREATE TABLE IF NOT EXISTS PANIER (idUt VARCHAR, idEt VARCHAR, nomEt VARCHAR, nomConso VARCHAR, qteConso INTEGER)");
+        Utilitaire.createBasePanier(dbEF);
 
-        Cursor loadConsos = dbEF.rawQuery("Select qteConso From Panier Where idUt = ? and idEt = ? and nomConso = ?", new String[]{idUt, idEt, nomConso});
+        Cursor loadConsos = dbEF.rawQuery("Select qteConso From Panier Where idEt = ? and nomConso = ?", new String[]{etab.getId(), conso.getNom()});
 
         // Cherche la quantité de ce consommable
         if (loadConsos.moveToFirst())
-            quantity = loadConsos.getInt(loadConsos.getColumnIndex("qteConso"));
+            conso.setQuantite(loadConsos.getInt(loadConsos.getColumnIndex("qteConso")));
         else
-            quantity = 0;
+            conso.setQuantite(0);
 
         majQte();
-        txtQuantity.setText(Integer.toString(quantity));
+        txtQuantity.setText(conso.getQuantiteStr());
         loadConsos.close();
 
+        if (pref.getString(getString(R.string.prefCompte), "").equals(getString(R.string.varGerant))) {
+            btnLess.setVisibility(View.GONE);
+            btnMore.setVisibility(View.GONE);
+        }
+
         ServerSide getConso = new ServerSide(context);
-        getConso.execute(getString(R.string.getConso), getString(R.string.read), idEt, nomConso);
+        getConso.execute(getString(R.string.getConso), getString(R.string.read), etab.getId(), conso.getNom());
     }
 
     public void onClickLess(View v) {
-        quantity--;
-        txtQuantity.setText(Integer.toString(quantity));
+        conso.addQuantite(-1);
+        txtQuantity.setText(conso.getQuantiteStr());
 
         // Delete si quantité = 0
-        if (quantity == 0)
-            dbEF.execSQL("Delete from Panier Where idUt = ? and idEt = ? and nomConso = ?", new String[]{idUt, idEt, nomConso});
+        if (conso.getQuantite() == 0)
+            dbEF.execSQL("Delete from Panier Where idEt = ? and nomConso = ?", new String[]{etab.getId(), conso.getNom()});
         else
-            dbEF.execSQL("Update Panier Set qteConso = ? Where idUt = ? and idEt = ? and nomConso = ?", new String[]{Integer.toString(quantity), idUt, idEt, nomConso});
+            updatePanier();
 
         majQte();
     }
 
     public void onClickMore(View v) {
-        quantity++;
-        txtQuantity.setText(Integer.toString(quantity));
+        conso.addQuantite(1);
+        txtQuantity.setText(conso.getQuantiteStr());
 
-        if (quantity > 1)
-            dbEF.execSQL("Update Panier Set qteConso = ? Where idUt = ? and idEt = ? and nomConso = ?", new String[]{Integer.toString(quantity), idUt, idEt, nomConso});
+        if (conso.getQuantite() > 1)
+            updatePanier();
         else
-            dbEF.execSQL("Insert into Panier (idUt, idEt, nomEt, nomConso, qteConso) values (?, ?, ?, ?, ?)",  new String[]{idUt, idEt, nomEt, nomConso, Integer.toString(quantity)});
+            dbEF.execSQL("Insert into Panier (idEt, nomEt, nomConso, qteConso, prixConso) values (?, ?, ?, ?, ?)", new String[]{etab.getId(), etab.getNom(), conso.getNom(), conso.getQuantiteStr(), conso.getPrixStr()});
 
         majQte();
     }
 
-    public void getConso(String[][] conso) {
-        txtDesc.setText(conso[0][0]);
-        txtPrice.setText(conso[0][1]);
+    private void updatePanier() {
+        dbEF.execSQL("Update Panier Set qteConso = ?, prixConso = ? Where idEt = ? and nomConso = ?", new String[]{conso.getQuantiteStr(), conso.getPrixStr(), etab.getId(), conso.getNom()});
+    }
+
+    public void getConso(String[][] co) {
+        conso.setDescription(co[0][0]);
+        conso.setPrix(co[0][1]);
+
+        txtDesc.setText(conso.getDescription());
+        txtPrice.setText(conso.getPrixStr());
         scrollViewConso.setVisibility(View.VISIBLE);
         layoutLoading.setVisibility(View.GONE);
     }
 
     public void majQte() {
-        if (quantity > 0)
+        if (conso.getQuantite() > 0)
             btnLess.setVisibility(View.VISIBLE);
         else
             btnLess.setVisibility(View.GONE);

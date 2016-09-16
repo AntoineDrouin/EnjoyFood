@@ -64,7 +64,7 @@ public class EtablissementManager extends AppCompatActivity {
 
                 txtEt.setText(etab.getNom());
                 edtDesc.setText(etab.getDescription());
-                edtPrixLivr.setText(Double.toString(etab.getPrixLivr()));
+                edtPrixLivr.setText(etab.getPrixLivr());
                 edtTel.setText(etab.getTel());
                 switchConges.setChecked(etab.isConges());
 
@@ -93,7 +93,7 @@ public class EtablissementManager extends AppCompatActivity {
             etab.setNom(txtEt.getText().toString());
             etab.setDescription(edtDesc.getText().toString());
             if (!edtPrixLivr.getText().toString().equals(""))
-                etab.setPrixLivr(Double.parseDouble(edtPrixLivr.getText().toString()));
+                etab.setPrixLivr(edtPrixLivr.getText().toString());
             etab.setTel(edtTel.getText().toString());
             etab.setConges(switchConges.isChecked());
 
@@ -103,9 +103,9 @@ public class EtablissementManager extends AppCompatActivity {
                 ServerSide etabl = new ServerSide(context);
 
                 if (script.equals(getString(R.string.updateEtab))) {
-                    etabl.execute(script, getString(R.string.write), etab.getId(), idUt, etab.getDescription(), Double.toString(etab.getPrixLivr()), etab.getTel(), Utilitaire.returnStringFromBool(etab.isConges()));
+                    etabl.execute(script, getString(R.string.write), etab.getId(), idUt, etab.getDescription(), etab.getPrixLivr(), etab.getTel(), Utilitaire.returnStringFromBool(etab.isConges()));
                 } else if (script.equals(getString(R.string.insertEtab))) {
-                    etabl.execute(script, getString(R.string.write), etab.getId(), etab.getNom(), idUt, etab.getDescription(), Double.toString(etab.getPrixLivr()), etab.getTel(), Utilitaire.returnStringFromBool(etab.isConges()), etab.getCp(), etab.getVille(), etab.getAdresse());
+                    etabl.execute(script, getString(R.string.write), etab.getId(), etab.getNom(), idUt, etab.getDescription(), etab.getPrixLivr(), etab.getTel(), Utilitaire.returnStringFromBool(etab.isConges()), etab.getCp(), etab.getVille(), etab.getAdresse());
                 }
             }
         } finally {

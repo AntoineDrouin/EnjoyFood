@@ -91,6 +91,8 @@ public class MapPlacePicker extends Activity {
                         Etablissements.getInstance().fillLvWithDb();
                     }
 
+                    loadEtabs.close();
+
                     // Ouvre l'établissement
                     Intent intentEtab = new Intent(this, Etablissement.class);
                     intentEtab.putExtra(getString(R.string.extraEtabId), etab.getId());

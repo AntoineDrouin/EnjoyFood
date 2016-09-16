@@ -9,4 +9,10 @@
         <item>@string/spinVarLvRecent</item>
         <item>@string/spinVarLvSearch</item>
     </string-array>
+
+    <string-array name="spinEtatCom">
+        <item>@string/spinEtatCom1</item>
+        <item>@string/spinEtatCom2</item>
+        <item>@string/spinEtatCom3</item>
+    </string-array>
 </resources>

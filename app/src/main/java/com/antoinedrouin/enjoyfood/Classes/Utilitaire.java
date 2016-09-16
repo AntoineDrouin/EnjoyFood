@@ -2,9 +2,12 @@ package com.antoinedrouin.enjoyfood.Classes;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.preference.PreferenceManager;
 
 import com.antoinedrouin.enjoyfood.R;
+
+import java.math.BigDecimal;
 
 /**
  * Created by cdsm04 on 14/09/2016.
@@ -50,5 +53,17 @@ public class Utilitaire {
 
     public static Boolean returnBoolFromString(String st) {
         return st.equals("1");
+    }
+
+    public static void createBasePanier(SQLiteDatabase dbEF) {
+        dbEF.execSQL("CREATE TABLE IF NOT EXISTS PANIER (idEt VARCHAR, nomEt VARCHAR, nomConso VARCHAR, qteConso INTEGER, prixConso DOUBLE)");
+    }
+
+    public static  void createBaseEtab(SQLiteDatabase dbEF) {
+        dbEF.execSQL("CREATE TABLE IF NOT EXISTS Etablissement (idEt VARCHAR, nomEt VARCHAR, adresseEt VARCHAR, villeEt VARCHAR, codePostalEt VARCHAR, telEt VARCHAR, prixLivrEt DOUBLE)");
+    }
+
+    public static double round(double d, int decimalPlace) {
+        return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 }

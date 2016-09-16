@@ -6,4 +6,33 @@
     android:padding="@dimen/activity_vertical_margin"
     tools:context=".Activities.PanierDetails">
 
+    <include layout="@layout/loading_panel"></include>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lvPanierDetails"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/edtRemarque" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/btnOrder"
+        android:id="@+id/btnOrder"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="onClickOrder" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/edtRemarque"
+        android:layout_above="@+id/btnOrder"
+        android:layout_centerHorizontal="true"
+        android:inputType="text"
+        android:hint="@string/edtRemarque"
+        android:maxLength="100"
+        android:maxLines="1" />
+
 </RelativeLayout>

@@ -92,8 +92,7 @@ public class Login extends AppCompatActivity {
 
     public void putInPrefLogin(Utilisateur utilisateur) {
         // Mettre dans les préférences
-        Utilitaire prefHelp = new Utilitaire(context);
-        prefHelp.putUtilisateur(utilisateur);
+        Utilitaire.putUtilisateur(context, utilisateur);
 
         Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
 

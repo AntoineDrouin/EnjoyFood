@@ -13,6 +13,7 @@ import com.antoinedrouin.enjoyfood.Activities.EtablissementManager;
 import com.antoinedrouin.enjoyfood.Activities.EtablissementManagerInfos;
 import com.antoinedrouin.enjoyfood.Activities.EtablissementManagerInfosDetails;
 import com.antoinedrouin.enjoyfood.Activities.Login;
+import com.antoinedrouin.enjoyfood.Activities.PanierDetails;
 import com.antoinedrouin.enjoyfood.Activities.Register;
 import com.antoinedrouin.enjoyfood.Fragments.Coordonnees;
 import com.antoinedrouin.enjoyfood.R;
@@ -163,6 +164,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 result.equals(context.getString(R.string.deleteCateg)) ||  result.equals(context.getString(R.string.deleteConso)) ||
                 result.equals(context.getString(R.string.deleteHoraire)) || result.equals(context.getString(R.string.deletePaiement))) {
             EtablissementManagerInfosDetails.getInstance().okUpdateObject();
+        }
+        else if (result.equals(context.getString(R.string.insertArticle))) {
+            PanierDetails.getInstance().orderSend();
         }
 
         /** 4. ... OU LECTURE DES RETOURS JSON */
@@ -370,6 +374,13 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     Consommable.getInstance().getConso(conso);
                 }
 
+                else if (script.equals(context.getString(R.string.insertCommandeGetId))) {
+                    if (jsonArray.length() > 0) {
+                        jso = jsonArray.getJSONObject(0);
+                        PanierDetails.getInstance().insertArticles(jso.getString(context.getString(R.string.prefIdCom)));
+                    }
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("marquage", "Erreur de lecture du json ServerSide : " + e.getMessage());
@@ -476,6 +487,13 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             else if (lien.equals(context.getString(R.string.getConso))) {
                 keys = new int[]{R.string.prefIdEt, R.string.prefNomConso};
             }
+            else if (lien.equals(context.getString(R.string.insertCommandeGetId))) {
+                keys = new int[]{R.string.prefIdEt, R.string.prefId, R.string.prefEtatCom, R.string.prefRemarqueCom, R.string.prefAdresseCom,
+                    R.string.prefTelCom, R.string.prefPrixCom, R.string.prefPrixLivrCom, R.string.prefPrixTotalCom, R.string.prefQuantiteCom};
+            }
+            else if (lien.equals(context.getString(R.string.insertArticle))) {
+                keys = new int[]{R.string.prefIdCom, R.string.prefIdEt, R.string.prefId, R.string.prefNomAr, R.string.prefPrixAr, R.string.prefQuantiteAr};
+            }
 
             int lengArray = keys.length;
 
@@ -489,11 +507,11 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     value = hash(value);
                 }
 
-                data = data + URLEncoder.encode(key, encodage) + "=" + URLEncoder.encode(value, encodage);
+                data += URLEncoder.encode(key, encodage) + "=" + URLEncoder.encode(value, encodage);
 
                 // Si ce n'est pas le dernier paramètre, on rajoute un caractère de liaison
                 if (i < lengArray - 1) {
-                    data = data + "&";
+                    data += "&";
                 }
             }
 

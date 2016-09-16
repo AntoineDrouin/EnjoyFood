@@ -78,6 +78,8 @@
     <string name="deleteHoraire" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/deleteHoraire.php</string>
     <string name="deletePaiement" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/deletePaiement.php</string>
     <string name="getConso" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getConso.php</string>
+    <string name="insertCommandeGetId" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertCommandeGetId.php</string>
+    <string name="insertArticle" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertArticle.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -101,6 +103,8 @@
     <string name="placeUpdated">Your restaurant is now up to date</string>
     <string name="placeInserted">Restaurant created successfully</string>
     <string name="update">Update completed</string>
+    <string name="infosMissing">Please fill all the fields</string>
+    <string name="orderSend">Order send</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
@@ -147,10 +151,14 @@
     <string name="prefEtatCom" translatable="false">etatCom</string>
     <string name="prefRemarqueCom" translatable="false">remarqueCom</string>
     <string name="prefAdresseCom" translatable="false">adresseCom</string>
+    <string name="prefTelCom" translatable="false">telCom</string>
     <string name="prefPrixCom" translatable="false">prixCom</string>
     <string name="prefPrixLivrCom" translatable="false">prixLivrCom</string>
     <string name="prefPrixTotalCom" translatable="false">prixTotalCom</string>
     <string name="prefQuantiteCom" translatable="false">quantiteCom</string>
+    <string name="prefNomAr" translatable="false">nomAr</string>
+    <string name="prefPrixAr" translatable="false">prixAr</string>
+    <string name="prefQuantiteAr" translatable="false">quantiteAr</string>
 
     <!-- Extras -->
     <string name="extraEtabId" translatable="false">etabId</string>

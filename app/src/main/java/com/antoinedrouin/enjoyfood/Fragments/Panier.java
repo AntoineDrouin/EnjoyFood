@@ -98,7 +98,7 @@ public class Panier extends Fragment {
         return view;
     }
 
-    private void fillLv() {
+    public void fillLv() {
         if (!pref.getString(getString(R.string.prefCompte), "").equals(getString(R.string.varGerant))) {
             List<String> listPanier = new ArrayList<>();
             Cursor loadEtabs = dbEF.rawQuery("Select distinct nomEt From panier", null);

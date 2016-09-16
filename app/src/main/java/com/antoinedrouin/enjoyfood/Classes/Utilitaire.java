@@ -17,13 +17,7 @@ import java.math.BigDecimal;
 
 public class Utilitaire {
 
-    private Context context;
-
-    public Utilitaire(Context co) {
-        this.context = co;
-    }
-
-    public void putUtilisateur(Utilisateur ut) {
+    public static void putUtilisateur(Context context, Utilisateur ut) {
         SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor edit = pref.edit();
 
@@ -65,5 +59,18 @@ public class Utilitaire {
 
     public static double round(double d, int decimalPlace) {
         return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
+    public static String returnFullAdressOrNull(Context context, SharedPreferences pref) {
+       String adresse, cp, ville;
+
+        adresse = pref.getString(context.getString(R.string.prefAdresse), "");
+        cp = pref.getString(context.getString(R.string.prefCp), "");
+        ville = pref.getString(context.getString(R.string.prefVille), "");
+
+        if (adresse.equals("") || cp.equals("") || ville.equals(""))
+            return "";
+        else
+            return adresse + " " + cp + " " + ville;
     }
 }

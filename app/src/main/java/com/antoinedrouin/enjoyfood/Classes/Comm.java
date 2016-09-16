@@ -13,6 +13,7 @@ public class Comm {
     private String etat;
     private String remarque;
     private String adresse;
+    private String tel;
     private double prix;
     private double prixLivr;
     private int quantite;
@@ -53,6 +54,14 @@ public class Comm {
         this.adresse = adresse;
     }
 
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
+
     public double getPrix() {
         return prix;
     }
@@ -87,6 +96,10 @@ public class Comm {
 
     public int getQuantite() {
         return quantite;
+    }
+
+    public String getQuantiteStr() {
+        return Integer.toString(quantite);
     }
 
     public void setQuantite(int quantite) {

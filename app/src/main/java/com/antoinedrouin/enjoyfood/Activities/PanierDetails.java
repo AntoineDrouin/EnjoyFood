@@ -50,7 +50,6 @@ public class PanierDetails extends AppCompatActivity {
         instPanierDetails = this;
         context = getApplicationContext();
         pref = PreferenceManager.getDefaultSharedPreferences(context);
-        idUt = pref.getString(getString(R.string.prefId), "");
 
         Bundle extras = getIntent().getExtras();
         etab = new Etab(extras.getString(getString(R.string.extraEtabId), ""), extras.getString(getString(R.string.extraEtabName), ""));
@@ -117,6 +116,7 @@ public class PanierDetails extends AppCompatActivity {
             String adresse, tel;
             adresse = Utilitaire.returnFullAdressOrNull(context, pref);
             tel = pref.getString(getString(R.string.prefTel), "");
+            idUt = pref.getString(getString(R.string.prefId), "");
 
             // Si ce n'est pas un client
             if (!pref.getString(getString(R.string.prefCompte), "").equals(getString(R.string.varClient))) {
@@ -141,6 +141,14 @@ public class PanierDetails extends AppCompatActivity {
                 ServerSide insertCommandeGetId = new ServerSide(context);
                 insertCommandeGetId.execute(script, methode, etab.getId(), idUt, commande.getEtat(), commande.getRemarque(), commande.getAdresse(),
                         commande.getTel(), commande.getPrixStr(), commande.getPrixLivrStr(), commande.getTotal(), commande.getQuantiteStr());
+
+                // Création de la bdd si elle n'existe pas
+                dbEF = openOrCreateDatabase(getString(R.string.varDbName), MODE_PRIVATE, null);
+                // Création de la table si elle n'existe pas
+                Utilitaire.createBasePanier(dbEF);
+
+                // Commande dans la base
+                dbEF.execSQL("Insert into Commande (idEt, etatCom, prixTotalCom) values (?, ?, ?)", new String[]{etab.getId(), commande.getEtat(), commande.getPrixStr()});
             }
         } catch (Exception e) {
             layoutLoading.setVisibility(View.GONE);

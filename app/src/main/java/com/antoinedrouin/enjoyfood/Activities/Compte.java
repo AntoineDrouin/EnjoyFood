@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.antoinedrouin.enjoyfood.Classes.GoogleLocation;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.Fragments.Commandes;
 import com.antoinedrouin.enjoyfood.R;
 
 public class Compte extends AppCompatActivity {
@@ -182,6 +183,7 @@ public class Compte extends AppCompatActivity {
     public void deco() {
         edit.clear();
         edit.apply();
+        Commandes.getInstance().fillLv();
         finish();
     }
 

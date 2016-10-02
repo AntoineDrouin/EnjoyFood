@@ -37,7 +37,8 @@
         <activity android:name=".Activities.EtablissementManagerInfos" />
         <activity android:name=".Activities.EtablissementManagerInfosDetails" />
         <activity android:name=".Activities.Consommable" />
-        <activity android:name=".Activities.PanierDetails"></activity>
+        <activity android:name=".Activities.PanierDetails" />
+        <activity android:name=".Activities.CommandeDetails"></activity>
     </application>
 
 </manifest>

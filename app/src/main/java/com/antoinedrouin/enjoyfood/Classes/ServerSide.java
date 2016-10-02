@@ -15,6 +15,7 @@ import com.antoinedrouin.enjoyfood.Activities.EtablissementManagerInfosDetails;
 import com.antoinedrouin.enjoyfood.Activities.Login;
 import com.antoinedrouin.enjoyfood.Activities.PanierDetails;
 import com.antoinedrouin.enjoyfood.Activities.Register;
+import com.antoinedrouin.enjoyfood.Fragments.Commandes;
 import com.antoinedrouin.enjoyfood.Fragments.Coordonnees;
 import com.antoinedrouin.enjoyfood.R;
 
@@ -381,6 +382,19 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     }
                 }
 
+                else if (script.equals(context.getString(R.string.getCommandes))) {
+                    String[][] com = new String[jsonArray.length()][3];
+
+                    for (int i = 0; i <jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+                        com[i][0] = jso.getString(context.getString(R.string.prefIdEt));
+                        com[i][1] = jso.getString(context.getString(R.string.prefEtatCom));
+                        com[i][2] = jso.getString(context.getString(R.string.prefPrixTotalCom));
+                    }
+
+                    Commandes.getInstance().getCom(com);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("marquage", "Erreur de lecture du json ServerSide : " + e.getMessage());
@@ -493,6 +507,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             }
             else if (lien.equals(context.getString(R.string.insertArticle))) {
                 keys = new int[]{R.string.prefIdCom, R.string.prefIdEt, R.string.prefId, R.string.prefNomAr, R.string.prefPrixAr, R.string.prefQuantiteAr};
+            }
+            else if (lien.equals(context.getString(R.string.getCommandes))) {
+                keys = new int[]{R.string.prefId, R.string.prefCompte};
             }
 
             int lengArray = keys.length;

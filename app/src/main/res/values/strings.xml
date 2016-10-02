@@ -80,6 +80,7 @@
     <string name="getConso" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getConso.php</string>
     <string name="insertCommandeGetId" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertCommandeGetId.php</string>
     <string name="insertArticle" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertArticle.php</string>
+    <string name="getCommandes" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getCommandes.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>

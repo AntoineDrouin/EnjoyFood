@@ -50,11 +50,15 @@ public class Utilitaire {
     }
 
     public static void createBasePanier(SQLiteDatabase dbEF) {
-        dbEF.execSQL("CREATE TABLE IF NOT EXISTS PANIER (idEt VARCHAR, nomEt VARCHAR, nomConso VARCHAR, qteConso INTEGER, prixConso DOUBLE)");
+        dbEF.execSQL("CREATE TABLE IF NOT EXISTS Panier (idEt VARCHAR, nomEt VARCHAR, nomConso VARCHAR, qteConso INTEGER, prixConso DOUBLE)");
     }
 
     public static  void createBaseEtab(SQLiteDatabase dbEF) {
         dbEF.execSQL("CREATE TABLE IF NOT EXISTS Etablissement (idEt VARCHAR, nomEt VARCHAR, adresseEt VARCHAR, villeEt VARCHAR, codePostalEt VARCHAR, telEt VARCHAR, prixLivrEt DOUBLE)");
+    }
+
+    public static  void createBaseCommande(SQLiteDatabase dbEF) {
+        dbEF.execSQL("CREATE TABLE IF NOT EXISTS Commande (idEt VARCHAR, etatCom VARCHAR, prixTotalCom VARCHAR)");
     }
 
     public static double round(double d, int decimalPlace) {

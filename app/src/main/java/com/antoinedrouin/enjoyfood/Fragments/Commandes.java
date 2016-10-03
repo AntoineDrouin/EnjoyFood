@@ -39,8 +39,8 @@ public class Commandes extends Fragment {
     ListView lvCommande;
     SwipeRefreshLayout swipeContainer;
 
-    String idEt;
-    List<String> listIdEt;
+    String idCom;
+    List<String> listIdCom;
 
     public static Commandes newInstance() {
         Commandes fragment = new Commandes();
@@ -72,10 +72,9 @@ public class Commandes extends Fragment {
         lvCommande.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                idEt = listIdEt.get(position);
-
+                idCom = listIdCom.get(position);
                 Intent intent = new Intent(context, CommandeDetails.class);
-                intent.putExtra(getString(R.string.extraEtabId), idEt);
+                intent.putExtra(getString(R.string.extraIdCom), idCom);
                 startActivity(intent);
             }
         });
@@ -107,8 +106,8 @@ public class Commandes extends Fragment {
     }
 
     public void getCom(String[][] com) {
-        for (int i = 0; i < com.length ; i++) {
-            dbEF.execSQL("Insert into Commande (idEt, etatCom, prixTotalCom) values (?, ?, ?)", new String[]{com[i][0], com[i][1], com[i][2]});
+        for (String[] aCom : com) {
+            dbEF.execSQL("Insert into Commande (idCom, idEt, etatCom, prixTotalCom) values (?, ?, ?, ?)", new String[]{aCom[0], aCom[1], aCom[2], aCom[3]});
         }
 
         fillLv();
@@ -117,18 +116,18 @@ public class Commandes extends Fragment {
     public void fillLv() {
         String etat, prix;
 
-        listIdEt = new ArrayList<>();
+        listIdCom = new ArrayList<>();
         List<String> listToDisplay = new ArrayList<>();
 
-        Cursor loadCom = dbEF.rawQuery("Select idEt, etatCom, prixTotalCom From Commande", null);
+        Cursor loadCom = dbEF.rawQuery("Select idCom, etatCom, prixTotalCom From Commande", null);
 
         if (loadCom.moveToFirst() && !pref.getString(getString(R.string.prefId), "").equals("")) {
             do {
-                idEt = loadCom.getString(loadCom.getColumnIndex("idEt"));
+                idCom = loadCom.getString(loadCom.getColumnIndex("idCom"));
                 etat = loadCom.getString(loadCom.getColumnIndex("etatCom"));
                 prix = loadCom.getString(loadCom.getColumnIndex("prixTotalCom"));
 
-                listIdEt.add(idEt);
+                listIdCom.add(idCom);
                 listToDisplay.add(etat + " - " + prix + getString(R.string.txtCurrency));
 
             } while (loadCom.moveToNext());

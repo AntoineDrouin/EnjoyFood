@@ -58,7 +58,7 @@ public class Utilitaire {
     }
 
     public static  void createBaseCommande(SQLiteDatabase dbEF) {
-        dbEF.execSQL("CREATE TABLE IF NOT EXISTS Commande (idEt VARCHAR, etatCom VARCHAR, prixTotalCom VARCHAR)");
+        dbEF.execSQL("CREATE TABLE IF NOT EXISTS Commande (idCom VARCHAR, idEt VARCHAR, etatCom VARCHAR, prixTotalCom VARCHAR)");
     }
 
     public static double round(double d, int decimalPlace) {

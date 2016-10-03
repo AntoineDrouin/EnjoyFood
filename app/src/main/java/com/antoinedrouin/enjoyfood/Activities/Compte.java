@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -181,10 +182,17 @@ public class Compte extends AppCompatActivity {
     }
 
     public void deco() {
-        edit.clear();
-        edit.apply();
-        Commandes.getInstance().fillLv();
-        finish();
+        try {
+            edit.clear();
+            edit.apply();
+            Commandes.getInstance().fillLv();
+        }
+        catch(Exception e) {
+            Log.i("marquage", "Erreur deco : " + e.getMessage());
+        }
+        finally {
+            finish();
+        }
     }
 
     public void okMdp() {

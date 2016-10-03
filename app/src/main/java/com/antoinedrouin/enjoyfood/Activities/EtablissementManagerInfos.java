@@ -97,8 +97,8 @@ public class EtablissementManagerInfos extends AppCompatActivity {
         listInfos = new ArrayList();
         info = infos;
 
-        for (int i = 0; i < info.length ; i++) {
-            listInfos.add(info[i][1]);
+        for (String[] anInfo : info) {
+            listInfos.add(anInfo[1]);
         }
 
         arrayInfos = new ArrayAdapter<>(

@@ -81,6 +81,7 @@
     <string name="insertCommandeGetId" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertCommandeGetId.php</string>
     <string name="insertArticle" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertArticle.php</string>
     <string name="getCommandes" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getCommandes.php</string>
+    <string name="getCommandeInfos" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getCommandeInfos.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -170,6 +171,7 @@
     <string name="typeInfos" translatable="false">typeInfos</string>
     <string name="idObject" translatable="false">idObject</string>
     <string name="nameObject" translatable="false">nameObject</string>
+    <string name="extraIdCom" translatable="false">idCommande</string>
 
     <!-- Menu -->
     <string name="menuIdCompte" translatable="false">idCompte</string>
@@ -243,8 +245,6 @@
     <string name="tabNotes">Scores</string>
 
     <!-- Spinners -->
-    <string name="spinVarLvRecent">Recent restaurants</string>
-    <string name="spinVarLvSearch">Restaurants nearby</string>
     <string name="spinEtatCom1">Is prepared</string>
     <string name="spinEtatCom2">In delivering</string>
     <string name="spinEtatCom3">Delivered</string>

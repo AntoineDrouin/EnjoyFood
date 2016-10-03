@@ -14,7 +14,6 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 
 import com.antoinedrouin.enjoyfood.Activities.Etablissement;
 import com.antoinedrouin.enjoyfood.Activities.Tabs;
@@ -33,7 +32,6 @@ public class Etablissements extends Fragment {
     SQLiteDatabase dbEF;
 
     ListView lvEtab;
-    Spinner spinEtab;
     ImageButton btnEmptyLvEtab;
 
     public static Etablissements newInstance() {
@@ -58,11 +56,9 @@ public class Etablissements extends Fragment {
         View view = inflater.inflate(R.layout.fragment_etablissements, container, false);
 
         lvEtab = (ListView) view.findViewById(R.id.lvEtab);
-        spinEtab = (Spinner) view.findViewById(R.id.spinEtab);
         btnEmptyLvEtab = (ImageButton) view.findViewById(R.id.btnEmptyLvEtab);
 
         fillLvWithDb();
-        changeItem();
 
         lvEtab.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,32 +74,7 @@ public class Etablissements extends Fragment {
             }
         });
 
-        spinEtab.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                changeItem();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {}
-        });
         return view;
-    }
-
-    private void changeItem() {
-        String result = spinEtab.getSelectedItem().toString();
-
-        // Charge les établissements récents
-        if (result.equals(getString(R.string.spinVarLvRecent))) {
-            btnEmptyLvEtab.setVisibility(View.VISIBLE);
-            searchInLv();
-        }
-
-        // Prépare l'interface à la recherche
-        else if (result.equals(getString(R.string.spinVarLvSearch))) {
-            btnEmptyLvEtab.setVisibility(View.GONE);
-            emptyLv();
-        }
     }
 
     public void fillLvWithDb() {

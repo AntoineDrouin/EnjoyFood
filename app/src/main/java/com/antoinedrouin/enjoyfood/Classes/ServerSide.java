@@ -7,6 +7,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.antoinedrouin.enjoyfood.Activities.CommandeDetails;
 import com.antoinedrouin.enjoyfood.Activities.Compte;
 import com.antoinedrouin.enjoyfood.Activities.Consommable;
 import com.antoinedrouin.enjoyfood.Activities.EtablissementManager;
@@ -383,16 +384,34 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 }
 
                 else if (script.equals(context.getString(R.string.getCommandes))) {
-                    String[][] com = new String[jsonArray.length()][3];
+                    String[][] com = new String[jsonArray.length()][4];
 
                     for (int i = 0; i <jsonArray.length(); i++) {
                         jso = jsonArray.getJSONObject(i);
-                        com[i][0] = jso.getString(context.getString(R.string.prefIdEt));
-                        com[i][1] = jso.getString(context.getString(R.string.prefEtatCom));
-                        com[i][2] = jso.getString(context.getString(R.string.prefPrixTotalCom));
+                        com[i][0] = jso.getString(context.getString(R.string.prefIdCom));
+                        com[i][1] = jso.getString(context.getString(R.string.prefIdEt));
+                        com[i][2] = jso.getString(context.getString(R.string.prefEtatCom));
+                        com[i][3] = jso.getString(context.getString(R.string.prefPrixTotalCom));
                     }
 
                     Commandes.getInstance().getCom(com);
+                }
+
+                else if (script.equals(context.getString(R.string.getCommandeInfos))) {
+                    String[] com = new String[7];
+
+                    if (jsonArray.length() > 0) {
+                        jso = jsonArray.getJSONObject(0);
+                        com[0] = jso.getString(context.getString(R.string.prefNom));
+                        com[1] = jso.getString(context.getString(R.string.prefPrenom));
+                        com[2] = jso.getString(context.getString(R.string.prefAdresseCom));
+                        com[3] = jso.getString(context.getString(R.string.prefTelCom));
+                        com[4] = jso.getString(context.getString(R.string.prefPrixTotalCom));
+                        com[5] = jso.getString(context.getString(R.string.prefEtatCom));
+                        com[6] = jso.getString(context.getString(R.string.prefRemarqueCom));
+                    }
+
+                    CommandeDetails.getInstance().showCommande(com);
                 }
 
             } catch (JSONException e) {
@@ -510,6 +529,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             }
             else if (lien.equals(context.getString(R.string.getCommandes))) {
                 keys = new int[]{R.string.prefId, R.string.prefCompte};
+            }
+            else if (lien.equals(context.getString(R.string.getCommandeInfos))) {
+                keys = new int[]{R.string.prefIdCom};
             }
 
             int lengArray = keys.length;

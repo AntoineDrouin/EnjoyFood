@@ -7,4 +7,99 @@
     android:padding="@dimen/activity_vertical_margin"
     tools:context="com.antoinedrouin.enjoyfood.Activities.CommandeDetails">
 
+    <include layout="@layout/loading_panel"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/edtNom"
+                android:id="@+id/txtNomCom"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/edtPrenom"
+                android:id="@+id/txtPrenomCom"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/edtAdresse"
+                android:id="@+id/txtAdressCom"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/edtTel"
+                android:id="@+id/txtTelCom"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/lvTotal"
+                android:id="@+id/txtPrixCom"
+                android:textAlignment="center" />
+
+            <View style="@style/divider" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:id="@+id/spinEtat"
+                android:spinnerMode="dialog"
+                android:layout_weight="1"
+                android:entries="@array/spinEtatCom" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:text="@string/edtRemarque"
+                android:ems="10"
+                android:id="@+id/edtRemarqueCom" />
+
+            <View style="@style/divider" />
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/lvCom"
+                android:layout_gravity="center_horizontal"
+                android:choiceMode="none" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/btnValider"
+                android:id="@+id/btnCom"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:onClick="onClickChangeCom"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </RelativeLayout>

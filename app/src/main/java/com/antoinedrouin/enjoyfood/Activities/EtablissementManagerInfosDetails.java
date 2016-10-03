@@ -159,9 +159,9 @@ public class EtablissementManagerInfosDetails extends AppCompatActivity {
             if (prix.equals(""))
                 error = getString(R.string.errorFields);
             else {
-                for (int i = 0; i < categs.length; i++) {
-                    if (categs[i][1].equals(categ))
-                        indexCateg = categs[i][0];
+                for (String[] categ1 : categs) {
+                    if (categ1[1].equals(categ))
+                        indexCateg = categ1[0];
                 }
             }
         }

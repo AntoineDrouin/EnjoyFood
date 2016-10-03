@@ -58,8 +58,6 @@
     <string name="varGerant">Manager</string>
     <string name="connectionFail">Aucun compte trouvé</string>
     <string name="geolocationFailed">La géolocalisation est indisponibles. Voulez-vous l\'activer ?</string>
-    <string name="spinVarLvRecent">Établissements récents</string>
-    <string name="spinVarLvSearch">Établissements proches</string>
     <string name="dataConnectionFailed">Les données mobiles sont désactivées. Voulez-vous les activer ?</string>
     <string name="choosePlace">Choisissez votre établissement</string>
     <string name="switchConges">En congés</string>

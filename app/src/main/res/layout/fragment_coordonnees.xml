@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Coordonnees">
 
-    <include layout="@layout/loading_panel"></include>
+    <include layout="@layout/loading_panel" />
 
     <TextView
         android:layout_width="fill_parent"

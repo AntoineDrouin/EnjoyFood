@@ -6,7 +6,7 @@
     android:padding="@dimen/activity_padding"
     tools:context=".Activities.Compte">
 
-    <include layout="@layout/loading_panel"></include>
+    <include layout="@layout/loading_panel" />
 
     <ScrollView
         android:layout_width="fill_parent"

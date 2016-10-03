@@ -5,11 +5,6 @@
         <item>@string/varGerant</item>
     </string-array>
 
-    <string-array name="spinLvEtab">
-        <item>@string/spinVarLvRecent</item>
-        <item>@string/spinVarLvSearch</item>
-    </string-array>
-
     <string-array name="spinEtatCom">
         <item>@string/spinEtatCom1</item>
         <item>@string/spinEtatCom2</item>

@@ -141,14 +141,6 @@ public class PanierDetails extends AppCompatActivity {
                 ServerSide insertCommandeGetId = new ServerSide(context);
                 insertCommandeGetId.execute(script, methode, etab.getId(), idUt, commande.getEtat(), commande.getRemarque(), commande.getAdresse(),
                         commande.getTel(), commande.getPrixStr(), commande.getPrixLivrStr(), commande.getTotal(), commande.getQuantiteStr());
-
-                // Création de la bdd si elle n'existe pas
-                dbEF = openOrCreateDatabase(getString(R.string.varDbName), MODE_PRIVATE, null);
-                // Création de la table si elle n'existe pas
-                Utilitaire.createBasePanier(dbEF);
-
-                // Commande dans la base
-                dbEF.execSQL("Insert into Commande (idEt, etatCom, prixTotalCom) values (?, ?, ?)", new String[]{etab.getId(), commande.getEtat(), commande.getPrixStr()});
             }
         } catch (Exception e) {
             layoutLoading.setVisibility(View.GONE);
@@ -157,6 +149,14 @@ public class PanierDetails extends AppCompatActivity {
 
     public void insertArticles(String idCom) {
         try {
+            // Création de la bdd si elle n'existe pas
+            dbEF = openOrCreateDatabase(getString(R.string.varDbName), MODE_PRIVATE, null);
+            // Création de la table si elle n'existe pas
+            Utilitaire.createBasePanier(dbEF);
+
+            // Commande dans la base
+            dbEF.execSQL("Insert into Commande (idCom, idEt, etatCom, prixTotalCom) values (?, ?, ?, ?)", new String[]{idCom, etab.getId(), commande.getEtat(), commande.getPrixStr()});
+
             // Retour de l'id de la commande, insertion des articles
             script = getString(R.string.insertArticle);
             methode = getString(R.string.write);

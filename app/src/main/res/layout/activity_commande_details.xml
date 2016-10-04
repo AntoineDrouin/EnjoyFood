@@ -58,6 +58,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="@string/lvPrixLivr"
+                android:id="@+id/txtPrixLivrCom"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="@string/lvTotal"
                 android:id="@+id/txtPrixCom"
                 android:textAlignment="center" />
@@ -70,7 +78,8 @@
                 android:id="@+id/spinEtat"
                 android:spinnerMode="dialog"
                 android:layout_weight="1"
-                android:entries="@array/spinEtatCom" />
+                android:entries="@array/spinEtatCom"
+                android:textAlignment="center" />
 
             <EditText
                 android:layout_width="match_parent"

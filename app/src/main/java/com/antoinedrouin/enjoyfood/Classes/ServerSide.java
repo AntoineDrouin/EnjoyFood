@@ -170,6 +170,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
         else if (result.equals(context.getString(R.string.insertArticle))) {
             PanierDetails.getInstance().orderSend();
         }
+        else if (result.equals(context.getString(R.string.updateCommande))) {
+            CommandeDetails.getInstance().changeCom();
+        }
 
         /** 4. ... OU LECTURE DES RETOURS JSON */
 
@@ -398,7 +401,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                 }
 
                 else if (script.equals(context.getString(R.string.getCommandeInfos))) {
-                    String[] com = new String[7];
+                    String[] com = new String[8];
 
                     if (jsonArray.length() > 0) {
                         jso = jsonArray.getJSONObject(0);
@@ -406,12 +409,26 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                         com[1] = jso.getString(context.getString(R.string.prefPrenom));
                         com[2] = jso.getString(context.getString(R.string.prefAdresseCom));
                         com[3] = jso.getString(context.getString(R.string.prefTelCom));
-                        com[4] = jso.getString(context.getString(R.string.prefPrixTotalCom));
-                        com[5] = jso.getString(context.getString(R.string.prefEtatCom));
-                        com[6] = jso.getString(context.getString(R.string.prefRemarqueCom));
+                        com[4] = jso.getString(context.getString(R.string.prefPrixLivrCom));
+                        com[5] = jso.getString(context.getString(R.string.prefPrixTotalCom));
+                        com[6] = jso.getString(context.getString(R.string.prefEtatCom));
+                        com[7] = jso.getString(context.getString(R.string.prefRemarqueCom));
                     }
 
                     CommandeDetails.getInstance().showCommande(com);
+                }
+
+                else if (script.equals(context.getString(R.string.getArticles))) {
+                    String[][] art = new String[jsonArray.length()][3];
+
+                    for (int i = 0; i <jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+                        art[i][0] = jso.getString(context.getString(R.string.prefNomAr));
+                        art[i][1] = jso.getString(context.getString(R.string.prefQuantiteAr));
+                        art[i][2] = jso.getString(context.getString(R.string.prefPrixAr));
+                    }
+
+                    CommandeDetails.getInstance().showArticles(art);
                 }
 
             } catch (JSONException e) {
@@ -530,8 +547,11 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             else if (lien.equals(context.getString(R.string.getCommandes))) {
                 keys = new int[]{R.string.prefId, R.string.prefCompte};
             }
-            else if (lien.equals(context.getString(R.string.getCommandeInfos))) {
+            else if (lien.equals(context.getString(R.string.getCommandeInfos)) || lien.equals(context.getString(R.string.getArticles))) {
                 keys = new int[]{R.string.prefIdCom};
+            }
+            else if (lien.equals(context.getString(R.string.updateCommande))) {
+                keys = new int[]{R.string.prefIdCom, R.string.prefEtatCom, R.string.prefRemarqueCom};
             }
 
             int lengArray = keys.length;

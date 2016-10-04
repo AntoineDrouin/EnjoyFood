@@ -53,16 +53,16 @@ public class Utilitaire {
         dbEF.execSQL("CREATE TABLE IF NOT EXISTS Panier (idEt VARCHAR, nomEt VARCHAR, nomConso VARCHAR, qteConso INTEGER, prixConso DOUBLE)");
     }
 
-    public static  void createBaseEtab(SQLiteDatabase dbEF) {
+    public static void createBaseEtab(SQLiteDatabase dbEF) {
         dbEF.execSQL("CREATE TABLE IF NOT EXISTS Etablissement (idEt VARCHAR, nomEt VARCHAR, adresseEt VARCHAR, villeEt VARCHAR, codePostalEt VARCHAR, telEt VARCHAR, prixLivrEt DOUBLE)");
     }
 
-    public static  void createBaseCommande(SQLiteDatabase dbEF) {
+    public static void createBaseCommande(SQLiteDatabase dbEF) {
         dbEF.execSQL("CREATE TABLE IF NOT EXISTS Commande (idCom VARCHAR, idEt VARCHAR, etatCom VARCHAR, prixTotalCom VARCHAR)");
     }
 
     public static double round(double d, int decimalPlace) {
-        return BigDecimal.valueOf(d).setScale(decimalPlace,BigDecimal.ROUND_HALF_UP).doubleValue();
+        return BigDecimal.valueOf(d).setScale(decimalPlace, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public static String returnFullAdressOrNull(Context context, SharedPreferences pref) {

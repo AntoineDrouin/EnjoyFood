@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.antoinedrouin.enjoyfood.Classes.GoogleLocation;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
 import com.antoinedrouin.enjoyfood.Fragments.Commandes;
+import com.antoinedrouin.enjoyfood.Fragments.Panier;
 import com.antoinedrouin.enjoyfood.R;
 
 public class Compte extends AppCompatActivity {
@@ -182,17 +183,10 @@ public class Compte extends AppCompatActivity {
     }
 
     public void deco() {
-        try {
-            edit.clear();
-            edit.apply();
-            Commandes.getInstance().fillLv();
-        }
-        catch(Exception e) {
-            Log.i("marquage", "Erreur deco : " + e.getMessage());
-        }
-        finally {
-            finish();
-        }
+        edit.clear();
+        edit.apply();
+        Tabs.getInstance().viewPager.setCurrentItem(0);
+        finish();
     }
 
     public void okMdp() {

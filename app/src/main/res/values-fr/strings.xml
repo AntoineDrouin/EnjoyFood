@@ -47,7 +47,6 @@
     <string name="menuLabelCompte">Mon compte</string>
     <string name="menuLabelEtab">Mon établissement</string>
     <string name="menuLabelSupp">Support</string>
-    <string name="menuLabelReglages">Réglages</string>
     <string name="tabCommandes">Commandes</string>
     <string name="tabCoord">Coordonnées</string>
     <string name="tabEtab">Établissements</string>
@@ -93,4 +92,5 @@
     <string name="lvPrixLivr">Prix de livraison :</string>
     <string name="orderSend">Commande envoyée</string>
     <string name="infosMissing">Merci de remplir tous les champs</string>
+    <string name="orderUpdated">Commande modifiée</string>
 </resources>

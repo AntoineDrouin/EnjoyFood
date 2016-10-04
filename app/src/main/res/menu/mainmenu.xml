@@ -6,6 +6,4 @@
         android:title="@string/menuLabelEtab"/>
     <item android:id="@string/menuIdSupp"
         android:title="@string/menuLabelSupp" />
-    <item android:id="@string/menuIdReglages"
-        android:title="@string/menuLabelReglages" />
 </menu>

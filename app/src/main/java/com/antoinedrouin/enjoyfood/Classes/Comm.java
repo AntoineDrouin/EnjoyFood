@@ -70,10 +70,6 @@ public class Comm {
         return Double.toString(prix);
     }
 
-    public void setPrix(double prix) {
-        this.prix = prix;
-    }
-
     public void addPrix(double prix) {
         this.prix = Utilitaire.round(this.prix + prix, 2);
     }
@@ -94,16 +90,8 @@ public class Comm {
         this.prixLivr = prixLivr;
     }
 
-    public int getQuantite() {
-        return quantite;
-    }
-
     public String getQuantiteStr() {
         return Integer.toString(quantite);
-    }
-
-    public void setQuantite(int quantite) {
-        this.quantite = quantite;
     }
 
     public void addQuantite(int quantite) {

@@ -73,7 +73,6 @@ public class Conso {
     }
 
     public String displayForPanier(Context context) {
-       return nom + " : " + getQuantiteStr() + " x " + getPrixStr() + context.getString(R.string.txtCurrency) + " = " +
-               Double.toString(getTotal()) + context.getString(R.string.txtCurrency);
+       return nom + " : " + getQuantiteStr() + " x " + getPrixStr() + context.getString(R.string.txtCurrency) + " = " + Double.toString(getTotal()) + context.getString(R.string.txtCurrency);
     }
 }

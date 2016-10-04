@@ -82,6 +82,8 @@
     <string name="insertArticle" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertArticle.php</string>
     <string name="getCommandes" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getCommandes.php</string>
     <string name="getCommandeInfos" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getCommandeInfos.php</string>
+    <string name="updateCommande" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/updateCommande.php</string>
+    <string name="getArticles" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getArticles.php</string>
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -107,6 +109,7 @@
     <string name="update">Update completed</string>
     <string name="infosMissing">Please fill all the fields</string>
     <string name="orderSend">Order send</string>
+    <string name="orderUpdated">Order modified</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
@@ -177,11 +180,9 @@
     <string name="menuIdCompte" translatable="false">idCompte</string>
     <string name="menuIdEtab" translatable="false">idEtab</string>
     <string name="menuIdSupp" translatable="false">idSupp</string>
-    <string name="menuIdReglages" translatable="false">idReglages</string>
     <string name="menuLabelCompte">My account</string>
     <string name="menuLabelEtab">My restaurant</string>
     <string name="menuLabelSupp">Support</string>
-    <string name="menuLabelReglages">Settings</string>
 
 
     <!-- COMPOSANTS -->

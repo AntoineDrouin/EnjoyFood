@@ -242,9 +242,6 @@ public class Tabs extends AppCompatActivity {
             case R.string.menuIdSupp :
                 startActivity(new Intent(this, Support.class));
                 return true;
-            case R.string.menuIdReglages :
-                startActivity(new Intent(this, Reglages.class));
-                return true;
             default :
                 return super.onOptionsItemSelected(item);
         }

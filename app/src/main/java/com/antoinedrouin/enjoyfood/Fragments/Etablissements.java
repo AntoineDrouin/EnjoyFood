@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.antoinedrouin.enjoyfood.Activities.Etablissement;
@@ -25,18 +24,16 @@ import java.util.List;
 
 public class Etablissements extends Fragment {
 
-    Context context;
-    static Etablissements instEtabs;
+    private Context context;
+    private static Etablissements instEtabs;
 
-    ArrayAdapter<String> arrayAdapter;
-    SQLiteDatabase dbEF;
+    private ArrayAdapter<String> arrayAdapter;
+    private SQLiteDatabase dbEF;
 
-    ListView lvEtab;
-    ImageButton btnEmptyLvEtab;
+    private ListView lvEtab;
 
     public static Etablissements newInstance() {
-        Etablissements fragment = new Etablissements();
-        return fragment;
+        return new Etablissements();
     }
 
     @Override
@@ -56,7 +53,6 @@ public class Etablissements extends Fragment {
         View view = inflater.inflate(R.layout.fragment_etablissements, container, false);
 
         lvEtab = (ListView) view.findViewById(R.id.lvEtab);
-        btnEmptyLvEtab = (ImageButton) view.findViewById(R.id.btnEmptyLvEtab);
 
         fillLvWithDb();
 

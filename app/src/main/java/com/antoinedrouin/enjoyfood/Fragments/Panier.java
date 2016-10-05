@@ -27,21 +27,20 @@ import java.util.List;
 
 public class Panier extends Fragment {
 
-    Context context;
-    static Panier instPanier;
-    SharedPreferences pref;
+    private Context context;
+    private static Panier instPanier;
+    private SharedPreferences pref;
 
-    ArrayAdapter<String> arrayAdapter;
-    SQLiteDatabase dbEF;
+    private ArrayAdapter<String> arrayAdapter;
+    private SQLiteDatabase dbEF;
 
-    ListView lvPanier;
-    SwipeRefreshLayout swipeContainer;
+    private ListView lvPanier;
+    private SwipeRefreshLayout swipeContainer;
 
-    String nomEt;
+    private String nomEt;
 
     public static Panier newInstance() {
-        Panier fragment = new Panier();
-        return fragment;
+        return new Panier();
     }
 
     @Override

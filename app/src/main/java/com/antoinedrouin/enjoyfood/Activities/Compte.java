@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -16,25 +15,28 @@ import android.widget.Toast;
 
 import com.antoinedrouin.enjoyfood.Classes.GoogleLocation;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
-import com.antoinedrouin.enjoyfood.Fragments.Commandes;
-import com.antoinedrouin.enjoyfood.Fragments.Panier;
 import com.antoinedrouin.enjoyfood.R;
 
 public class Compte extends AppCompatActivity {
 
-    Context context;
-    static Compte instCompte;
+    private Context context;
+    private static Compte instCompte;
 
-    SharedPreferences pref;
-    SharedPreferences.Editor edit;
+    private SharedPreferences pref;
+    private SharedPreferences.Editor edit;
 
-    String script, methode, id, pseudo, compte, newMdp1;
+    private String script;
+    private String methode;
+    private String id;
+    private String pseudo;
+    private String newMdp1;
 
-    LinearLayout layoutMdp, mainLayoutCoord, layoutCoord;
-    EditText edtOldMdp, edtNewMdp1, edtNewMdp2, edtNewVille, edtNewCp, edtNewTel, edtNewAd;
-    RelativeLayout layoutLoading;
+    private LinearLayout layoutMdp;
+    private LinearLayout layoutCoord;
+    private EditText edtOldMdp, edtNewMdp1, edtNewMdp2, edtNewVille, edtNewCp, edtNewTel, edtNewAd;
+    private RelativeLayout layoutLoading;
 
-    GoogleLocation googleLocation;
+    private GoogleLocation googleLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +49,11 @@ public class Compte extends AppCompatActivity {
         pref = PreferenceManager.getDefaultSharedPreferences(this);
         id = pref.getString(getString(R.string.prefId), "");
         pseudo = pref.getString(getString(R.string.prefPseudo), "");
-        compte = pref.getString(getString(R.string.prefCompte), "");
+        String compte = pref.getString(getString(R.string.prefCompte), "");
         edit = pref.edit();
 
         layoutMdp = (LinearLayout) findViewById(R.id.layoutMdp);
-        mainLayoutCoord = (LinearLayout) findViewById(R.id.mainLayoutCoord);
+        LinearLayout mainLayoutCoord = (LinearLayout) findViewById(R.id.mainLayoutCoord);
         layoutCoord = (LinearLayout) findViewById(R.id.layoutCoord);
         layoutLoading = (RelativeLayout) findViewById(R.id.loadingPanel);
 
@@ -182,7 +184,7 @@ public class Compte extends AppCompatActivity {
             .show();
     }
 
-    public void deco() {
+    private void deco() {
         edit.clear();
         edit.apply();
         Tabs.getInstance().viewPager.setCurrentItem(0);

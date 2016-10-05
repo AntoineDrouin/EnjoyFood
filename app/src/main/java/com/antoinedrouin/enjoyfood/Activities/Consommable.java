@@ -21,18 +21,18 @@ import com.antoinedrouin.enjoyfood.R;
 
 public class Consommable extends AppCompatActivity {
 
-    Context context;
-    static Consommable instConso;
-    SharedPreferences pref;
+    private Context context;
+    private static Consommable instConso;
+    private SharedPreferences pref;
 
-    Etab etab;
-    Conso conso;
+    private Etab etab;
+    private Conso conso;
 
-    ScrollView scrollViewConso;
-    RelativeLayout layoutLoading;
-    TextView txtQuantity, txtDesc, txtPrice;
-    FloatingActionButton btnLess, btnMore;
-    SQLiteDatabase dbEF;
+    private ScrollView scrollViewConso;
+    private RelativeLayout layoutLoading;
+    private TextView txtQuantity, txtDesc, txtPrice;
+    private FloatingActionButton btnLess, btnMore;
+    private SQLiteDatabase dbEF;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +125,7 @@ public class Consommable extends AppCompatActivity {
         layoutLoading.setVisibility(View.GONE);
     }
 
-    public void majQte() {
+    private void majQte() {
         if (conso.getQuantite() > 0)
             btnLess.setVisibility(View.VISIBLE);
         else

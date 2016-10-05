@@ -6,7 +6,7 @@
     android:padding="@dimen/activity_padding"
     tools:context=".Activities.Login">
 
-    <include layout="@layout/loading_panel"></include>
+    <include layout="@layout/loading_panel" />
 
     <EditText
         android:layout_width="match_parent"

@@ -20,17 +20,17 @@ import com.antoinedrouin.enjoyfood.R;
 
 public class EtablissementManager extends AppCompatActivity {
 
-    SharedPreferences pref;
-    Context context;
-    static EtablissementManager instEtabMan;
+    private SharedPreferences pref;
+    private Context context;
+    private static EtablissementManager instEtabMan;
 
-    TextView txtEt;
-    EditText edtDesc, edtPrixLivr, edtTel;
-    Switch switchConges;
-    RelativeLayout layoutLoading;
+    private TextView txtEt;
+    private EditText edtDesc, edtPrixLivr,  edtTel;
+    private Switch switchConges;
+    private RelativeLayout layoutLoading;
 
-    String idUt, script;
-    Etab etab = new Etab();
+    private String idUt, script;
+    private Etab etab = new Etab();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -22,18 +22,17 @@ import java.util.List;
 
 public class Menu extends Fragment {
 
-    Context context;
-    public static Menu instMenu;
-    String idEt, nomEt;
+    private Context context;
+    private static Menu instMenu;
+    private String idEt, nomEt;
 
-    ExpandableListView expandableListView;
-    ExpandableListAdapter expandableListAdapter;
-    List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
+    private ExpandableListView expandableListView;
+    private ExpandableListAdapter expandableListAdapter;
+    private List<String> expandableListTitle;
+    private HashMap<String, List<String>> expandableListDetail;
 
     public static Menu newInstance() {
-        Menu fragment = new Menu();
-        return fragment;
+        return new Menu();
     }
 
     @Override

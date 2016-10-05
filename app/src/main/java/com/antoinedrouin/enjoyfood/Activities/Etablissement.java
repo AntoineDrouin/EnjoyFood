@@ -10,20 +10,21 @@ import android.view.View;
 
 import com.antoinedrouin.enjoyfood.Classes.PagerAdapter;
 import com.antoinedrouin.enjoyfood.Fragments.Coordonnees;
+import com.antoinedrouin.enjoyfood.Fragments.Notes;
 import com.antoinedrouin.enjoyfood.R;
 
 public class Etablissement extends AppCompatActivity {
 
-    Context context;
-    static Etablissement instEtab;
+    private Context context;
+    private static Etablissement instEtab;
 
-    TabLayout tabLayout;
-    ViewPager viewPager;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
-    int currentTab = 0;
+    private int currentTab = 0;
     // tableaux contenant l'icône et le titre des onglets
-    int[] titleId = new int[] {R.string.tabCoord, R.string.tabMenu, R.string.tabNotes};
-    int[] imageId = new int[] {R.drawable.ic_coo, R.drawable.ic_menu, R.drawable.ic_not};
+    private int[] titleId = new int[] {R.string.tabCoord, R.string.tabMenu, R.string.tabNotes};
+    private int[] imageId = new int[] {R.drawable.ic_coo, R.drawable.ic_menu, R.drawable.ic_not};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +77,14 @@ public class Etablissement extends AppCompatActivity {
 
     public void onClickItinerary(View v) {
         Coordonnees.getInstance().openMaps();
+    }
+
+    public void onClickAddNote(View v) {
+        Notes.getInstance().addNote();
+    }
+
+    public void onClickSendNote(View v) {
+        Notes.getInstance().sendNote();
     }
 
     public static Etablissement getInstance(){

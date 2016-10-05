@@ -7,7 +7,6 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
-import com.antoinedrouin.enjoyfood.Classes.Utilitaire;
 import com.antoinedrouin.enjoyfood.R;
 
 import java.util.ArrayList;
@@ -24,18 +22,16 @@ import java.util.List;
 
 public class CommandeDetails extends AppCompatActivity {
 
-    Context context;
-    static CommandeDetails instCommandeDetails;
-    SharedPreferences pref;
+    private Context context;
+    private static CommandeDetails instCommandeDetails;
 
-    TextView txtNom, txtPrenom, txtAdress, txtTel, txtPrixLivr, txtPrix;
-    Spinner spinEtat;
-    EditText edtRemarque;
-    RelativeLayout layoutLoading;
-    ListView lvCom;
-    Button btnCom;
+    private TextView txtNom, txtPrenom, txtAdress,  txtTel, txtPrixLivr, txtPrix;
+    private Spinner spinEtat;
+    private EditText edtRemarque;
+    private RelativeLayout layoutLoading;
+    private ListView lvCom;
 
-    String idCom;
+    private String idCom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,14 +50,13 @@ public class CommandeDetails extends AppCompatActivity {
         spinEtat = (Spinner) findViewById(R.id.spinEtat);
         edtRemarque = (EditText) findViewById(R.id.edtRemarqueCom);
         lvCom = (ListView) findViewById(R.id.lvCom);
-        btnCom = (Button) findViewById(R.id.btnCom);
         layoutLoading = (RelativeLayout) findViewById(R.id.loadingPanel);
         layoutLoading.setVisibility(View.VISIBLE);
 
         Bundle extras = getIntent().getExtras();
         idCom = extras.getString(getString(R.string.extraIdCom), "");
 
-        pref = PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences pref = PreferenceManager.getDefaultSharedPreferences(context);
         // Si le client est un manager, il a le droit de modifier l'état de la commande
         spinEtat.setClickable(pref.getString(getString(R.string.prefCompte), "").equals(getString(R.string.varGerant)));
         try {

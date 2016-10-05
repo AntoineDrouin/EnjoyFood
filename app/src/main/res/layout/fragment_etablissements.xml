@@ -18,7 +18,6 @@
             android:layout_weight="1"
             android:src="@drawable/ic_search"
             android:onClick="openDrawerEtab"
-            android:singleLine="false"
             android:layout_margin="@dimen/activity_horizontal_margin"
             style="@style/imageButtonStyle" />
 

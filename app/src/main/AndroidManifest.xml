@@ -9,7 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
@@ -31,7 +31,6 @@
         <activity android:name=".Activities.Support" />
         <activity android:name=".Activities.Compte" />
         <activity android:name=".Activities.Etablissement" />
-        <activity android:name=".Activities.Reglages" />
         <activity android:name=".Activities.MapPlacePicker" />
         <activity android:name=".Activities.EtablissementManager" />
         <activity android:name=".Activities.EtablissementManagerInfos" />

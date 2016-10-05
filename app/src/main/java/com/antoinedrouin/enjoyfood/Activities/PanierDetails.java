@@ -28,19 +28,19 @@ import java.util.List;
 
 public class PanierDetails extends AppCompatActivity {
 
-    Context context;
-    static PanierDetails instPanierDetails;
-    SQLiteDatabase dbEF;
-    SharedPreferences pref;
+    private Context context;
+    private static PanierDetails instPanierDetails;
+    private SQLiteDatabase dbEF;
+    private SharedPreferences pref;
 
-    ListView lvPanier;
-    EditText edtRemarque;
-    RelativeLayout layoutLoading;
+    private ListView lvPanier;
+    private EditText edtRemarque;
+    private RelativeLayout layoutLoading;
 
-    Etab etab;
-    Comm commande;
-    List<Conso> consos;
-    String script, methode, idUt;
+    private Etab etab;
+    private Comm commande;
+    private List<Conso> consos;
+    private String script, methode, idUt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

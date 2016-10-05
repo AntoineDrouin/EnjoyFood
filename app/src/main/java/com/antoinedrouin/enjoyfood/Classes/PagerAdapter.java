@@ -25,7 +25,7 @@ import com.antoinedrouin.enjoyfood.R;
 public class PagerAdapter extends FragmentPagerAdapter {
 
     private Context context;
-    final int PAGE_COUNT = 3;
+    private final int PAGE_COUNT = 3;
     private int tab;
 
     public PagerAdapter(FragmentManager fm, Context pContext, int pTab ){

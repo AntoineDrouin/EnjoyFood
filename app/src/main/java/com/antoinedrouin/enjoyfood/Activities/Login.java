@@ -19,12 +19,12 @@ import com.antoinedrouin.enjoyfood.R;
 
 public class Login extends AppCompatActivity {
 
-    Context context;
-    static Login instLogin;
+    private Context context;
+    private static Login instLogin;
 
-    EditText edtPseudo, edtMdp;
-    Button btnConnexion;
-    RelativeLayout layoutLoading;
+    private EditText edtPseudo, edtMdp;
+    private Button btnConnexion;
+    private RelativeLayout layoutLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

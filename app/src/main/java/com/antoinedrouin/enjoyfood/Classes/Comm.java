@@ -22,14 +22,6 @@ public class Comm {
 
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public String getEtat() {
         return etat;
     }
@@ -62,7 +54,7 @@ public class Comm {
         this.tel = tel;
     }
 
-    public double getPrix() {
+    private double getPrix() {
         return prix;
     }
 
@@ -74,7 +66,7 @@ public class Comm {
         this.prix = Utilitaire.round(this.prix + prix, 2);
     }
 
-    public double getPrixLivr() {
+    private double getPrixLivr() {
         return prixLivr;
     }
 

@@ -31,24 +31,24 @@ import com.antoinedrouin.enjoyfood.R;
 
 public class Tabs extends AppCompatActivity {
 
-    Context context;
-    static Tabs instTabs;
-    SharedPreferences pref;
+    private Context context;
+    private static Tabs instTabs;
+    private SharedPreferences pref;
 
-    String pseudo, compte;
-    int currentTab = 0;
-    int[] titleId = new int[] {R.string.tabEtab, R.string.tabPanier, R.string.tabCommandes};
-    int[] imageId = new int[] {R.drawable.ic_eta, R.drawable.ic_pan, R.drawable.ic_com};
+    private String pseudo, compte;
+    private int currentTab = 0;
+    private int[] titleId = new int[] {R.string.tabEtab, R.string.tabPanier, R.string.tabCommandes};
+    private int[] imageId = new int[] {R.drawable.ic_eta, R.drawable.ic_pan, R.drawable.ic_com};
 
-    DrawerLayout mDrawerLayout;
+    private DrawerLayout mDrawerLayout;
     ViewPager viewPager;
-    TabLayout tabLayout;
-    TextView txtTitreTab;
-    EditText edtSearchEtab, edtSearchVille, edtSearchArticle, edtSearchCommande;
-    LinearLayout layoutVille;
-    RelativeLayout layoutLoading;
+    private TabLayout tabLayout;
+    private TextView txtTitreTab;
+    private EditText edtSearchEtab, edtSearchVille, edtSearchArticle, edtSearchCommande;
+    private LinearLayout layoutVille;
+    private RelativeLayout layoutLoading;
 
-    GoogleLocation googleLocation;
+    private GoogleLocation googleLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

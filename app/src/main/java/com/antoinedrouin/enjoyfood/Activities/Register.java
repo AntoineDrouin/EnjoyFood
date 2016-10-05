@@ -13,10 +13,10 @@ import com.antoinedrouin.enjoyfood.R;
 
 public class Register extends AppCompatActivity {
 
-    Context context;
-    static Register instRegister;
+    private Context context;
+    private static Register instRegister;
 
-    RelativeLayout layoutLoading;
+    private RelativeLayout layoutLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -29,22 +29,21 @@ import java.util.List;
 
 public class Commandes extends Fragment {
 
-    Context context;
-    static Commandes instCommandes;
-    SharedPreferences pref;
+    private Context context;
+    private static Commandes instCommandes;
+    private SharedPreferences pref;
 
-    ArrayAdapter<String> arrayAdapter;
-    SQLiteDatabase dbEF;
+    private ArrayAdapter<String> arrayAdapter;
+    private SQLiteDatabase dbEF;
 
-    ListView lvCommande;
-    SwipeRefreshLayout swipeContainer;
+    private ListView lvCommande;
+    private SwipeRefreshLayout swipeContainer;
 
-    String idCom;
-    List<String> listIdCom;
+    private String idCom;
+    private List<String> listIdCom;
 
     public static Commandes newInstance() {
-        Commandes fragment = new Commandes();
-        return fragment;
+        return new Commandes();
     }
 
     @Override
@@ -113,7 +112,7 @@ public class Commandes extends Fragment {
         fillLv();
     }
 
-    public void fillLv() {
+    private void fillLv() {
         String etat, prix;
 
         listIdCom = new ArrayList<>();

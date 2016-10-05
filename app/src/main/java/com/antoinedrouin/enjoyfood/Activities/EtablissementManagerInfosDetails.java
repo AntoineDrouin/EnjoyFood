@@ -26,19 +26,19 @@ public class EtablissementManagerInfosDetails extends AppCompatActivity {
 
     /** Modèle utilisé pour gérer un objet en détail des modules : catégories, consommables, horaires, moyens de paiements */
 
-    Context context;
-    SharedPreferences pref;
-    static EtablissementManagerInfosDetails instEtabManInfDet;
-    Bundle extras;
+    private Context context;
+    private SharedPreferences pref;
+    private static EtablissementManagerInfosDetails instEtabManInfDet;
+    private Bundle extras;
 
-    String idObject, nameObject, typeInfo, idEt;
-    String[][] categs;
-    int numHor;
+    private String idObject, nameObject, typeInfo, idEt;
+    private String[][] categs;
+    private int numHor;
 
-    LinearLayout layoutHo, layoutCo;
-    EditText edtObjectName, edtHd1, edtHf1, edtHd2, edtHf2, edtDesc, edtPrix;
-    Spinner spinCateg;
-    Button btnDelete;
+    private LinearLayout layoutHo, layoutCo;
+    private EditText edtObjectName, edtHd1, edtHf1, edtHd2, edtHf2, edtDesc, edtPrix;
+    private Spinner spinCateg;
+    private Button btnDelete;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

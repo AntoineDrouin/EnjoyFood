@@ -35,12 +35,12 @@ import java.util.Locale;
 
 public class GoogleLocation implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
-    Context context;
-    Activity activity;
-    GoogleApiClient mGoogleApiClient;
+    private Context context;
+    private Activity activity;
+    private GoogleApiClient mGoogleApiClient;
 
-    Address address;
-    int mode;
+    private Address address;
+    private int mode;
 
     // Constructeur si la géolocalisation est demandé par l'utilisateur
     public GoogleLocation(Context gcontext, Activity gActivity, int gMode) {

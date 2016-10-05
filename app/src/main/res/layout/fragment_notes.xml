@@ -4,4 +4,61 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.Notes">
 
+    <Button
+        android:text="@string/btnAddNote"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/btnAddNote"
+        android:onClick="onClickAddNote"
+        android:layout_marginBottom="@dimen/activity_big_padding"/>
+
+    <LinearLayout
+        android:id="@+id/layoutNote"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnAddNote"
+        android:visibility="gone">
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:id="@+id/txtNote" />
+
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/seekBarNote"
+            android:max="100"
+            android:progress="50" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="@string/edtRemarque"
+            android:ems="10"
+            android:id="@+id/editText" />
+
+        <Button
+            android:text="@string/btnValider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/btnSendNote"
+            android:onClick="onClickSendNote"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/layoutNote" />
+
 </RelativeLayout>

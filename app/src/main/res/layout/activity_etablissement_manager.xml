@@ -6,7 +6,7 @@
     android:padding="@dimen/activity_vertical_margin"
     tools:context=".Activities.EtablissementManager">
 
-    <include layout="@layout/loading_panel"></include>
+    <include layout="@layout/loading_panel" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -64,9 +64,9 @@
                 android:textAlignment="center"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:layout_marginBottom="@dimen/activity_vertical_margin"
-                android:singleLine="true"
                 android:maxLength="15"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:maxLines="1" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -82,16 +82,16 @@
                 android:layout_height="match_parent">
 
                 <EditText
-                    android:layout_width="fill_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/edtPrixLivr"
                     android:layout_weight="1"
                     android:textAlignment="center"
                     android:layout_marginTop="@dimen/activity_vertical_margin"
                     android:layout_marginBottom="@dimen/activity_vertical_margin"
-                    android:singleLine="true"
                     android:maxLength="5"
-                    android:inputType="numberDecimal" />
+                    android:inputType="numberDecimal"
+                    android:maxLines="1" />
 
                 <TextView
                     android:layout_width="wrap_content"

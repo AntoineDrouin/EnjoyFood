@@ -72,10 +72,6 @@ public class Etab {
         return conges;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
     public void setNom(String nom) {
         this.nom = nom;
     }

@@ -28,10 +28,6 @@ public class Conso {
         return nom;
     }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -54,10 +50,6 @@ public class Conso {
 
     public void addQuantite(int quantite) {
         this.quantite += quantite;
-    }
-
-    public double getPrix() {
-        return prix;
     }
 
     public String getPrixStr() {

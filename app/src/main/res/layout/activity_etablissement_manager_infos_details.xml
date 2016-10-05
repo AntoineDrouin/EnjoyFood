@@ -40,7 +40,7 @@
                 android:textAlignment="center"
                 android:inputType="text"
                 android:maxLength="25"
-                android:singleLine="true" />
+                android:maxLines="1" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -171,7 +171,7 @@
                     android:layout_height="match_parent">
 
                     <EditText
-                        android:layout_width="fill_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:inputType="numberDecimal"
                         android:ems="10"

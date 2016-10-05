@@ -200,6 +200,7 @@
     <string name="btnDoc">Download documentation</string>
     <string name="btnReport">Send report</string>
     <string name="btnOrder">Order</string>
+    <string name="btnAddNote">Add mark</string>
 
     <!-- TextViews -->
     <string name="txtTypeCompte">Type of account :</string>

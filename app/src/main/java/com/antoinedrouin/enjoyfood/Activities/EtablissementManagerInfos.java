@@ -21,16 +21,16 @@ public class EtablissementManagerInfos extends AppCompatActivity {
 
     /** Modèle utilisé pour : les catégories, consommables, horaires, moyens de paiements */
 
-    Context context;
-    SharedPreferences pref;
-    static EtablissementManagerInfos instEtabManInf;
+    private Context context;
+    private SharedPreferences pref;
+    private static EtablissementManagerInfos instEtabManInf;
 
-    String idEt, typeInfo;
-    String[][] info;
-    ArrayList listInfos;
-    ArrayAdapter<String> arrayInfos;
+    private String idEt, typeInfo;
+    private String[][] info;
+    private ArrayList listInfos;
+    private ArrayAdapter<String> arrayInfos;
 
-    ListView lvInfos;
+    private ListView lvInfos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

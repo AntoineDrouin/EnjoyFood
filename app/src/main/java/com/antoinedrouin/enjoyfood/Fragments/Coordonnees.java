@@ -26,19 +26,19 @@ import java.util.ArrayList;
 
 public class Coordonnees extends Fragment {
 
-    Context context;
-    static Coordonnees instCoord;
-    SQLiteDatabase dbEF;
-    View view;
+    private Context context;
+    private static Coordonnees instCoord;
+    private SQLiteDatabase dbEF;
+    private View view;
 
-    TextView txtDesc, txtAdr, txtTel, txtConges, txtPrixLivr, txtEtabNotRegistered;
-    LinearLayout layoutInfos;
-    RelativeLayout layoutLoading;
-    ListView lvHoraires, lvPay;
+    private TextView txtDesc, txtAdr, txtTel, txtConges, txtPrixLivr, txtEtabNotRegistered;
+    private LinearLayout layoutInfos;
+    private RelativeLayout layoutLoading;
+    private ListView lvHoraires, lvPay;
 
-    boolean charged = false;
-    ArrayList<String> horaires, paiements;
-    Etab etab;
+    private boolean charged = false;
+    private ArrayList<String> horaires, paiements;
+    private Etab etab;
 
     public static Coordonnees newInstance() {
         Coordonnees fragment = new Coordonnees();

@@ -24,9 +24,9 @@ import java.util.Locale;
 
 public class MapPlacePicker extends Activity {
 
-    Context context;
+    private Context context;
 
-    int PLACE_PICKER_REQUEST = 1;
+    private int PLACE_PICKER_REQUEST = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +38,7 @@ public class MapPlacePicker extends Activity {
         try {
             PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
             startActivityForResult(builder.build(this), PLACE_PICKER_REQUEST);
-        } catch (GooglePlayServicesRepairableException e) {
-            e.printStackTrace();
-        } catch (GooglePlayServicesNotAvailableException e) {
+        } catch (GooglePlayServicesRepairableException | GooglePlayServicesNotAvailableException e) {
             e.printStackTrace();
         }
     }

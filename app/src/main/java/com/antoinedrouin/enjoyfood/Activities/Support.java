@@ -11,7 +11,7 @@ import com.antoinedrouin.enjoyfood.R;
 
 public class Support extends AppCompatActivity {
 
-    EditText edtTitre, edtDesc;
+    private EditText edtTitre, edtDesc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

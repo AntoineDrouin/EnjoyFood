@@ -45,10 +45,10 @@ import java.util.ArrayList;
 
 public class ServerSide extends AsyncTask<String, Void, String> {
 
-    Context context;
-    String script, methode, nom, prenom, compte, pseudo;
+    private Context context;
+    private String script, methode,nom, prenom, compte, pseudo;
     public String user, mdp;
-    long timeStart, timeEnd;
+    private long timeStart, timeEnd;
     private static final String encodage = "utf-8";
 
     public ServerSide (Context context) {
@@ -592,8 +592,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             MessageDigest md = MessageDigest.getInstance("SHA-512");
             byte[] digest = md.digest(bytesOfMessage);
 
-            for (int i = 0; i < digest.length; i++)
-                encryptedString += String.format("%02x", digest[i]);
+            for (byte aDigest : digest) encryptedString += String.format("%02x", aDigest);
 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();

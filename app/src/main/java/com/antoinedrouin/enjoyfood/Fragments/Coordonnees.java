@@ -29,7 +29,6 @@ public class Coordonnees extends Fragment {
     private Context context;
     private static Coordonnees instCoord;
     private SQLiteDatabase dbEF;
-    private View view;
 
     private TextView txtDesc, txtAdr, txtTel, txtConges, txtPrixLivr, txtEtabNotRegistered;
     private LinearLayout layoutInfos;
@@ -41,8 +40,7 @@ public class Coordonnees extends Fragment {
     private Etab etab;
 
     public static Coordonnees newInstance() {
-        Coordonnees fragment = new Coordonnees();
-        return fragment;
+        return new Coordonnees();
     }
 
     @Override
@@ -94,7 +92,7 @@ public class Coordonnees extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_coordonnees, container, false);
+        View view = inflater.inflate(R.layout.fragment_coordonnees, container, false);
         layoutInfos = (LinearLayout) view.findViewById(R.id.layoutInfos);
         layoutLoading = (RelativeLayout) view.findViewById(R.id.loadingPanel);
 

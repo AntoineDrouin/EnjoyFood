@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.antoinedrouin.enjoyfood.Classes.GoogleLocation;
 import com.antoinedrouin.enjoyfood.Classes.ServerSide;
+import com.antoinedrouin.enjoyfood.Classes.Utilitaire;
 import com.antoinedrouin.enjoyfood.R;
 
 public class Compte extends AppCompatActivity {
@@ -25,14 +27,9 @@ public class Compte extends AppCompatActivity {
     private SharedPreferences pref;
     private SharedPreferences.Editor edit;
 
-    private String script;
-    private String methode;
-    private String id;
-    private String pseudo;
-    private String newMdp1;
+    private String script, methode, id, pseudo, newMdp1;
 
-    private LinearLayout layoutMdp;
-    private LinearLayout layoutCoord;
+    private LinearLayout layoutMdp, layoutCoord;
     private EditText edtOldMdp, edtNewMdp1, edtNewMdp2, edtNewVille, edtNewCp, edtNewTel, edtNewAd;
     private RelativeLayout layoutLoading;
 
@@ -188,6 +185,13 @@ public class Compte extends AppCompatActivity {
         edit.clear();
         edit.apply();
         Tabs.getInstance().viewPager.setCurrentItem(0);
+
+        // Création de la bdd si elle n'existe pas
+        SQLiteDatabase dbEF = openOrCreateDatabase(getString(R.string.varDbName), Context.MODE_PRIVATE, null);
+        // Création de la table si elle n'existe pas
+        Utilitaire.createBaseCommande(dbEF);
+        dbEF.execSQL("Delete From Commande");
+
         finish();
     }
 

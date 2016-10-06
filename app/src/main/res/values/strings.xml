@@ -12,10 +12,12 @@
     <string name="varMailAdmin" translatable="false">antoine-drouin@hotmail.fr</string>
     <string name="varPackageMaps" translatable="false">com.google.android.apps.maps</string>
     <string name="varLinkMaps" translatable="false">http://maps.google.com/maps?daddr=</string>
-    <string name="varPdfManuel" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Documentation/ManuelUtilisateurEF.pdf</string>
+    <!--<string name="varPdfManuel" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Documentation/ManuelUtilisateurEF.pdf</string>-->
+    <string name="varPdfManuel" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Documentation/ManuelUtilisateurEF.pdf</string>
+    <string name="varNoteMax" translatable="false">/100</string>
 
-    <!-- Scripts -->
-    <!--<string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
+    <!-- Scripts AlwaysData -->
+    <string name="insertUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertUtilisateur.php</string>
     <string name="checkUtilisateur" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkUtilisateur.php</string>
     <string name="checkIdentifiants" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/checkIdentifiants.php</string>
     <string name="changeMdp" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/changePassword.php</string>
@@ -45,9 +47,18 @@
     <string name="deleteConso" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/deleteConso.php</string>
     <string name="deleteHoraire" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/deleteHoraire.php</string>
     <string name="deletePaiement" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/deletePaiement.php</string>
-    <string name="getConso" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getConso.php</string>-->
+    <string name="getConso" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getConso.php</string>
+    <string name="insertCommandeGetId" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertCommandeGetId.php</string>
+    <string name="insertArticle" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertArticle.php</string>
+    <string name="getCommandes" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getCommandes.php</string>
+    <string name="getCommandeInfos" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getCommandeInfos.php</string>
+    <string name="updateCommande" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/updateCommande.php</string>
+    <string name="getArticles" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getArticles.php</string>
+    <string name="insertNote" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/insertNote.php</string>
+    <string name="getNotes" translatable="false">http://antoine-drouin.alwaysdata.net/EnjoyFood/Scripts/getNotes.php</string>
 
-    <string name="insertUtilisateur" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertUtilisateur.php</string>
+    <!-- Scripts Raspberry -->
+    <!--<string name="insertUtilisateur" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertUtilisateur.php</string>
     <string name="checkUtilisateur" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/checkUtilisateur.php</string>
     <string name="checkIdentifiants" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/checkIdentifiants.php</string>
     <string name="changeMdp" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/changePassword.php</string>
@@ -84,6 +95,8 @@
     <string name="getCommandeInfos" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getCommandeInfos.php</string>
     <string name="updateCommande" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/updateCommande.php</string>
     <string name="getArticles" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getArticles.php</string>
+    <string name="insertNote" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/insertNote.php</string>
+    <string name="getNotes" translatable="false">http://antoinedrouin.hopto.org/EnjoyFood/Scripts/getNotes.php</string>-->
 
     <!-- Méthodes-->
     <string name="read" translatable="false">Read</string>
@@ -110,6 +123,7 @@
     <string name="infosMissing">Please fill all the fields</string>
     <string name="orderSend">Order send</string>
     <string name="orderUpdated">Order modified</string>
+    <string name="noteSend">Mark send</string>
 
     <!-- Messages de champs -->
     <string name="errorPseudoLength">The pseudonym must be at least 3 characters long</string>
@@ -164,6 +178,8 @@
     <string name="prefNomAr" translatable="false">nomAr</string>
     <string name="prefPrixAr" translatable="false">prixAr</string>
     <string name="prefQuantiteAr" translatable="false">quantiteAr</string>
+    <string name="prefNoteNo" translatable="false">noteNo</string>
+    <string name="prefRemarqueNo" translatable="false">remarqueNo</string>
 
     <!-- Extras -->
     <string name="extraEtabId" translatable="false">etabId</string>
@@ -247,9 +263,9 @@
     <string name="tabNotes">Scores</string>
 
     <!-- Spinners -->
-    <string name="spinEtatCom1">Is prepared</string>
-    <string name="spinEtatCom2">In delivering</string>
-    <string name="spinEtatCom3">Delivered</string>
+    <string name="spinEtatCom1">1/3 - Is prepared</string>
+    <string name="spinEtatCom2">2/3 - In delivering</string>
+    <string name="spinEtatCom3">3/3 - Delivered</string>
 
     <!-- Switchs -->
     <string name="switchConges">On holiday</string>

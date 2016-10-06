@@ -85,13 +85,14 @@
     <string name="edtTitre">Titre</string>
     <string name="btnOrder">Commander</string>
     <string name="lvTotal">Total : </string>
-    <string name="spinEtatCom1">En préparation</string>
-    <string name="spinEtatCom2">En livraison</string>
-    <string name="spinEtatCom3">Livré</string>
+    <string name="spinEtatCom1">1/3 - En préparation</string>
+    <string name="spinEtatCom2">2/3 - En livraison</string>
+    <string name="spinEtatCom3">3/3 - Livré</string>
     <string name="edtRemarque">Remarque</string>
     <string name="lvPrixLivr">Prix de livraison :</string>
     <string name="orderSend">Commande envoyée</string>
     <string name="infosMissing">Merci de remplir tous les champs</string>
     <string name="orderUpdated">Commande modifiée</string>
     <string name="btnAddNote">Ajouter une note</string>
+    <string name="noteSend">Note envoyée</string>
 </resources>

@@ -119,6 +119,7 @@ public class CommandeDetails extends AppCompatActivity {
     public void changeCom() {
         Toast.makeText(context, getString(R.string.orderUpdated), Toast.LENGTH_SHORT).show();
         layoutLoading.setVisibility(View.GONE);
+        finish();
     }
 
     public static CommandeDetails getInstance() {

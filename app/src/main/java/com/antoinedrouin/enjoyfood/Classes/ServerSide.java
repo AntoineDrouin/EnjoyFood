@@ -18,6 +18,7 @@ import com.antoinedrouin.enjoyfood.Activities.PanierDetails;
 import com.antoinedrouin.enjoyfood.Activities.Register;
 import com.antoinedrouin.enjoyfood.Fragments.Commandes;
 import com.antoinedrouin.enjoyfood.Fragments.Coordonnees;
+import com.antoinedrouin.enjoyfood.Fragments.Notes;
 import com.antoinedrouin.enjoyfood.R;
 
 import org.json.JSONArray;
@@ -46,7 +47,7 @@ import java.util.ArrayList;
 public class ServerSide extends AsyncTask<String, Void, String> {
 
     private Context context;
-    private String script, methode,nom, prenom, compte, pseudo;
+    private String script, methode, nom, prenom, compte, pseudo;
     public String user, mdp;
     private long timeStart, timeEnd;
     private static final String encodage = "utf-8";
@@ -172,6 +173,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
         }
         else if (result.equals(context.getString(R.string.updateCommande))) {
             CommandeDetails.getInstance().changeCom();
+        }
+        else if (result.equals(context.getString(R.string.insertNote))) {
+            Notes.getInstance().noteWellSend();
         }
 
         /** 4. ... OU LECTURE DES RETOURS JSON */
@@ -431,6 +435,20 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     CommandeDetails.getInstance().showArticles(art);
                 }
 
+                else if (script.equals(context.getString(R.string.getNotes))) {
+                    ArrayList<String> notes = new ArrayList<>();
+
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        jso = jsonArray.getJSONObject(i);
+                        notes.add(jso.getString(context.getString(R.string.prefNom)) + " " +
+                                jso.getString(context.getString(R.string.prefPrenom)) + " : " +
+                                jso.getString(context.getString(R.string.prefNoteNo)) + context.getString(R.string.varNoteMax) + "\n" +
+                                jso.getString(context.getString(R.string.prefRemarqueNo)));
+                    }
+
+                    Notes.getInstance().displayNotes(notes);
+                }
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("marquage", "Erreur de lecture du json ServerSide : " + e.getMessage());
@@ -483,7 +501,7 @@ public class ServerSide extends AsyncTask<String, Void, String> {
                     lien.equals(context.getString(R.string.getHorairesInfos)) || lien.equals(context.getString(R.string.getPaiements)) ||
                     lien.equals(context.getString(R.string.getPaiementsInfos)) || lien.equals(context.getString(R.string.getCategInfos)) ||
                     lien.equals(context.getString(R.string.getConsosInfos)) || lien.equals(context.getString(R.string.getCategs)) ||
-                    lien.equals(context.getString(R.string.getMenu))) {
+                    lien.equals(context.getString(R.string.getMenu)) || (lien.equals(context.getString(R.string.getNotes)))) {
                 keys = new int[]{R.string.prefIdEt};
             }
             else if (lien.equals(context.getString(R.string.getEtabByManager))) {
@@ -552,6 +570,9 @@ public class ServerSide extends AsyncTask<String, Void, String> {
             }
             else if (lien.equals(context.getString(R.string.updateCommande))) {
                 keys = new int[]{R.string.prefIdCom, R.string.prefEtatCom, R.string.prefRemarqueCom};
+            }
+            else if (lien.equals(context.getString(R.string.insertNote))) {
+                keys = new int[]{R.string.prefId, R.string.prefIdEt, R.string.prefNoteNo, R.string.prefRemarqueNo};
             }
 
             int lengArray = keys.length;

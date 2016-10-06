@@ -28,7 +28,6 @@ public class EtablissementManagerInfos extends AppCompatActivity {
     private String idEt, typeInfo;
     private String[][] info;
     private ArrayList listInfos;
-    private ArrayAdapter<String> arrayInfos;
 
     private ListView lvInfos;
 
@@ -101,7 +100,7 @@ public class EtablissementManagerInfos extends AppCompatActivity {
             listInfos.add(anInfo[1]);
         }
 
-        arrayInfos = new ArrayAdapter<>(
+        ArrayAdapter<String> arrayInfos = new ArrayAdapter<>(
                 context,
                 R.layout.listitem,
                 listInfos);

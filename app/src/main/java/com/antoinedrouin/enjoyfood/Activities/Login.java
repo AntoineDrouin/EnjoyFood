@@ -95,8 +95,9 @@ public class Login extends AppCompatActivity {
         Utilitaire.putUtilisateur(context, utilisateur);
 
         Toast.makeText(context, getString(R.string.connectionSuccess), Toast.LENGTH_SHORT).show();
-
+        Tabs.getInstance().viewPager.setCurrentItem(0);
         Tabs.getInstance().recreate(); // On recrée l'instance pour prendre en compte l'utilisateur nouvellement connecté
+
         startActivity(new Intent(context, Compte.class));
         finish();
     }
